@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_legal_form_form_view" model="ir.ui.view">
+        <field name="name">partner.legal.form.form.view</field>
+        <field name="model">partner.legal.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                            <field name="code_insee" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_legal_form_tree_view" model="ir.ui.view">
+        <field name="name">partner.legal.form.tree.view</field>
+        <field name="model">partner.legal.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="code_insee" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_legal_form" model="ir.actions.act_window">
+        <field name="name">Formes juridiques</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.legal.form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_partner_legal_form"
+        action="action_partner_legal_form"
+        name="Formes juridiques" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>

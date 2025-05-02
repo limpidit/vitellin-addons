@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_origin_form_view" model="ir.ui.view">
+        <field name="name">partner.origin.form.view</field>
+        <field name="model">partner.origin</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_origin_tree_view" model="ir.ui.view">
+        <field name="name">partner.origin.tree.view</field>
+        <field name="model">partner.origin</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_origin" model="ir.actions.act_window">
+        <field name="name">Origines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.origin</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_partner_origin"
+        action="action_partner_origin"
+        name="Origines" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>
