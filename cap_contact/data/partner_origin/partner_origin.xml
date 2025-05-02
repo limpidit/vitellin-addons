@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="origin_site_web" model="partner.origin">
+        <field name="name">Site web</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="origin_parrainage" model="partner.origin">
+        <field name="name">Parrainage</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="origin_radio" model="partner.origin">
+        <field name="name">Radio</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="origin_bouche_a_oreille" model="partner.origin">
+        <field name="name">Bouche à oreille</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="origin_facebook" model="partner.origin">
+        <field name="name">Facebook</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="origin_salon" model="partner.origin">
+        <field name="name">Salon</field>
+        <field name="sequence">60</field>
+    </record>
+</odoo>

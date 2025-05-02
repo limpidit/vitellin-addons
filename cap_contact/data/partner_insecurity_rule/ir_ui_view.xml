@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_insecurity_rule_form_view" model="ir.ui.view">
+        <field name="name">partner.insecurity.rule.form.view</field>
+        <field name="model">partner.insecurity.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="taille_menage" invisible="personne_supplementaire" />
+                            <field name="personne_supplementaire" />
+                            <field name="seuil_bleu" />
+                            <field name="seuil_jaune" />
+                            <field name="seuil_violet" />
+                            <field name="seuil_rose" />
+                            <field name="date_debut_validite" />
+                            <field name="date_fin_validite" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_insecurity_rule_tree_view" model="ir.ui.view">
+        <field name="name">partner.insecurity.rule.tree.view</field>
+        <field name="model">partner.insecurity.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="seuil_bleu" />
+                <field name="seuil_jaune" />
+                <field name="seuil_violet" />
+                <field name="seuil_rose" class="text-right"/>
+                <field name="date_debut_validite" />
+                <field name="date_fin_validite" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_insecurity_rule" model="ir.actions.act_window">
+        <field name="name">Niveaux de précarité</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.insecurity.rule</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_partner_insecurity_rule"
+        action="action_partner_insecurity_rule"
+        name="Niveaux de précarité" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>

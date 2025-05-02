@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="legal_form_000" model="partner.legal.form">
+        <field name="name">Société d'assurances mutuelles</field>
+        <field name="code_insee">6411.0</field>
+    </record>
+    <record id="legal_form_001" model="partner.legal.form">
+        <field name="name">Société coopérative à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_002" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_003" model="partner.legal.form">
+        <field name="name">Société civile de placement immobilier à capital variable</field>
+        <field name="code_insee">6521.0</field>
+    </record>
+    <record id="legal_form_004" model="partner.legal.form">
+        <field name="name">Collectivité territoriale de la République</field>
+        <field name="code_insee">7229.0</field>
+    </record>
+    <record id="legal_form_005" model="partner.legal.form">
+        <field name="name">Fondation</field>
+        <field name="code_insee">9300.0</field>
+    </record>
+    <record id="legal_form_006" model="partner.legal.form">
+        <field name="name">Société anonyme à conseil d'administration</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_007" model="partner.legal.form">
+        <field name="name">Société civile immobilière à capital variable</field>
+        <field name="code_insee">6540.0</field>
+    </record>
+    <record id="legal_form_008" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'avoués</field>
+        <field name="code_insee">6563.0</field>
+    </record>
+    <record id="legal_form_009" model="partner.legal.form">
+        <field name="name">Société professionnelle à capital variable</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_010" model="partner.legal.form">
+        <field name="name">Union de sociétés coopératives à responsabilité limitée et capital variable</field>
+        <field name="code_insee">5459.0</field>
+    </record>
+    <record id="legal_form_011" model="partner.legal.form">
+        <field name="name">Société coopérative de banque à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_012" model="partner.legal.form">
+        <field name="name">Société coopérative à forme anonyme à capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_013" model="partner.legal.form">
+        <field name="name">Société anonyme d'un Etat non membre de la CE ou non partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_014" model="partner.legal.form">
+        <field name="name">Société anonyme à participation ouvrière</field>
+        <field name="code_insee">5505.0</field>
+    </record>
+    <record id="legal_form_015" model="partner.legal.form">
+        <field name="name">Société anonyme d'économie mixte</field>
+        <field name="code_insee">5515.0</field>
+    </record>
+    <record id="legal_form_016" model="partner.legal.form">
+        <field name="name">Société coopérative ouvrière de production à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5458.0</field>
+    </record>
+    <record id="legal_form_017" model="partner.legal.form">
+        <field name="name">Société coopérative ouvrière de production à forme anonyme et capital variable</field>
+        <field name="code_insee">5558.0</field>
+    </record>
+    <record id="legal_form_018" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à forme anonyme à capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_019" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif d'HLM à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_020" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_021" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de directeurs de laboratoires d'analyses médicales</field>
+        <field name="code_insee">6575.0</field>
+    </record>
+    <record id="legal_form_022" model="partner.legal.form">
+        <field name="name">Société par actions simplifiée  à associé unique et capital variable</field>
+        <field name="code_insee">5720.0</field>
+    </record>
+    <record id="legal_form_023" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5499.0</field>
+    </record>
+    <record id="legal_form_024" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de géomètres experts</field>
+        <field name="code_insee">6577.0</field>
+    </record>
+    <record id="legal_form_025" model="partner.legal.form">
+        <field name="name">Société civile à capital variable</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_026" model="partner.legal.form">
+        <field name="name">Société publique locale</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_027" model="partner.legal.form">
+        <field name="name">Etablissement public de coopération culturelle à caractère industriel et commercial</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_028" model="partner.legal.form">
+        <field name="name">Coopérative d'utilisation de matériel agricole</field>
+        <field name="code_insee">6316.0</field>
+    </record>
+    <record id="legal_form_029" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_030" model="partner.legal.form">
+        <field name="name">Sans correspondance</field>
+        <field name="code_insee"/>
+    </record>
+    <record id="legal_form_031" model="partner.legal.form">
+        <field name="name">Association</field>
+        <field name="code_insee">9220.0</field>
+    </record>
+    <record id="legal_form_032" model="partner.legal.form">
+        <field name="name">Société coopérative de banque populaire à forme anonyme</field>
+        <field name="code_insee">5192.0</field>
+    </record>
+    <record id="legal_form_033" model="partner.legal.form">
+        <field name="name">Société civile coopérative à capital variable</field>
+        <field name="code_insee">6560.0</field>
+    </record>
+    <record id="legal_form_034" model="partner.legal.form">
+        <field name="name">Société coopérative de production d'HLM à forme anonyme</field>
+        <field name="code_insee">5547.0</field>
+    </record>
+    <record id="legal_form_035" model="partner.legal.form">
+        <field name="name">Société coopérative ouvrière de production à forme anonyme</field>
+        <field name="code_insee">5558.0</field>
+    </record>
+    <record id="legal_form_036" model="partner.legal.form">
+        <field name="name">Société coopérative de travailleurs à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_037" model="partner.legal.form">
+        <field name="name">Etablissement public étranger</field>
+        <field name="code_insee">3210.0</field>
+    </record>
+    <record id="legal_form_038" model="partner.legal.form">
+        <field name="name">Groupement d'intérêt public</field>
+        <field name="code_insee">7410.0</field>
+    </record>
+    <record id="legal_form_039" model="partner.legal.form">
+        <field name="name">Mutuelle</field>
+        <field name="code_insee">8210.0</field>
+    </record>
+    <record id="legal_form_040" model="partner.legal.form">
+        <field name="name">Représentation commerciale d'un établissement public étranger</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_041" model="partner.legal.form">
+        <field name="name">Société par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_042" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de médecins</field>
+        <field name="code_insee">6571.0</field>
+    </record>
+    <record id="legal_form_043" model="partner.legal.form">
+        <field name="name">Société européenne</field>
+        <field name="code_insee">5800.0</field>
+    </record>
+    <record id="legal_form_044" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à responsabilité limitée à associé unique</field>
+        <field name="code_insee">5485.0</field>
+    </record>
+    <record id="legal_form_045" model="partner.legal.form">
+        <field name="name">Société interprofessionnelle de soins ambulatoires</field>
+        <field name="code_insee">6511.0</field>
+    </record>
+    <record id="legal_form_046" model="partner.legal.form">
+        <field name="name">Société de participations financières de professions libérales à forme de S.A.S.</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_047" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de commissaire-priseur judiciaire à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_048" model="partner.legal.form">
+        <field name="name">Institution régie par les articles L. 141-1 et suivants du Code Monétaire et Financier</field>
+        <field name="code_insee">4160.0</field>
+    </record>
+    <record id="legal_form_049" model="partner.legal.form">
+        <field name="name">Société coopérative d'entreprises à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_050" model="partner.legal.form">
+        <field name="name">Société coopérative de banque à forme anonyme à capital fixe</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_051" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de masseurs-kinésithérapeutes</field>
+        <field name="code_insee">6574.0</field>
+    </record>
+    <record id="legal_form_052" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'administrateurs judiciaires</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_053" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de commissaires aux comptes</field>
+        <field name="code_insee">6569.0</field>
+    </record>
+    <record id="legal_form_054" model="partner.legal.form">
+        <field name="name">Etablissement public à caractère industriel et commercial</field>
+        <field name="code_insee">4140.0</field>
+    </record>
+    <record id="legal_form_055" model="partner.legal.form">
+        <field name="name">Groupement foncier agricole à capital variable</field>
+        <field name="code_insee">6534.0</field>
+    </record>
+    <record id="legal_form_056" model="partner.legal.form">
+        <field name="name">Société par actions simplifiée à associé unique</field>
+        <field name="code_insee">5720.0</field>
+    </record>
+    <record id="legal_form_057" model="partner.legal.form">
+        <field name="name">Société civile d'exploitation agricole</field>
+        <field name="code_insee">6597.0</field>
+    </record>
+    <record id="legal_form_058" model="partner.legal.form">
+        <field name="name">Union de sociétés coopératives à forme anonyme et capital variable</field>
+        <field name="code_insee">5559.0</field>
+    </record>
+    <record id="legal_form_059" model="partner.legal.form">
+        <field name="name">Union de sociétés coopératives à forme anonyme</field>
+        <field name="code_insee">5559.0</field>
+    </record>
+    <record id="legal_form_060" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de notaire par actions simplifiée</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_061" model="partner.legal.form">
+        <field name="name">Société d’économie mixte à opération unique</field>
+        <field name="code_insee">5515.0</field>
+    </record>
+    <record id="legal_form_062" model="partner.legal.form">
+        <field name="name">Société d'investissement à capital variable</field>
+        <field name="code_insee">5520.0</field>
+    </record>
+    <record id="legal_form_063" model="partner.legal.form">
+        <field name="name">Société coopérative d'activité et d'emploi à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_064" model="partner.legal.form">
+        <field name="name">Société coopérative à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_065" model="partner.legal.form">
+        <field name="name">Société coopérative de production d'HLM à forme anonyme et capital variable</field>
+        <field name="code_insee">5547.0</field>
+    </record>
+    <record id="legal_form_066" model="partner.legal.form">
+        <field name="name">Groupement foncier rural</field>
+        <field name="code_insee">6538.0</field>
+    </record>
+    <record id="legal_form_067" model="partner.legal.form">
+        <field name="name">Mutuelle agricole</field>
+        <field name="code_insee">8250.0</field>
+    </record>
+    <record id="legal_form_068" model="partner.legal.form">
+        <field name="name">Société civile de construction vente</field>
+        <field name="code_insee">6541.0</field>
+    </record>
+    <record id="legal_form_069" model="partner.legal.form">
+        <field name="name">Société d'épargne forestière</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_070" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice à forme anonyme</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_071" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de notaire à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_072" model="partner.legal.form">
+        <field name="name">Société professionnelle de placement à prépondérance immobilière à capital variable et à forme anonyme</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_073" model="partner.legal.form">
+        <field name="name">Agence commerciale d'un Etat étranger</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_074" model="partner.legal.form">
+        <field name="name">Société coopérative de caution mutuelle à capital variable</field>
+        <field name="code_insee">5191.0</field>
+    </record>
+    <record id="legal_form_075" model="partner.legal.form">
+        <field name="name">Société coopérative de crédit</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_076" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif agricole à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5432.0</field>
+    </record>
+    <record id="legal_form_077" model="partner.legal.form">
+        <field name="name">Société civile de placement collectif immobilier</field>
+        <field name="code_insee">6521.0</field>
+    </record>
+    <record id="legal_form_078" model="partner.legal.form">
+        <field name="name">Société anonyme d'HLM</field>
+        <field name="code_insee">5546.0</field>
+    </record>
+    <record id="legal_form_079" model="partner.legal.form">
+        <field name="name">Société en commandite par actions d'un Etat membre de la CE ou partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_080" model="partner.legal.form">
+        <field name="name">Société civile d'attribution</field>
+        <field name="code_insee">6542.0</field>
+    </record>
+    <record id="legal_form_081" model="partner.legal.form">
+        <field name="name">Société coopérative de construction à forme anonyme</field>
+        <field name="code_insee">5543.0</field>
+    </record>
+    <record id="legal_form_082" model="partner.legal.form">
+        <field name="name">Groupement d'intérêt économique</field>
+        <field name="code_insee">6220.0</field>
+    </record>
+    <record id="legal_form_083" model="partner.legal.form">
+        <field name="name">Etablissement public national</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_084" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice à responsabilité limitée</field>
+        <field name="code_insee">5499.0</field>
+    </record>
+    <record id="legal_form_085" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à forme anonyme</field>
+        <field name="code_insee">5585.0</field>
+    </record>
+    <record id="legal_form_086" model="partner.legal.form">
+        <field name="name">Société par actions simplifiée à participation ouvrière</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_087" model="partner.legal.form">
+        <field name="name">Société en commandite simple</field>
+        <field name="code_insee">5306.0</field>
+    </record>
+    <record id="legal_form_088" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de vétérinaire par actions simplifiée</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_089" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice à forme civile</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_090" model="partner.legal.form">
+        <field name="name">Société coopérative de production à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_091" model="partner.legal.form">
+        <field name="name">Société coopérative et participative à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_092" model="partner.legal.form">
+        <field name="name">Société coopérative de production à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    Autre forme juridique; 093
+    <record id="legal_form_094" model="partner.legal.form">
+        <field name="name">Société coopérative par actions simplifiée à capital variable</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_095" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation à forme anonyme</field>
+        <field name="code_insee">5551.0</field>
+    </record>
+    <record id="legal_form_096" model="partner.legal.form">
+        <field name="name">Société coopérative de production à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_097" model="partner.legal.form">
+        <field name="name">Etablissement d’enseignement supérieur consulaire</field>
+        <field name="code_insee">7384.0</field>
+    </record>
+    <record id="legal_form_098" model="partner.legal.form">
+        <field name="name">Groupement européen d'intérêt économique</field>
+        <field name="code_insee">6210.0</field>
+    </record>
+    <record id="legal_form_099" model="partner.legal.form">
+        <field name="name">Groupement forestier</field>
+        <field name="code_insee">6536.0</field>
+    </record>
+    <record id="legal_form_100" model="partner.legal.form">
+        <field name="name">Société coopérative à responsabilité limitée d'un Etat membre de la CE ou partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_101" model="partner.legal.form">
+        <field name="name">Société civile professionnelle titulaire d'un office de commissaire-priseur judiciaire</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_102" model="partner.legal.form">
+        <field name="name">Syndic de copropriété</field>
+        <field name="code_insee">9110.0</field>
+    </record>
+    <record id="legal_form_103" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral par actions simplifiée à associé unique et capital variable</field>
+        <field name="code_insee">5785.0</field>
+    </record>
+    <record id="legal_form_104" model="partner.legal.form">
+        <field name="name">Société d'économie mixte locale à forme anonyme</field>
+        <field name="code_insee">5515.0</field>
+    </record>
+    <record id="legal_form_105" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif par actions simplifiée à capital variable</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_106" model="partner.legal.form">
+        <field name="name">Caisse de crédit agricole mutuel</field>
+        <field name="code_insee">6596.0</field>
+    </record>
+    <record id="legal_form_107" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5585.0</field>
+    </record>
+    <record id="legal_form_108" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée à associé unique</field>
+        <field name="code_insee">5498.0</field>
+    </record>
+    <record id="legal_form_109" model="partner.legal.form">
+        <field name="name">Société civile immobilière</field>
+        <field name="code_insee">6540.0</field>
+    </record>
+    <record id="legal_form_110" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de pharmacien d'officine à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_111" model="partner.legal.form">
+        <field name="name">Société professionnelle de placement à prépondérance immobilière à capital variable sous forme de SAS</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_112" model="partner.legal.form">
+        <field name="name">Société coopérative d'activité et d'emploi à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_113" model="partner.legal.form">
+        <field name="name">Société coopérative agricole à capital variable</field>
+        <field name="code_insee">6317.0</field>
+    </record>
+    <record id="legal_form_114" model="partner.legal.form">
+        <field name="name">Société coopérative artisanale à forme anonyme et capital variable</field>
+        <field name="code_insee">5553.0</field>
+    </record>
+    <record id="legal_form_115" model="partner.legal.form">
+        <field name="name">Société coopérative par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_116" model="partner.legal.form">
+        <field name="name">Société coopérative de commerçants détaillants à forme anonyme</field>
+        <field name="code_insee">5552.0</field>
+    </record>
+    <record id="legal_form_117" model="partner.legal.form">
+        <field name="name">Société coopérative d'entreprises à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_118" model="partner.legal.form">
+        <field name="name">Société coopérative à forme anonyme, directoire, à capital variable</field>
+        <field name="code_insee">5660.0</field>
+    </record>
+    <record id="legal_form_119" model="partner.legal.form">
+        <field name="name">Société coopérative de production par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_120" model="partner.legal.form">
+        <field name="name">Société civile constituée en vue de la vente d'immeubles</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_121" model="partner.legal.form">
+        <field name="name">Société civile foncière</field>
+        <field name="code_insee">6539.0</field>
+    </record>
+    <record id="legal_form_122" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'architectes</field>
+        <field name="code_insee">6578.0</field>
+    </record>
+    <record id="legal_form_123" model="partner.legal.form">
+        <field name="name">Société civile d'intérêt collectif agricole à capital variable</field>
+        <field name="code_insee">6532.0</field>
+    </record>
+    <record id="legal_form_124" model="partner.legal.form">
+        <field name="name">Société en nom collectif à capital variable</field>
+        <field name="code_insee">5202.0</field>
+    </record>
+    <record id="legal_form_125" model="partner.legal.form">
+        <field name="name">Société nationale</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_126" model="partner.legal.form">
+        <field name="name">Société de participations d'expertise comptable à responsabilité limitée</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_127" model="partner.legal.form">
+        <field name="name">Société coopérative artisanale à responsabilité limitée</field>
+        <field name="code_insee">5453.0</field>
+    </record>
+    <record id="legal_form_128" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_129" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif d'HLM à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_130" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt maritime à forme anonyme</field>
+        <field name="code_insee">5554.0</field>
+    </record>
+    <record id="legal_form_131" model="partner.legal.form">
+        <field name="name">Société coopérative à capital et personnel variables</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_132" model="partner.legal.form">
+        <field name="name">Groupement agricole d'exploitation en commun</field>
+        <field name="code_insee">6533.0</field>
+    </record>
+    <record id="legal_form_133" model="partner.legal.form">
+        <field name="name">Société anonyme d'un Etat membre de la CE ou partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_134" model="partner.legal.form">
+        <field name="name">Société par actions d'un Etat membre de la CE ou partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_135" model="partner.legal.form">
+        <field name="name">Société de participations financières de professions libérales à forme anonyme</field>
+        <field name="code_insee">5570.0</field>
+    </record>
+    <record id="legal_form_136" model="partner.legal.form">
+        <field name="name">Société publique locale d'aménagement à forme anonyme</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_137" model="partner.legal.form">
+        <field name="name">Union de coopératives</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_138" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation à forme anonyme et capital variable</field>
+        <field name="code_insee">5551.0</field>
+    </record>
+    <record id="legal_form_139" model="partner.legal.form">
+        <field name="name">Société civile coopérative de construction</field>
+        <field name="code_insee">6543.0</field>
+    </record>
+    <record id="legal_form_140" model="partner.legal.form">
+        <field name="name">Société de groupe d'assurance mutuelle</field>
+        <field name="code_insee">6411.0</field>
+    </record>
+    <record id="legal_form_141" model="partner.legal.form">
+        <field name="name">Groupement de droit particulier local</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_142" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif agricole à forme de S.A.S. à capital variable</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_143" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral de pharmaciens d'officine à responsabilité limitée</field>
+        <field name="code_insee">5485.0</field>
+    </record>
+    <record id="legal_form_144" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'avocats</field>
+        <field name="code_insee">6561.0</field>
+    </record>
+    <record id="legal_form_145" model="partner.legal.form">
+        <field name="name">Union de sociétés coopératives maritimes à forme anonyme</field>
+        <field name="code_insee">5559.0</field>
+    </record>
+    <record id="legal_form_146" model="partner.legal.form">
+        <field name="name">Société coopérative artisanale</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_147" model="partner.legal.form">
+        <field name="name">Société coopérative de commerçants détaillants à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5552.0</field>
+    </record>
+    <record id="legal_form_148" model="partner.legal.form">
+        <field name="name">Société coopérative de commerçants détaillants à forme anonyme à capital variable</field>
+        <field name="code_insee">5552.0</field>
+    </record>
+    <record id="legal_form_149" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à forme anonyme, directoire et conseil de surveillance</field>
+        <field name="code_insee">5660.0</field>
+    </record>
+    <record id="legal_form_150" model="partner.legal.form">
+        <field name="name">Société coopérative ouvrière de production par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_151" model="partner.legal.form">
+        <field name="name">Société coopérative de production à forme anonyme, conseil d'administration et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_152" model="partner.legal.form">
+        <field name="name">Groupement de coopération sanitaire</field>
+        <field name="code_insee">9970.0</field>
+    </record>
+    <record id="legal_form_153" model="partner.legal.form">
+        <field name="name">Institution de prévoyance</field>
+        <field name="code_insee">8510.0</field>
+    </record>
+    <record id="legal_form_154" model="partner.legal.form">
+        <field name="name">Société en commandite par actions</field>
+        <field name="code_insee">5308.0</field>
+    </record>
+    <record id="legal_form_155" model="partner.legal.form">
+        <field name="name">Société civile immobilière de construction vente</field>
+        <field name="code_insee">6541.0</field>
+    </record>
+    <record id="legal_form_156" model="partner.legal.form">
+        <field name="name">Société civile de moyens</field>
+        <field name="code_insee">6589.0</field>
+    </record>
+    <record id="legal_form_157" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de chirurgiens-dentistes</field>
+        <field name="code_insee">6572.0</field>
+    </record>
+    <record id="legal_form_158" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral par actions simplifiée à capital variable</field>
+        <field name="code_insee">5785.0</field>
+    </record>
+    <record id="legal_form_159" model="partner.legal.form">
+        <field name="name">Société d'intérêt collectif agricole à responsabilité limitée</field>
+        <field name="code_insee">5432.0</field>
+    </record>
+    <record id="legal_form_160" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_161" model="partner.legal.form">
+        <field name="name">Société coopérative d'activité et d'emploi par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_162" model="partner.legal.form">
+        <field name="name">Société coopérative de travailleurs à responsabilité limitée et capital variable</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_163" model="partner.legal.form">
+        <field name="name">Exploitation agricole à responsabilité à associé unique à capital variable</field>
+        <field name="code_insee">6598.0</field>
+    </record>
+    <record id="legal_form_164" model="partner.legal.form">
+        <field name="name">Groupement agricole d'exploitation en commun à capital variable</field>
+        <field name="code_insee">6533.0</field>
+    </record>
+    <record id="legal_form_165" model="partner.legal.form">
+        <field name="name">Caisse de réassurances mutuelles agricoles</field>
+        <field name="code_insee">8250.0</field>
+    </record>
+    <record id="legal_form_166" model="partner.legal.form">
+        <field name="name">Société anonyme coopérative d'intérêt collectif pour l'accession à la propriété</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_167" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée de presse</field>
+        <field name="code_insee">5499.0</field>
+    </record>
+    <record id="legal_form_168" model="partner.legal.form">
+        <field name="name">Société anonyme</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_169" model="partner.legal.form">
+        <field name="name">Société de participations financières de professions libérales en commandite par actions</field>
+        <field name="code_insee">5370.0</field>
+    </record>
+    <record id="legal_form_170" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral de pharmaciens d'officine par actions simplifiée</field>
+        <field name="code_insee">5785.0</field>
+    </record>
+    <record id="legal_form_171" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à responsabilité limitée</field>
+        <field name="code_insee">5485.0</field>
+    </record>
+    <record id="legal_form_172" model="partner.legal.form">
+        <field name="name">Caisse de crédit mutuel</field>
+        <field name="code_insee">6595.0</field>
+    </record>
+    <record id="legal_form_173" model="partner.legal.form">
+        <field name="name">Société civile de placement immobilier</field>
+        <field name="code_insee">6521.0</field>
+    </record>
+    <record id="legal_form_174" model="partner.legal.form">
+        <field name="name">Exploitation agricole à responsabilité limitée à associé unique</field>
+        <field name="code_insee">6598.0</field>
+    </record>
+    <record id="legal_form_175" model="partner.legal.form">
+        <field name="name">Groupement foncier agricole</field>
+        <field name="code_insee">6534.0</field>
+    </record>
+    <record id="legal_form_176" model="partner.legal.form">
+        <field name="name">Groupement foncier viticole</field>
+        <field name="code_insee">6534.0</field>
+    </record>
+    <record id="legal_form_177" model="partner.legal.form">
+        <field name="name">Société civile de construction d'immeubles</field>
+        <field name="code_insee">6541.0</field>
+    </record>
+    <record id="legal_form_178" model="partner.legal.form">
+        <field name="name">Société de participations financières de professions libérales à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_179" model="partner.legal.form">
+        <field name="name">Société de placement à prépondérance immobilière à capital variable et à conseil d'administration</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_180" model="partner.legal.form">
+        <field name="name">Union de coopératives agricoles à capital variable</field>
+        <field name="code_insee">6318.0</field>
+    </record>
+    <record id="legal_form_181" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative par actions simplifiée à capital variable</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_182" model="partner.legal.form">
+        <field name="name">Société de caution mutuelle</field>
+        <field name="code_insee">5191.0</field>
+    </record>
+    <record id="legal_form_183" model="partner.legal.form">
+        <field name="name">Caisse d'épargne et de prévoyance</field>
+        <field name="code_insee">6100.0</field>
+    </record>
+    <record id="legal_form_184" model="partner.legal.form">
+        <field name="name">Société coopérative de banque populaire</field>
+        <field name="code_insee">5192.0</field>
+    </record>
+    <record id="legal_form_185" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation à responsabilité limitée</field>
+        <field name="code_insee">5451.0</field>
+    </record>
+    <record id="legal_form_186" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5551.0</field>
+    </record>
+    <record id="legal_form_187" model="partner.legal.form">
+        <field name="name">Société coopérative de construction à forme anonyme et capital variable</field>
+        <field name="code_insee">5543.0</field>
+    </record>
+    <record id="legal_form_188" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif agricole à forme anonyme à capital variable</field>
+        <field name="code_insee">5632.0</field>
+    </record>
+    <record id="legal_form_189" model="partner.legal.form">
+        <field name="name">Etablissement public administratif</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_190" model="partner.legal.form">
+        <field name="name">Représentation commerciale d'un Etat étranger</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_191" model="partner.legal.form">
+        <field name="name">Société de réassurance mutuelle</field>
+        <field name="code_insee">6411.0</field>
+    </record>
+    <record id="legal_form_192" model="partner.legal.form">
+        <field name="name">Société anonyme d'HLM à conseil d'administration</field>
+        <field name="code_insee">5546.0</field>
+    </record>
+    <record id="legal_form_193" model="partner.legal.form">
+        <field name="name">Société anonyme à objet sportif</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_194" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée de presse à associé unique et capital variable</field>
+        <field name="code_insee">5498.0</field>
+    </record>
+    <record id="legal_form_195" model="partner.legal.form">
+        <field name="name">Société civile d'exploitation aquacole</field>
+        <field name="code_insee">6597.0</field>
+    </record>
+    <record id="legal_form_196" model="partner.legal.form">
+        <field name="name">Société d'économie mixte</field>
+        <field name="code_insee">5515.0</field>
+    </record>
+    <record id="legal_form_197" model="partner.legal.form">
+        <field name="name">Société d'intérêt collectif agricole</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_198" model="partner.legal.form">
+        <field name="name">Société en nom collectif</field>
+        <field name="code_insee">5202.0</field>
+    </record>
+    <record id="legal_form_199" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice en commandite par actions</field>
+        <field name="code_insee">5308.0</field>
+    </record>
+    <record id="legal_form_200" model="partner.legal.form">
+        <field name="name">Société de placement à prépondérance immobilière</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_201" model="partner.legal.form">
+        <field name="name">Union de syndicats</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_202" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_203" model="partner.legal.form">
+        <field name="name">Société coopérative de consommation à responsabilité limitée et capital variable</field>
+        <field name="code_insee">5451.0</field>
+    </record>
+    <record id="legal_form_204" model="partner.legal.form">
+        <field name="name">Agence commerciale d'une collectivité étrangère</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_205" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée d'un Etat non membre de la CE ou non partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_206" model="partner.legal.form">
+        <field name="name">Société anonyme à directoire et conseil de surveillance</field>
+        <field name="code_insee">5699.0</field>
+    </record>
+    <record id="legal_form_207" model="partner.legal.form">
+        <field name="name">Société coopérative ouvrière de production à responsabilité limitée</field>
+        <field name="code_insee">5458.0</field>
+    </record>
+    <record id="legal_form_208" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5485.0</field>
+    </record>
+    <record id="legal_form_209" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral par actions simplifiée à associé unique</field>
+        <field name="code_insee">5785.0</field>
+    </record>
+    <record id="legal_form_210" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral par actions simplifiée</field>
+        <field name="code_insee">5785.0</field>
+    </record>
+    <record id="legal_form_211" model="partner.legal.form">
+        <field name="name">Société de participations d'expertise comptable</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_212" model="partner.legal.form">
+        <field name="name">Société de droit étranger</field>
+        <field name="code_insee">3290.0</field>
+    </record>
+    <record id="legal_form_213" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée à associé unique et capital variable</field>
+        <field name="code_insee">5498.0</field>
+    </record>
+    <record id="legal_form_214" model="partner.legal.form">
+        <field name="name">Société de participations financières de professions libérales</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_215" model="partner.legal.form">
+        <field name="name">Société coopérative et participative par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_216" model="partner.legal.form">
+        <field name="name">Établissement de crédit maritime mutuel à capital variable</field>
+        <field name="code_insee">5193.0</field>
+    </record>
+    <record id="legal_form_217" model="partner.legal.form">
+        <field name="name">Union d'économie sociale</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_218" model="partner.legal.form">
+        <field name="name">Association émettant des obligations</field>
+        <field name="code_insee">9220.0</field>
+    </record>
+    <record id="legal_form_219" model="partner.legal.form">
+        <field name="name">Société coopérative de travailleurs à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_220" model="partner.legal.form">
+        <field name="name">Groupement agricole foncier</field>
+        <field name="code_insee">6535.0</field>
+    </record>
+    <record id="legal_form_221" model="partner.legal.form">
+        <field name="name">Institution de retraite complémentaire</field>
+        <field name="code_insee">8520.0</field>
+    </record>
+    <record id="legal_form_222" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée de presse à capital variable</field>
+        <field name="code_insee">5499.0</field>
+    </record>
+    <record id="legal_form_223" model="partner.legal.form">
+        <field name="name">Société civile agricole</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_224" model="partner.legal.form">
+        <field name="name">Société civile d'exploitation viticole</field>
+        <field name="code_insee">6597.0</field>
+    </record>
+    <record id="legal_form_225" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de commissaires-priseurs</field>
+        <field name="code_insee">6566.0</field>
+    </record>
+    <record id="legal_form_226" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de mandataires judiciaires à la liquidation des entreprises</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_227" model="partner.legal.form">
+        <field name="name">Société en commandite simple à capital variable</field>
+        <field name="code_insee">5306.0</field>
+    </record>
+    <record id="legal_form_228" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_229" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale d'avocat à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_230" model="partner.legal.form">
+        <field name="name">Syndicat</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_231" model="partner.legal.form">
+        <field name="name">Union de coopératives agricoles</field>
+        <field name="code_insee">6318.0</field>
+    </record>
+    <record id="legal_form_232" model="partner.legal.form">
+        <field name="name">Banque coopérative régie par les articles L. 512-85 et suivants du Code Monétaire et Financier</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_233" model="partner.legal.form">
+        <field name="name">Fonds de dotation</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_234" model="partner.legal.form">
+        <field name="name">Société civile professionnelle titulaire d'un office de greffier de tribunal de commerce</field>
+        <field name="code_insee">6567.0</field>
+    </record>
+    <record id="legal_form_235" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à forme anonyme, directoire et conseil de surveillance</field>
+        <field name="code_insee">5685.0</field>
+    </record>
+    <record id="legal_form_236" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de vétérinaires</field>
+        <field name="code_insee">6576.0</field>
+    </record>
+    <record id="legal_form_237" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de notaires</field>
+        <field name="code_insee">6565.0</field>
+    </record>
+    <record id="legal_form_238" model="partner.legal.form">
+        <field name="name">Exploitation agricole à responsabilité limitée</field>
+        <field name="code_insee">6598.0</field>
+    </record>
+    <record id="legal_form_239" model="partner.legal.form">
+        <field name="name">Groupement pastoral</field>
+        <field name="code_insee">6537.0</field>
+    </record>
+    <record id="legal_form_240" model="partner.legal.form">
+        <field name="name">Société anonyme de presse</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_241" model="partner.legal.form">
+        <field name="name">Régie</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_242" model="partner.legal.form">
+        <field name="name">Société de placement à prépondérance immobilière à capital variable</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_243" model="partner.legal.form">
+        <field name="name">Société interprofessionnelle de soins ambulatoires à capital variable</field>
+        <field name="code_insee">6511.0</field>
+    </record>
+    <record id="legal_form_244" model="partner.legal.form">
+        <field name="name">Société d'intérêt collectif agricole à forme anonyme</field>
+        <field name="code_insee">5632.0</field>
+    </record>
+    <record id="legal_form_245" model="partner.legal.form">
+        <field name="name">Société de libre partenariat</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_246" model="partner.legal.form">
+        <field name="name">Agence commerciale d'un établissement public étranger</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_247" model="partner.legal.form">
+        <field name="name">Société coopérative agricole</field>
+        <field name="code_insee">6317.0</field>
+    </record>
+    <record id="legal_form_248" model="partner.legal.form">
+        <field name="name">Société coopérative de commerçants détaillants à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_249" model="partner.legal.form">
+        <field name="name">Société coopérative de production à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_250" model="partner.legal.form">
+        <field name="name">Société civile de placement collectif immobilier à capital variable</field>
+        <field name="code_insee">6521.0</field>
+    </record>
+    <record id="legal_form_251" model="partner.legal.form">
+        <field name="name">Organisme autonome</field>
+        <field name="code_insee">9900.0</field>
+    </record>
+    <record id="legal_form_252" model="partner.legal.form">
+        <field name="name">Société civile</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_253" model="partner.legal.form">
+        <field name="name">Société civile de moyens à capital variable</field>
+        <field name="code_insee">6589.0</field>
+    </record>
+    <record id="legal_form_254" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'avocats au Conseil d'Etat et à la Cour de cassation</field>
+        <field name="code_insee">6562.0</field>
+    </record>
+    <record id="legal_form_255" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral en commandite par actions</field>
+        <field name="code_insee">5385.0</field>
+    </record>
+    <record id="legal_form_256" model="partner.legal.form">
+        <field name="name">Société d'intérêt collectif agricole à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5532.0</field>
+    </record>
+    <record id="legal_form_257" model="partner.legal.form">
+        <field name="name">Société d'investissement à capital fixe</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_258" model="partner.legal.form">
+        <field name="name">Société pluri-professionnelle d'exercice par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_259" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale d'avocat par actions simplifiée à associé unique</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_260" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative à forme anonyme et capital variable</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_261" model="partner.legal.form">
+        <field name="name">Société coopérative artisanale à responsabilité limitée et capital variable</field>
+        <field name="code_insee">5453.0</field>
+    </record>
+    <record id="legal_form_262" model="partner.legal.form">
+        <field name="name">Société coopérative à forme anonyme, directoire et conseil de surveillance</field>
+        <field name="code_insee">5660.0</field>
+    </record>
+    <record id="legal_form_263" model="partner.legal.form">
+        <field name="name">Société coopérative à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_264" model="partner.legal.form">
+        <field name="name">Exploitation agricole à responsabilité limitée à capital variable</field>
+        <field name="code_insee">6598.0</field>
+    </record>
+    <record id="legal_form_265" model="partner.legal.form">
+        <field name="name">Groupement d'intérêt économique à capital variable</field>
+        <field name="code_insee">6220.0</field>
+    </record>
+    <record id="legal_form_266" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée de presse à associé unique</field>
+        <field name="code_insee">5498.0</field>
+    </record>
+    <record id="legal_form_267" model="partner.legal.form">
+        <field name="name">Société en commandite par actions à capital variable</field>
+        <field name="code_insee">5308.0</field>
+    </record>
+    <record id="legal_form_268" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de conseils juridiques</field>
+        <field name="code_insee">6568.0</field>
+    </record>
+    <record id="legal_form_269" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'huissiers de justice</field>
+        <field name="code_insee">6564.0</field>
+    </record>
+    <record id="legal_form_270" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de mandataires judiciaires</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_271" model="partner.legal.form">
+        <field name="name">Société d'exercice libéral à responsabilité limitée à associé unique à capital variable</field>
+        <field name="code_insee">5485.0</field>
+    </record>
+    <record id="legal_form_272" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale d'huissier de justice à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_273" model="partner.legal.form">
+        <field name="name">Société publique locale d'aménagement d'intérêt national</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_274" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_275" model="partner.legal.form">
+        <field name="name">Société coopérative de crédit à capital variable et responsabilité statutairement limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_276" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée d'un Etat membre de la CE ou partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_277" model="partner.legal.form">
+        <field name="name">Société à responsabilité limitée</field>
+        <field name="code_insee">5499.0</field>
+    </record>
+    <record id="legal_form_278" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à forme anonyme et conseil d'administration</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_279" model="partner.legal.form">
+        <field name="name">Société coopérative maritime à forme anonyme</field>
+        <field name="code_insee">5554.0</field>
+    </record>
+    <record id="legal_form_280" model="partner.legal.form">
+        <field name="name">Société coopérative maritime</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_281" model="partner.legal.form">
+        <field name="name">Société civile d'intérêt collectif agricole</field>
+        <field name="code_insee">6532.0</field>
+    </record>
+    <record id="legal_form_282" model="partner.legal.form">
+        <field name="name">Société européenne à actionnaire unique</field>
+        <field name="code_insee">5800.0</field>
+    </record>
+    <record id="legal_form_283" model="partner.legal.form">
+        <field name="name">Société anonyme sportive professionnelle</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_284" model="partner.legal.form">
+        <field name="name">Société de placement à prépondérance immobilière à capital variable sous la forme SAS</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_285" model="partner.legal.form">
+        <field name="name">Etablissement public de coopération intercommunale</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_286" model="partner.legal.form">
+        <field name="name">Société civile de participation</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_287" model="partner.legal.form">
+        <field name="name">Etablissement public local</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_288" model="partner.legal.form">
+        <field name="name">Société coopérative artisanale à forme anonyme</field>
+        <field name="code_insee">5553.0</field>
+    </record>
+    <record id="legal_form_289" model="partner.legal.form">
+        <field name="name">Société civile coopérative entre médecins</field>
+        <field name="code_insee">6558.0</field>
+    </record>
+    <record id="legal_form_290" model="partner.legal.form">
+        <field name="name">Société coopérative européenne</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_291" model="partner.legal.form">
+        <field name="name">Société civile de portefeuille</field>
+        <field name="code_insee">6599.0</field>
+    </record>
+    <record id="legal_form_292" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale d'avocat par actions simplifiée</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_293" model="partner.legal.form">
+        <field name="name">Union d'économie sociale - Société coopérative à responsabilité limitée et capital variable</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_294" model="partner.legal.form">
+        <field name="name">Société coopérative maritime à forme anonyme et capital variable</field>
+        <field name="code_insee">5554.0</field>
+    </record>
+    <record id="legal_form_295" model="partner.legal.form">
+        <field name="name">Société civile professionnelle de conseils en propriété industrielle</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_296" model="partner.legal.form">
+        <field name="name">Société civile professionnelle</field>
+        <field name="code_insee">6585.0</field>
+    </record>
+    <record id="legal_form_297" model="partner.legal.form">
+        <field name="name">Société coopérative de travailleurs à responsabilité limitée</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_298" model="partner.legal.form">
+        <field name="name">Représentation commerciale d'une collectivité étrangère</field>
+        <field name="code_insee">3110.0</field>
+    </record>
+    <record id="legal_form_299" model="partner.legal.form">
+        <field name="name">Société par actions simplifiée à capital variable</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_300" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de pharmacien d'officine par actions simplifiée</field>
+        <field name="code_insee">5770.0</field>
+    </record>
+    <record id="legal_form_301" model="partner.legal.form">
+        <field name="name">Société de participations financières de profession libérale de vétérinaire à responsabilité limitée</field>
+        <field name="code_insee">5470.0</field>
+    </record>
+    <record id="legal_form_302" model="partner.legal.form">
+        <field name="name">Société d'intérêt collectif agricole par actions simplifiée</field>
+        <field name="code_insee">5710.0</field>
+    </record>
+    <record id="legal_form_303" model="partner.legal.form">
+        <field name="name">Etablissement spécial chargé d'administrer les dépôts et les consignations</field>
+        <field name="code_insee">7490.0</field>
+    </record>
+    <record id="legal_form_304" model="partner.legal.form">
+        <field name="name">Société coopérative à responsabilité limitée à capital et personnel variables</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_305" model="partner.legal.form">
+        <field name="name">Société civile coopérative de consommation</field>
+        <field name="code_insee">6551.0</field>
+    </record>
+    <record id="legal_form_306" model="partner.legal.form">
+        <field name="name">Société civile coopérative</field>
+        <field name="code_insee">6560.0</field>
+    </record>
+    <record id="legal_form_307" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif à responsabilité limitée à capital variable</field>
+        <field name="code_insee">5460.0</field>
+    </record>
+    <record id="legal_form_308" model="partner.legal.form">
+        <field name="name">Société coopérative d'intérêt collectif par actions simplifiée</field>
+        <field name="code_insee">6901.0</field>
+    </record>
+    <record id="legal_form_309" model="partner.legal.form">
+        <field name="name">Société coopérative et participative à forme anonyme</field>
+        <field name="code_insee">5560.0</field>
+    </record>
+    <record id="legal_form_310" model="partner.legal.form">
+        <field name="name">Société anonyme d'HLM à directoire et conseil de surveillance</field>
+        <field name="code_insee">5646.0</field>
+    </record>
+    <record id="legal_form_311" model="partner.legal.form">
+        <field name="name">Société en commandite par actions d'un Etat non membre de la CE ou non partie à l'accord sur l'Espace économique européen</field>
+        <field name="code_insee">3120.0</field>
+    </record>
+    <record id="legal_form_312" model="partner.legal.form">
+        <field name="name">Société civile professionnelle d'infirmiers</field>
+        <field name="code_insee">6573.0</field>
+    </record>
+    <record id="legal_form_313" model="partner.legal.form">
+        <field name="name">Société publique locale d'aménagement</field>
+        <field name="code_insee">5599.0</field>
+    </record>
+    <record id="legal_form_314" model="partner.legal.form">
+        <field name="name">Union de sociétés coopératives à responsabilité limitée</field>
+        <field name="code_insee">5459.0</field>
+    </record>
+</odoo>
