@@ -14,9 +14,9 @@ class PartnerNAF(models.Model):
     display_name = fields.Char(compute="_compute_display_name", store=True)
 
     def _compute_display_name(self):
-    """ Surcharge pour modifier le rendu des entrées APE (affichage simultané du code et libellé) """
-    for rec in self:
-        rec.display_name = f"{rec.code_naf or ''} - {rec.name or ''}"
+        """ Surcharge pour modifier le rendu des entrées APE (affichage simultané du code et libellé) """
+        for rec in self:
+            rec.display_name = f"{rec.code_naf or ''} - {rec.name or ''}"
 
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
