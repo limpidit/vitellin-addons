@@ -10,4 +10,5 @@ from . import (
     test_copy,
     test_config_settings,
     test_res_users,
+    test_res_partner,
 )
