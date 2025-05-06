@@ -22,7 +22,7 @@ def test_set_defaults(self):
     self.env['ir.default'].search([
         ('field_id', '=', self.env.ref('base.field_res_partner__company_type').id),
     ]).unlink()
-    self.assertEqual(self.env['res.partner'].with_context(**action_context).new().company_type, "company")
+    self.assertEqual(self.env['res.partner'].with_context(**action_context).new().company_type, "person")
 
     self.start_tour("/web", 'debug_menu_set_defaults', login="admin")
 
