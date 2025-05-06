@@ -11,12 +11,12 @@ class PartnerNAF(models.Model):
     _description = _name
     _order = 'code_naf'
 
-    def name_get(self):
-        """ Surcharge pour modifier le rendu des entrées APE (affichage simultané du code et libellé) """
-        result = []
-        for rec in self:
-            result.append((rec.id, f"{str(rec.code_naf)} - {str(rec.name)}"))
-        return result
+    display_name = fields.Char(compute="_compute_display_name", store=True)
+
+    def _compute_display_name(self):
+    """ Surcharge pour modifier le rendu des entrées APE (affichage simultané du code et libellé) """
+    for rec in self:
+        rec.display_name = f"{rec.code_naf or ''} - {rec.name or ''}"
 
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
