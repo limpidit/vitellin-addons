@@ -9,4 +9,5 @@ from . import (
     test_order,
     test_copy,
     test_config_settings,
+    test_res_users,
 )
