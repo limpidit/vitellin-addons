@@ -96,23 +96,24 @@ class ResPartner(models.Model):
                     if self.city_id:
                         self.city_id = False
 
-    @api.constrains('is_company', 'firstname', 'lastname', 'mobile', 'company_id')
-    def _check_unique_person(self):
-        """
-            S'assurer qu'il n'existe pas déjà un particulier de même :
-            - nom
-            - prénom
-            - mobile (c'était email à la première implémentation)
-        """
-        for record in self.filtered(lambda r: not r.is_company):
-            domain = [('is_company', '=', False), ('firstname', '=ilike', record.firstname), ('lastname', '=ilike', record.lastname), ('id', '!=', record.id)]
-            if record.company_id:
-                domain += ['|', ('company_id', '=', record.company_id.id), ('company_id', '=', False)]
-            if record.mobile:
-                domain += [('mobile', '=ilike', record.mobile)]
-            found_matches = self.env[self._name].search_count(domain)
-            if found_matches:
-                raise UserError(_('Un particulier de même nom, prénom et numéro de téléphone mobile existe déjà.'))
+    # TODO Limpidit : A vérifier comment gérer
+    # @api.constrains('is_company', 'firstname', 'lastname', 'mobile', 'company_id')
+    # def _check_unique_person(self):
+    #     """
+    #         S'assurer qu'il n'existe pas déjà un particulier de même :
+    #         - nom
+    #         - prénom
+    #         - mobile (c'était email à la première implémentation)
+    #     """
+    #     for record in self.filtered(lambda r: not r.is_company):
+    #         domain = [('is_company', '=', False), ('firstname', '=ilike', record.firstname), ('lastname', '=ilike', record.lastname), ('id', '!=', record.id)]
+    #         if record.company_id:
+    #             domain += ['|', ('company_id', '=', record.company_id.id), ('company_id', '=', False)]
+    #         if record.mobile:
+    #             domain += [('mobile', '=ilike', record.mobile)]
+    #         found_matches = self.env[self._name].search_count(domain)
+    #         if found_matches:
+    #             raise UserError(_('Un particulier de même nom, prénom et numéro de téléphone mobile existe déjà.'))
 
     @api.constrains('is_company', 'siret', 'company_id')
     def _check_unique_company(self):
