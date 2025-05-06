@@ -1,7 +1,7 @@
 
 from ast import literal_eval
 
-from addons.contacts.tests import test_ui
+from odoo.addons.contacts.tests import test_ui
 
 def test_set_defaults(self):
     """Tests the "Set Defaults" feature of the debug menu on the res.partner form.
