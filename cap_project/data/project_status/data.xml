@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="status_a_traiter" model="project.status">
+        <field name="name">A traiter</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="status_vt_a_planifier" model="project.status">
+        <field name="name">VT à planifier</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="status_vt_a_realiser" model="project.status">
+        <field name="name">VT planifiée</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="status_vt_terminee" model="project.status">
+        <field name="name">VT réalisée</field>
+        <field name="sequence">4</field>
+    </record>
+    <record id="status_devis_cree" model="project.status">
+        <field name="name">Devis créé</field>
+        <field name="sequence">5</field>
+    </record>
+    <record id="status_devis_envoye_email" model="project.status">
+        <field name="name">Devis envoyé</field>
+        <field name="sequence">6</field>
+    </record>
+    <record id="status_ch_a_planifier" model="project.status">
+        <field name="name">Chantier à planifier</field>
+        <field name="sequence">7</field>
+    </record>
+    <record id="status_ch_a_realiser" model="project.status">
+        <field name="name">Chantier planifié</field>
+        <field name="sequence">8</field>
+    </record>
+    <record id="status_ch_en_cours" model="project.status">
+        <field name="name">Chantier en cours de réalisation</field>
+        <field name="sequence">9</field>
+    </record>
+    <record id="status_ch_facture" model="project.status">
+        <field name="name">Chantier facturé</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="status_projet_sans_suite" model="project.status">
+        <field name="name">Projet sans suite</field>
+        <field name="sequence">11</field>
+    </record>
+</odoo>

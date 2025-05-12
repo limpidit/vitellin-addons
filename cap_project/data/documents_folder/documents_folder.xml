@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="document_folder_root_projects" model="documents.folder">
+        <field name="name">Projets</field>
+        <field name="parent_folder_id" eval="False" />
+    </record>
+</odoo>
