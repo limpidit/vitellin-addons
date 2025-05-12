@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='sales']" position="inside">
+                <group>
+                    <group string="Projet">
+                        <field name="temps_de_travail" widget="float_time"/>
+                        <field name="main_oeuvre_product_id"/>
+                        <label for="main_oeuvre_prix" string="Au prix de" invisible="not main_oeuvre_product_id"/>
+                        <div class="o_row" invisible="not main_oeuvre_product_id">
+                            <field name="main_oeuvre_prix" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                            <span>/</span>
+                            <field name="main_oeuvre_uom_id"/>
+                        </div>
+                        <field name="is_determinant_planification_chantier"/>
+                        <field name="marge_chargement"/>
+                        <field name="is_isolant"/>
+                        <field name="is_prime"/>
+                        <field name="list_price" string="Prix vente (matière)" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                        <field name="prix_prestation" string="Prix vente (matière+mo)" class="oe_inline" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                    </group>
+                    <field name="alternative_isolant_ids" 
+                        invisible="not is_isolant">
+                        <tree edit="1" editable="bottom">
+                            <field name="libelle_vente"/>
+                            <field name="resistance_thermique"/>
+                            <field name="epaisseur_de_pose"/>
+                            <field name="nombre_sac_pour_100m2"/>
+                            <field name="prix_par_m2" string="Prix matière/m²"/>
+                            <field name="prix_prestation_par_m2" string="Prix (matière+mo)/m²"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

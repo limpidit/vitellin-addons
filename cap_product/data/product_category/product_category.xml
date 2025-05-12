@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="category_isolant" model="product.category">
+            <field name="name">Isolants</field>
+            <field name="parent_id" ref="product.product_category_all"/>
+        </record>
+    
+        <record id="category_isolant_combles" model="product.category">
+            <field name="name">Combles</field>
+            <field name="parent_id" ref="cap_product.category_isolant"/>
+        </record>
+        <record id="category_isolant_plancher" model="product.category">
+            <field name="name">Plancher</field>
+            <field name="parent_id" ref="cap_product.category_isolant"/>
+        </record>
+        <record id="category_isolant_plancher_mousse" model="product.category">
+            <field name="name">Plancher mousse</field>
+            <field name="parent_id" ref="cap_product.category_isolant"/>
+        </record>
+    
+        <record id="category_divers" model="product.category">
+            <field name="name">Divers</field>
+            <field name="parent_id" ref="product.product_category_all"/>
+        </record>
+    
+    </data>
+    
+</odoo>
