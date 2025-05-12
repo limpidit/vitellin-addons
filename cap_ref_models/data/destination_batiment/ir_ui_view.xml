@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="destination_batiment_form_view" model="ir.ui.view">
+        <field name="name">destination.batiment.form.view</field>
+        <field name="model">destination.batiment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                            <field name="secteur_activite_id" options="{'no_open': True, 'no_create': True}" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="destination_batiment_tree_view" model="ir.ui.view">
+        <field name="name">destination.batiment.tree.view</field>
+        <field name="model">destination.batiment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="secteur_activite_id" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_destination_batiment" model="ir.actions.act_window">
+        <field name="name">Destination de bâtiment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">destination.batiment</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

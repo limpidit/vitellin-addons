@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="secteur_activite_form_view" model="ir.ui.view">
+        <field name="name">secteur.activite.form.view</field>
+        <field name="model">secteur.activite</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="secteur_activite_tree_view" model="ir.ui.view">
+        <field name="name">secteur.activite.tree.view</field>
+        <field name="model">secteur.activite</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_secteur_activite" model="ir.actions.act_window">
+        <field name="name">Secteurs d'activités</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">secteur.activite</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

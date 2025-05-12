@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="type_travaux_form_view" model="ir.ui.view">
+        <field name="name">type.travaux.form.view</field>
+        <field name="model">type.travaux</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="typologie" />
+                            <field name="name" invisible="typologie == False"/>
+                            <field name="type_support_ids" widget="many2many_tags"/>
+                            <field name="company_id" groups="base.group_multi_company" />
+                            <field name="conditions_generales" placeholder="Conditions générales à compléter. Elles seront rappelées sur le devis."/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_travaux_tree_view" model="ir.ui.view">
+        <field name="name">type.travaux.tree.view</field>
+        <field name="model">type.travaux</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="typologie" />
+                <field name="type_support_ids" widget="many2many_tags"/>
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_type_travaux" model="ir.actions.act_window">
+        <field name="name">Types de travaux</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">type.travaux</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
