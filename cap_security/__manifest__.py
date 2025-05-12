@@ -8,8 +8,10 @@
     'version': '17.0.1.0.0',  # Mise à jour de la version pour Odoo 17
     'depends': [
         'base',
+        'sale',
         'sales_team',
         'project',
+        'stock',
         'fleet',
         'documents',
         'account',
