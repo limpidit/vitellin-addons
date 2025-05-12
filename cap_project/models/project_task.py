@@ -5,7 +5,7 @@ class ProjectTask(models.Model):
     _name = 'project.task'
     _inherit = ['project.task', 'documents.mixin']
 
-    # user_id = fields.Many2one(comodel_name='res.users', default=False)
+    user_id = fields.Many2one(comodel_name='res.users', default=False)
     address_id = fields.Many2one('res.partner', string="Adresse intervention", related='project_id.address_id')
     type_tache = fields.Selection(selection=[('visite', 'Visite technique'), ('chantier', 'Chantier')], default='visite', required=True)
     type_travaux_ids = fields.Many2many(string='Type de travaux', comodel_name='type.travaux')
