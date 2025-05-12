@@ -22,16 +22,18 @@ class ResistanceThermique(models.Model):
             record.name = record.resistance
 
     @api.model
-    def _name_search(self, name='', args=None, operator='=ilike', limit=100, name_get_uid=None):
+    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
         """
-            Effectuer une recherche du type "commence par"
+        Effectuer une recherche du type "commence par"
         """
-        if operator == 'ilike':
-            operator = '=ilike'
-        if args is None:
-            args = []
-        domain = args + [('name', operator, name + '%')]
-        return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
+        domain = domain or []
+
+        if operator in ('ilike', 'like'):
+            name = (name or '') + '%'
+            operator = '=ilike'  # Force index usage
+
+        full_domain = expression.AND([[('name', operator, name)], domain])
+        return self._search(full_domain, limit=limit, order=order)
 
     @staticmethod
     def _load_default_values_csv(_cr):
