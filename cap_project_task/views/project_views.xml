@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- #TODO: show only if task type equals "chantier" -->
+
+  <!-- Chantiers > form view inherited -->
+  <!-- <record id="inherit_view_task_form2" model="ir.ui.view">
+    <field name="name">inherit.project.view.task.form2</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_form2"/>
+
+    <field name="arch" type="xml">
+      <field name="user_id" position="replace">
+        <field name="user_id" widget="many2one_avatar_user" placeholder="Responsable" readonly="1" invisible="True"/>
+      </field>
+      <field name="user_id" position="after">
+        <field name="user_ids" widget="many2many_tags_avatar" placeholder="Equipe(s)"/>
+      </field>
+    </field>
+  </record> -->
+
+  <!-- Chantiers > tree view inherited -->
+  <!-- <record id="inherit_view_tree_chantier" model="ir.ui.view">
+    <field name="name">inherit.project.task.tree.chantier</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="cap_industry_fsm.project_task_view_tree_chantier"/>
+
+    <field name="arch" type="xml">
+      <field name="user_id" position="replace">
+        <field name="user_id" optional="hide"/>
+      </field>
+
+      <field name="user_id" position="after">
+        <field name="user_ids" widget="many2many_tags" optional="show"/>
+      </field>
+
+      <field name="user_id" position="after">
+        <field name="user_ids_name" optional="hide"/>
+      </field>
+    </field>
+  </record> -->
+
+  <!-- Tasks > tree view inherited -->
+  <!-- <record id="inherit_project_task_view_list_fsm" model="ir.ui.view">
+    <field name="name">inherit.project.task.tree.fsm</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+
+    <field name="arch" type="xml">
+      <field name="user_id" position="replace">
+        <field name="user_id" optional="hide"/>
+      </field>
+
+      <field name="user_id" position="after">
+        <field name="user_ids" optional="hide"/>
+      </field>
+
+      <field name="user_id" position="after">
+        <field name="user_ids_name" optional="show"/>
+      </field>
+    </field>
+  </record> -->
+
+</odoo>

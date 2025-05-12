@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-extend="MapView.pinListItem">
+        <t t-jquery="t[t-foreach*='widget.state.records'][t-as*='record']" t-operation="replace">
+            <t t-foreach="widget.state.records" t-as="record">
+                <li
+                    t-att-class="record.partner and record.partner.partner_latitude and record.partner.partner_longitude ? 'o_pin_located' : undefined"
+                    t-att-title="record.partner and record.partner.partner_latitude and record.partner.partner_longitude ? undefined : 'Could not locate'"
+                >
+                    <img t-if="record.partner and record.partner.partner_latitude and record.partner.partner_longitude"
+                         src=""
+                         t-att-class="record.user_id and record.numero_semaine ? 'marker_blue' : 'marker_orange'" style="height: 16px; width: 16px;"/>
+                    <a href=""
+                        t-if="record.partner and record.partner.partner_latitude and record.partner.partner_longitude"
+                        t-att-data-lat="record.partner.partner_latitude"
+                        t-att-data-lng="record.partner.partner_longitude">
+                        <t t-if="record.map_name" t-esc="record.map_name"></t>
+                        <t t-else="" t-esc="record.display_name"></t>
+                    </a>
+                    <span t-else="" class="text-muted">
+                        <t t-if="record.map_name" t-esc="record.map_name"></t>
+                        <t t-else="" t-esc="record.display_name"></t>
+                    </span>
+                </li>
+            </t>
+        </t>
+    </t>
+</templates>
