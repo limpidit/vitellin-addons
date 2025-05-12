@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_type_support"
+        action="cap_ref_models.action_type_support"
+        name="Types de support" parent="project.menu_project_config"
+        sequence="14"/>
+</odoo>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_batiment_entree_form_view" model="ir.ui.view">
+        <field name="name">project.batiment.entree.form.view</field>
+        <field name="model">project.batiment.entree</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="adresse_id" required="1" force_save="1"
+                                   class="o_fsm_task_customer_field"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'default_is_company': False, 'show_vat': False}"
+                                   options="{'always_reload': True}"
+                                   widget="res_partner_many2one"/>
+                            <field name="acces_chantier" />
+                            <field name="acces_difficile" />
+                        </group>
+                        <group>
+                            <field name="batiment_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_batiment_entree_form_view_wizard" model="ir.ui.view">
+        <field name="name">project.batiment.entree.form.view.wizard</field>
+        <field name="model">project.batiment.entree</field>
+        <field name="inherit_id" ref="project_batiment_entree_form_view" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <footer>
+                    <button string="Sauvegarder" name="action_wizard_save" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_batiment_entree_tree_view" model="ir.ui.view">
+        <field name="name">project.batiment.entree.tree.view</field>
+        <field name="model">project.batiment.entree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="batiment_id" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

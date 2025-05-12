@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_batiment_form_view" model="ir.ui.view">
+        <field name="name">project.batiment.form.view</field>
+        <field name="model">project.batiment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="nombre_etages" />
+                            <field name="adresse_id" required="1" force_save="1"
+                                   class="o_fsm_task_customer_field"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'default_is_company': False, 'show_vat': False}"
+                                   options="{'always_reload': True}"
+                                   widget="res_partner_many2one"/>
+                            <field name="acces_chantier" />
+                            <field name="parcelle_cadastrale"/>
+                        </group>
+                        <group>
+                            <field name="project_id" 
+                                readonly="id" invisible="not id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="entree_ids"    
+                                invisible="not id" options="{'no_create': True, 'no_open': True}"
+                                widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_batiment_form_view_wizard" model="ir.ui.view">
+        <field name="name">project.batiment.form.view.wizard</field>
+        <field name="model">project.batiment</field>
+        <field name="inherit_id" ref="cap_project.project_batiment_form_view"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <footer>
+                    <button string="Sauvegarder" name="action_wizard_save" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel" />
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_batiment_tree_view" model="ir.ui.view">
+        <field name="name">project.batiment.tree.view</field>
+        <field name="model">project.batiment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="project_id" />
+                <field name="name" />
+                <field name="entree_ids" widget="many2many_tags" />
+
+            </tree>
+        </field>
+    </record>
+
+</odoo>

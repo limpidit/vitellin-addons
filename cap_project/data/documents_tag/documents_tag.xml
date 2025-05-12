@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <!-- VT Combles -->
+    <record id="document_tag_trappe" model="documents.tag">
+        <field name="sequence">10</field>
+        <field name="name">Trappe</field>
+        <field name="facet_id" ref="cap_project.facet_vt_combles" />
+    </record>
+    <record id="document_tag_vmc" model="documents.tag">
+        <field name="sequence">11</field>
+        <field name="name">VMC</field>
+        <field name="facet_id" ref="cap_project.facet_vt_combles" />
+    </record>
+    <record id="ocument_tag_combles" model="documents.tag">
+        <field name="sequence">12</field>
+        <field name="name">Photos combles</field>
+        <field name="facet_id" ref="cap_project.facet_vt_combles" />
+    </record>
+
+    <!-- Entrée -->
+    <record id="ocument_tag_acces_chantier" model="documents.tag">
+        <field name="sequence">20</field>
+        <field name="name">Accès chantier</field>
+        <field name="facet_id" ref="cap_project.facet_entree" />
+    </record>
+    <record id="ocument_tag_entree_face" model="documents.tag">
+        <field name="sequence">21</field>
+        <field name="name">Face</field>
+        <field name="facet_id" ref="cap_project.facet_entree" />
+    </record>
+
+    <!-- Etat des lieux -->
+    <record id="ocument_tag_avant_travaux" model="documents.tag">
+        <field name="sequence">30</field>
+        <field name="name">Avant travaux</field>
+        <field name="facet_id" ref="cap_project.facet_etat_des_lieux" />
+    </record>
+    <record id="document_folder_apres_travaux" model="documents.tag">
+        <field name="sequence">31</field>
+        <field name="name">Après travaux</field>
+        <field name="facet_id" ref="cap_project.facet_etat_des_lieux" />
+    </record>
+</odoo>

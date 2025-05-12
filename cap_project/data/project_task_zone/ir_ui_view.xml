@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_zone_form_view" model="ir.ui.view">
+        <field name="name">project.task.zone.form.view</field>
+        <field name="model">project.task.zone</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="is_chantier_renovation" invisible="1" />
+                <field name="is_client_particulier" invisible="1" />
+                <field name="isolant_categories_autorisees" invisible="1" />
+                <field name="finition_categories_autorisees" invisible="1" />
+				
+				
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
+                        <button name="action_view_batiments" type="object" icon="fa-home" class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <field name="count_batiment_ids" class="o_stat_value" />
+                                <span class="o_stat_text">Bâtiments</span>
+                            </div>
+                        </button>
+                        <button name="action_view_entrees" type="object" icon="fa-sign-in" class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <field name="count_entree_ids" class="o_stat_value" />
+                                <span class="o_stat_text">Entrées</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" name="go_to_folder" type="object" icon="fa-file-text-o">
+                            <field string="Documents" name="doc_count" widget="statinfo"/>
+                        </button>
+                    </div>
+
+                    <h2 class="text-muted">
+                        <field name="project_id" readonly="1" options="{'no_create': True, 'no_open': True}" nolabel="1"/>
+                    </h2>
+                    <h2>Quelle est l'entrée concernée ?</h2>
+                    <group>
+                        <group>
+                            <field name="batiment_id" options="{'no_quick_create': True}" invisible="not project_id" context="{'default_project_id': project_id}"/>
+                            <field name="reserver_stationnement" />
+                            <field name="install_appro"/>
+                            
+                        </group>
+                        <group>
+                            <field name="entree_id" options="{'no_quick_create': True}" invisible="not batiment_id" context="{'default_batiment_id': batiment_id, 'project_id': project_id}"/>
+                            <field name="adresse_id" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'default_is_company': True, 'show_vat': False}" 
+                                invisible="not batiment_id or not entree_id" options="{'always_reload': True}" widget="res_partner_many2one" />
+                            <field name="parcelle_cadastrale" required="financement_cee"/>
+                        </group>
+                    </group>
+                    <h2>Description de la zone</h2>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="ex: Cuisine"/>
+                            <field name="type_zone" invisible="typologie_type_travaux"/>
+                            <field name="type_chauffage" invisible="typologie_type_travaux"/>
+                        </group>
+                        <group>
+                            <field name="secteur_activite" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="type_batiment" options="{'no_create': True, 'no_open': True}" />
+                            <field name="financement_cee" />
+                        </group>
+                    </group>
+                    <h2>Travaux envisagés</h2>
+                    <group>
+                        <group>
+                            <field name="type_travaux" options="{'no_create': True, 'no_open': True}" />
+                            <field name="typologie_type_travaux" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_previsionnelle_travaux" />
+                        </group>
+                    </group>
+
+                    <!-- VMC -->
+					<group invisible="typologie_type_travaux != 'vmc'">
+						
+						<field name="evacuation_vmc" />
+                        <field name="evacuationvmc_product_id" invisible="not evacuation_vmc" options="{'no_open': True, 'no_create': True}" />
+
+                        <field name="choixvmc_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="nombre_bloc_vmc" />
+						
+                        <field name="bouchesanitaire_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="nombre_bouche_sanitaire" />
+                        <field name="bouchecuisine_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="nombre_bouche_cuisine" />
+					
+						<field name="fourniture_gaine_isolee_80" />
+						<field name="fourniture_gaine_isolee_120" />
+						<field name="fourniture_gaine_isolee_160" />
+						<field name="nombre_grille_entree_air" />
+				
+                        <field name="arriveelec_product_id" options="{'no_open': True, 'no_create': True}" />
+						
+                        <field name="bouchesupp_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="nombre_bouche_creer" />
+					
+						<field name="extractiontoiture_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="nombre_extraction_toiture" />
+						
+					</group>
+					<!-- Fin VMC -->
+					
+					<!-- Autre -->
+					<group invisible="typologie_type_travaux != 'autre'">
+						
+                        <field name="articleautre1_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="qte_article1_autre" />
+						
+						<field name="articleautre2_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="qte_article2_autre" />
+						
+						<field name="articleautre3_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="qte_article3_autre" />
+						
+						<field name="articleautre4_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="qte_article4_autre" />
+						
+						<field name="articleautre5_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="qte_article5_autre" />
+						
+						<field name="type_camion_requis" />
+						
+					</group>
+					<!-- Fin autre -->
+					
+					<!-- Combles -->
+                    <group invisible="typologie_type_travaux != 'iso_combles'">
+                        <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_combles'"/>
+                        <field name="resistance_thermique" required="typologie_type_travaux == 'iso_combles'" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="isolant_category_id" required="typologie_type_travaux == 'iso_combles'" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
+                    
+                        <field name="type_support" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="type_charpente" invisible="is_chantier_renovation == False or is_client_particulier == False"/>
+                        <field name="etat_charpente" invisible="is_chantier_renovation == False or is_client_particulier == False"/>
+                        <field name="traitement_charpente" invisible="is_chantier_renovation == False or is_client_particulier == False"/>
+                        <field name="type_couverture" invisible="is_chantier_renovation == False or is_client_particulier == False"/>
+                        <field name="etat_toiture" invisible="is_chantier_renovation == False or is_client_particulier == False"/>
+                    
+                        <field name="traitements_trappe_autorises" invisible="1"/>
+                    
+                        <field name="traitement_trappe_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="nombre_trappes_a_traiter" invisible="is_chantier_renovation == False"/>
+                        <field name="nombre_cheminees" invisible="is_chantier_renovation == False"/>
+                        <field name="nombre_ecart_au_feu" invisible="is_chantier_renovation == False"/>
+                    
+                        <field name="isolant_a_enlever_autorises" invisible="1"/>
+                    
+                        <field name="isolant_a_enlever_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="m2_isolant_a_enlever" invisible="is_chantier_renovation == False"/>
+                        <field name="m2_isolant_a_remettre" invisible="is_chantier_renovation == False"/>
+                        <field name="nombre_spots" invisible="is_chantier_renovation == False"/>
+                        <field name="nombre_spots_a_proteger" invisible="is_chantier_renovation == False"/>
+                        <field name="encombrants_a_enlever" invisible="is_chantier_renovation == False" string="Comble encombrée"/>
+                        <field name="nombre_detuilages" invisible="is_chantier_renovation == False"/>
+                        <field name="besoin_echafaudage" invisible="is_chantier_renovation == False" string="Hauteur d'intervention > 3,50m"/>
+                        <field name="traitement_antirongeur"/>
+                    
+                        <field name="ml_deflecteur" invisible="is_chantier_renovation == False"/>
+                        <field name="m2_plateforme" invisible="is_chantier_renovation == False" string="Platelage (m²)"/>
+                        <field name="ml_chemin_de_vie" invisible="is_chantier_renovation == False"/>
+                    
+                        <field name="retenue_isolant_autorises" invisible="1"/>
+                        <field name="retenue_isolant_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="ml_retenue_d_isolant" invisible="is_chantier_renovation == False"/>
+                    
+                        <field name="m2_delignement_du_plancher" invisible="is_chantier_renovation == False"/>
+                    
+                        <field name="pare_vapeur_autorises" invisible="1"/>
+                        <field name="pose_pare_vapeur_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="m2_pare_vapeur" invisible="is_chantier_renovation == False"/>
+                    
+                        <field name="type_camion_requis" required="typologie_type_travaux == 'iso_combles'"/>
+                    </group>
+                    <!-- Fin partie Combles -->
+
+                    <!-- Plancher bas -->
+                    <group invisible="typologie_type_travaux != 'iso_plancher'">
+                        <group>
+                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_plancher'" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_plancher'"/>
+                            <field name="type_support" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="majoration_support_dalle" invisible="is_chantier_renovation == False"/>
+                            <field name="ml_poutre_a_isoler" invisible="is_chantier_renovation == False"/>
+                            <field name="besoin_echafaudage" string="Hauteur d'intervention > 2.50 m"/>
+                            <field name="encombrants_a_enlever" invisible="is_chantier_renovation == False" string="Pièce encombrée"/>
+                            <field name="nombre_depose_luminaire" invisible="is_chantier_renovation == False"/>
+                            <field name="isolant_a_enlever_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="m2_isolant_a_enlever" invisible="is_chantier_renovation == False"/>
+                            <field name="resistance_thermique" required="typologie_type_travaux == 'iso_plancher'" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>                    
+                    <!-- Fin partie Plancher -->
+
+                    <!-- Calorifugeage -->
+                    <group invisible="typologie_type_travaux != 'iso_calo'">
+                        <group>
+                            <field name="chaudiere_remplacee_avt_01_2018"/>
+                            <field name="classe_isolant_ok"/>
+                            <field name="presence_amiante"/>
+                            <field name="destination"/>
+                            <field name="isolant_a_enlever_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="m2_isolant_a_enlever" string="ml d'isolant à déposer"/>
+                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_calo'" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="surface_a_isoler" string="ml à isoler" required="typologie_type_travaux == 'iso_calo'"/>
+                            <field name="hauteur_reseau_ok"/>
+                            <field name="controle_confrac"/>
+                        </group>
+                    </group>
+                    
+                    <!-- Fin partie Calorifugeage -->
+
+                    <!-- Isolation des murs par l'intérieur (ITI) -->
+                    <group invisible="typologie_type_travaux != 'iso_iti'">
+                        <group>
+                            <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_iti'"/>
+							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
+							
+							<field name="ossature_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							
+							
+							<field name="parevapeur_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="majoration_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="joints_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="poncage_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="peinture_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="depose_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="qte_depose" />
+							<field name="traitementeveils_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="qte_traitementeveils" />
+							
+                            <field name="resistance_thermique" required="typologie_type_travaux == 'iso_iti'" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                    
+                    <!-- Isolation des murs par l'extérieur (ITE) -->
+                    <group required="typologie_type_travaux != 'iso_iti'">
+                        <group>                           
+                            <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_ite'"/>
+							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
+                            
+                            <field name="echafaudage_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nettoyage_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="type_isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="type_finition_product_id" options="{'no_open': True, 'no_create': True}"/>
+
+                            <field name="majoration_zone_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="m2_majoration_zone" />
+
+                            <field name="rail_depart_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_rail_depart" />
+                            <field name="arret_lateral_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_arret_lateral" />
+                            <field name="angle_mur_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_angle_mur" />
+                            <field name="couvertine_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_couvertine" />
+
+                            <field name="gond_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_gond_deporte" />
+                            <field name="arret_fenetre_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_arret_fenetre" />
+                            <field name="arret_marseillais_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_arret_marseillais" />
+
+                            <field name="embrasure_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_embrasure" />
+                            <field name="seuil_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_seuil" />
+
+                            <field name="grille_aeration_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_grille_aeration" />
+                            <field name="goutiere_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="ml_goutiere_deporte" />
+                            <field name="point_lumineux_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_point_lumineux" />
+                            <field name="point_lourd_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="nb_point_lourd_deporte" />
+
+                            <field name="deporte_client_product_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="desc_element_deporte_client" />
+                            <field name="resistance_thermique" required="typologie_type_travaux == 'iso_ite'" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="commentaires" placeholder="Ajouter des précisions sur le chantier..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_task_zone_tree_view" model="ir.ui.view">
+        <field name="name">project.task.zone.tree.view</field>
+        <field name="model">project.task.zone</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="project_id" />
+                <field name="batiment_id" />
+                <field name="entree_id" />
+                <field name="name" />
+                <field name="type_travaux" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_task_zone_search_view" model="ir.ui.view">
+        <field name="name">project.task.zone.search.view</field>
+        <field name="model">project.task.zone</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="batiment_id" />
+                <field name="entree_id" />
+                <group expand="0" string="Group By">
+                    <filter string="Batiment" name="groupby_batiment_id" context="{'group_by': 'batiment_id'}"/>
+                    <filter string="Entrée" name="groupby_entree_id" context="{'group_by': 'entree_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

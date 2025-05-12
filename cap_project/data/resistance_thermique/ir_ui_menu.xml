@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_resistance_thermique"
+        action="cap_ref_models.action_resistance_thermique"
+        name="Resistances thermiques" parent="project.menu_project_config"
+        sequence="11"/>
+</odoo>

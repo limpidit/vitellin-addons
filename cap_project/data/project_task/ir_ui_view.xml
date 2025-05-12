@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_task_form2_inherit" model="ir.ui.view">
+        <field name="name">project.project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-primary')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-secondary')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_view_form" model="ir.ui.view">
+        <field name="name">project.project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_zones" type="object" icon="fa-pencil" class="oe_stat_button" invisible="context.get('hide_zones', False)">
+                    <div class="o_stat_info">
+                        <field name="count_zone_ids" class="o_stat_value" />
+                        <span class="o_stat_text">Zones</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <xpath expr="//header/button" position="after">
+                <button name="action_create_batiment" string="Bâtiment" type="object" icon="fa-plus" class="btn-primary" />
+                <button name="action_create_entree" string="Entrée" type="object" icon="fa-plus" class="btn-primary" />
+            </xpath>
+
+            <field name="partner_id" position="after">
+                <field name="address_id"
+                       class="o_fsm_task_customer_field"
+                       context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'default_is_company': False, 'show_vat': False}"
+                       options="{'always_reload': True}"
+                       widget="res_partner_many2one" />
+                <field name="type_tache" readonly="1" invisible="1"/>
+                <field name="type_visite" />
+                <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
+            </field>
+
+            <field name="project_id" position="after">
+                <field name="disponibilite_client" />
+                <field name="en_attente"/>
+                <field name="vehicule" invisible="type_tache != 'chantier'" options="{'no_create': True, 'no_edit': True, 'no_open': 'True'}"/>
+                <field name="non_realisable" invisible="type_tache == 'chantier'"/>
+                <field name="motif_non_realisation" required="non_realisable"
+                    invisible="type_tache == 'chantier' or not non_realisable"/>
+            </field>
+
+            <field name="project_id" position="attributes">
+                <attribute name="readonly">type_tache == 'chantier'</attribute>
+            </field>
+
+            <field name="description" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <xpath expr="//sheet//notebook/page[1]" position="after">
+                <page string="Patrimoine" invisible="not id">
+                    <field name="batiment_ids">
+                        <tree>
+                            <field name="name" />
+                            <field name="entree_ids" widget="many2many_tags" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Project Task Kanban View -->
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="name">project.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//templates" position="before">
+                <field name="type_tache"/>
+                <field name="address_street"/>
+                <field name="address_zip"/>
+                <field name="address_city"/>
+                <field name="address_phone"/>
+            </xpath>
+            <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
+                <div>
+                    <field name="address_street" /><br/>
+                    <field name="address_zip" />
+                    <field name="address_city" />
+                </div>
+                <div t-if="record.type_tache.raw_value == 'visite'">
+                    <field name="address_phone" widget="phone"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

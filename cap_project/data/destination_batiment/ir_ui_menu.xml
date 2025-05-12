@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_destination_batiment"
+        action="cap_ref_models.action_destination_batiment"
+        name="Destinations de bâtiment" parent="project.menu_project_config"
+        sequence="13"/>
+</odoo>

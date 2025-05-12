@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_secteur_activite"
+        action="cap_ref_models.action_secteur_activite"
+        name="Secteurs d'activités" parent="project.menu_project_config"
+        sequence="10"/>
+</odoo>

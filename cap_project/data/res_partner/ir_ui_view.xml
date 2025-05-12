@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="cap_contact.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button string="Nouveau projet" name="create_new_projet" type="object" groups="cap_security.group_project_creator"/>
+                </header>
+            </xpath>
+
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_projects" invisible="project_count == 0" 
+                    groups="project.group_project_user" icon="fa-tasks">
+                    <field  string="Projets" name="project_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="cap_partner_project_button_inherit_view_form" model="ir.ui.view">
+        <field name="name">cap_partner_project_button_inherit.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="project.view_task_partner_info_form"/>
+        <field name="arch" type="xml">
+            <button position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
