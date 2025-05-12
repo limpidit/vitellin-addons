@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Calendar Events : Views and Actions  -->
+
+    <!-- Tree view -->
+    <record id="view_calendar_event_tree_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.view.tree.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+
+        <field name="arch" type="xml">
+            <field name="partner_ids" position="before">
+                <field name="user_id"/>
+                <field name="user_ids"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Action view -->
+    <record id="view_calendar_event_calendar_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.calendar.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+
+        <field name="arch" type="xml">
+            <field name="attendee_status" position="replace">
+                <field name="attendee_status" invisible="1"/>
+            </field>
+            <field name="user_id" position="after">
+                <field name="user_ids" widget="many2many_tags_avatar" write_model="calendar.users" write_field="attendee_id" avatar_field="image_128"/>
+            </field>
+            <field name="partner_ids"  position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id"  position="replace">
+                <field name="user_id" string="Responsible" widget="many2one_avatar_user"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_calendar_event_form_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.view.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='partner_ids']" position="replace">
+                <label for="partner_ids" invisible="1"/>
+            </xpath>
+
+            <field name="partner_ids" position="replace">
+                <group>
+                    <field name="user_id" widget="many2one_tags" invisible="1"/>
+                    <field name="user_ids" placeholder="Selectionner des participants..." widget="many2many_tags"/>
+                    <field name="partner_ids" placeholder="Selectionner des partenaires..." widget="many2many_tags" invisible="1"/>
+                </group>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_event_view_calendar" model="ir.ui.view">
+            <field name="name">calendar.event.view.map</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="arch" type="xml">
+                <!-- <field name="user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field> -->
+                <field name="partner_id" position="after">
+                    <field name="task_id"/>
+					<field name="project_id"/>
+					<field name="sale_id" invisible="id == 1"/>
+                    <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
+                    <field name="client"/>
+                    <field name="address_id"/>
+                    <field name="address_zip"/>
+                    <field name="address_city"/>
+                    <field name="address_mobile"/>
+                </field>
+            </field>
+    </record>
+</odoo>

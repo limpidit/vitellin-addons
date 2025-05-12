@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Masquer le menu "Toutes les tâches" -->
+    <record id="industry_fsm.fsm_menu_all_tasks_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    </record>
+
+    <menuitem id="menu_visites_techniques_root"
+        name="Visites Techniques"
+        sequence="15"
+        parent="industry_fsm.fsm_menu_root"
+        groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_visites_techniques_toutes"
+            name="Toutes les visites techniques"
+            action="project_task_action_toutes_visites_techniques"
+            sequence="10"
+            parent="menu_visites_techniques_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_vt_a_planifier"
+            name="A planifier"
+            action="project_task_action_vt_a_planifier"
+            sequence="10"
+            parent="menu_visites_techniques_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_vt_a_realiser"
+            name="A réaliser"
+            action="project_task_action_vt_a_realiser"
+            sequence="10"
+            parent="menu_visites_techniques_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_vt_realise"
+            name="Réalisées"
+            action="project_task_action_vt_realise"
+            sequence="10"
+            parent="menu_visites_techniques_root"
+            groups="industry_fsm.group_fsm_user" />
+
+    <menuitem id="menu_chantiers_root"
+        name="Chantiers"
+        sequence="15"
+        parent="industry_fsm.fsm_menu_root"
+        groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_chantier_tous"
+            name="Tous les chantiers"
+            action="project_task_action_tous_chantiers"
+            sequence="10"
+            parent="menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_chantier_a_planifier"
+            name="A planifier"
+            action="project_task_action_chantier_a_planifier"
+            sequence="10"
+            parent="menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_chantier_a_realiser"
+            name="A réaliser"
+            action="project_task_action_chantier_a_realiser"
+            sequence="10"
+            parent="menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+
+        <menuitem id="menu_chantier_realise"
+            name="Réalisés"
+            action="project_task_action_chantier_realise"
+            sequence="10"
+            parent="menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+
+    <!-- action : Planning > par véhicule -->
+    <menuitem id="project_task_menu_planning_by_vehicle"
+        name="Par véhicule"
+        sequence="25"
+        action="project_task_action_fsm_planning_groupby_vehicle"
+        parent="industry_fsm.fsm_menu_planning"
+        groups="industry_fsm.group_fsm_manager"/>
+</odoo>

@@ -1,0 +1,32 @@
+.marker_blue {
+    background-image: url(/cap_industry_fsm/static/img/marker-icon-numbered_blue.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.marker_green {
+    background-image: url(/cap_industry_fsm/static/marker-icon-numbered_green.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.marker_yellow {
+    background-image: url(/cap_industry_fsm/static/img/marker-icon-numbered_yellow.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.marker_orange {
+    background-image: url(/cap_industry_fsm/static/img/marker-icon-numbered_orange.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.marker_red {
+    background-image: url(/cap_industry_fsm/static/img/marker-icon-numbered_red.png) !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+ol.o_pin_list_details {
+    list-style-type: decimal-leading-zero;
+}
