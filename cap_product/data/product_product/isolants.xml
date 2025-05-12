@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+    
+        
+        <record id="product_lv_soufflee" model="product.product">
+            <field name="name">LV souflée</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_combles" />
+        </record>
+        <record id="product_lr_soufflee" model="product.product">
+            <field name="name">LR souflée</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_combles" />
+        </record>
+        <record id="product_lv_deroulee" model="product.product">
+            <field name="name">LV déroulée</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_combles" />
+        </record>
+        <record id="product_ouate" model="product.product">
+            <field name="name">Ouate</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_combles" />
+        </record>
+    
+        <record id="product_panodal" model="product.product">
+            <field name="name">Panodal</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_plancher" />
+        </record>
+        <record id="product_flocage" model="product.product">
+            <field name="name">Flocage</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_plancher" />
+        </record>
+    
+        <record id="product_mousse" model="product.product">
+            <field name="name">Mousse</field>
+            <field name="type">product</field>
+            <field name="sale_ok" eval="True"/>
+            <field name="is_determinant_planification_chantier" eval="True"/>
+            <field name="categ_id" ref="cap_product.category_isolant_plancher_mousse" />
+        </record>
+    
+    </data>
+    
+</odoo>
