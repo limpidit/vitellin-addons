@@ -2,7 +2,7 @@
 <odoo>
     <record id="access_project_creator" model="ir.model.access">
         <field name="name">Créateur de projets</field>
-        <field name="model_id" search="[('model', '=', 'project.project')]" model="ir.model"/>
+        <field name="model_id" ref="project.model_project_project"/>
         <field name="group_id" ref="cap_security.group_project_creator"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="True"/>
@@ -13,16 +13,17 @@
     <!-- Un utilisateur Projet à le droit le consulter un bon de commande -->
     <record id="access_sale_order_reader" model="ir.model.access">
         <field name="name">Devis / Bons de commande : Lecteur </field>
-        <field name="model_id" search="[('model', '=', 'sale.order')]" model="ir.model"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
         <field name="group_id" ref="project.group_project_user"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="False"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_read" eval="True"/>
     </record>
+
     <record id="access_sale_order_line_reader" model="ir.model.access">
         <field name="name">Ligne de bon de commande : Lecteur </field>
-        <field name="model_id" search="[('model', '=', 'sale.order.line')]" model="ir.model"/>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
         <field name="group_id" ref="project.group_project_user"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="False"/>
@@ -33,7 +34,7 @@
     <!-- Un utilisateur Projet à le droit le modifier un bon de chargement -->
     <record id="access_stock_picking_writer" model="ir.model.access">
         <field name="name">Transfert : Modification </field>
-        <field name="model_id" search="[('model', '=', 'stock.picking')]" model="ir.model"/>
+        <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="group_id" ref="project.group_project_user"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="True"/>
@@ -44,7 +45,7 @@
     <!-- Un utilisateur Projet à le droit le modifier un mouvement de stock -->
     <record id="access_stock_move_writer" model="ir.model.access">
         <field name="name">Mouvement de stock : Modification </field>
-        <field name="model_id" search="[('model', '=', 'stock.move')]" model="ir.model"/>
+        <field name="model_id" ref="stock.model_stock_move"/>
         <field name="group_id" ref="project.group_project_user"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="True"/>
@@ -53,7 +54,7 @@
     </record>
     <record id="access_stock_scrap_reader" model="ir.model.access">
         <field name="name">Rebut : Lecture </field>
-        <field name="model_id" search="[('model', '=', 'stock.scrap')]" model="ir.model"/>
+        <field name="model_id" ref="stock.model_stock_scrap"/>
         <field name="group_id" ref="project.group_project_user"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_write" eval="False"/>
