@@ -19,7 +19,7 @@ class ProjectTask(models.Model):
         # Génération de l'évènement dans l'agenda
         self.env['calendar.event'].update_from_task(name=rec.display_name,
                                                     start_datetime=rec.planned_date_begin,
-                                                    stop_datetime=rec.planned_date_end,
+                                                    stop_datetime=rec.date_end,
                                                     user_id=rec.user_id,
                                                     user_ids=[x.id for x in rec.user_ids],
                                                     task_id=rec,
@@ -43,14 +43,14 @@ class ProjectTask(models.Model):
 
         # Mise à jour de l'évènement dans l'agenda
         if not self._context.get('update_from_calendar_event', False) and ('planned_date_begin' in values
-                                                                           or 'planned_date_end' in values
+                                                                           or 'date_end' in values
                                                                            or 'user_ids' in values):
             for task_id in self:
                 event_id = task_id.calendar_event_id or self.env['calendar.event']
-                _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.planned_date_end} user_ids {task_id.user_ids}")
+                _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.date_end} user_ids {task_id.user_ids}")
                 event_id.update_from_task(name=task_id.display_name,
                                           start_datetime=task_id.planned_date_begin,
-                                          stop_datetime=task_id.planned_date_end,
+                                          stop_datetime=task_id.date_end,
                                           user_id=user if user else task_id.user_id,
                                           user_ids=[x.id for x in task_id.user_ids],
                                           task_id=task_id,
@@ -67,7 +67,7 @@ class ProjectTask(models.Model):
         context = {'update_from_calendar_event': True}
         event_values = {
             'planned_date_begin': planned_date_begin,
-            'planned_date_end': planned_date_end,
+            'date_end': planned_date_end,
             'user_id': user_id.id,
             'user_ids': user_ids,
             'calendar_event_id': calendar_event_id.id,

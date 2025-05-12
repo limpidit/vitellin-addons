@@ -68,7 +68,7 @@
 
             <field name="partner_phone" position="after">
                 <field name="address_mobile" string="Mobile"  />
-                <!-- <field name="user_id" string="Assigné à"/> -->
+                <field name="user_id" string="Assigné à"/>
                 <field name="type_vehicule_str" string="Type véhicule"/>
             </field>
             
@@ -284,7 +284,7 @@
                 <field name="numero_chantier" optional="hide"/>
                 <field name="numero_semaine" string="N° Semaine" optional="show"/>
                 <field name="planned_date_begin" string="Date de début" optional="show"/>
-                <!-- <field name="user_id" optional="show"/> -->
+                <field name="user_id" optional="show"/>
                 <field name="project_id" optional="show"/>
                 <field name="code_postal_adresse_chantier" optional="show"/>
                 <field name="ville_adresse_chantier" optional="show"/>
