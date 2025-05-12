@@ -1,0 +1,3 @@
+"id","name","sequence","destination_batiments_ids/id"
+"secteur_activite_1","Résidentiel","1","cap_ref_models.activity_building_indiv,cap_ref_models.activity_building_collectif"
+"secteur_activite_2","Tertiaire","2","cap_ref_models.activity_building_sante,cap_ref_models.activity_building_office,cap_ref_models.activity_building_food,cap_ref_models.activity_building_other"

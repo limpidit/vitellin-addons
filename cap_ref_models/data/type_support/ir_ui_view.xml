@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="type_support_form_view" model="ir.ui.view">
+        <field name="name">type.support.form.view</field>
+        <field name="model">type.support</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_support_tree_view" model="ir.ui.view">
+        <field name="name">type.support.tree.view</field>
+        <field name="model">type.support</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_type_support" model="ir.actions.act_window">
+        <field name="name">Types de support</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">type.support</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
