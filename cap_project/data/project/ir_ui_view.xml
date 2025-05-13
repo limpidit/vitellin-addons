@@ -40,13 +40,11 @@
                         <h1>
                             <field name="name" placeholder="Nom du projet"/>
                         </h1>
-                        <div>
-                            <label for="project_status_id"/>
-                            <field name="project_status_id" options="{'no_create': True, 'no_open': True}"/>
-                        </div>
                     </div>
                     <group>
                         <group>
+                            <label for="project_status_id"/>
+                            <field name="project_status_id" options="{'no_create': True, 'no_open': True}"/>
                             <field name="user_id" readonly="not active"/>
                             <field name="partner_id" required="1"/>
 
