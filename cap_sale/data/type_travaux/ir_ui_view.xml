@@ -11,7 +11,7 @@
                 <group name="isolants_proposes" invisible="not typologie in ('iso_combles', 'iso_plancher', 'iso_calo')">
                     <group string="Isolants">
                         <field name="categories_isolants_ids">
-                            <tree>
+                            <tree editable="bottom">
                                 <field name="category_id"/>
                                 <field name="default_product_id"/>
                             </tree>
