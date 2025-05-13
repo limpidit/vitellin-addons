@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_generate_factures_oblige" model="ir.actions.server">
+        <field name="name">Générer factures obligé</field>
+        <field name="model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_generate_factures_oblige()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('cap_security.group_adv'))]"/>
+    </record>
+    <record id="action_action_marquer_dossier_envoye" model="ir.actions.server">
+        <field name="name">Marquer dossier comme envoyé</field>
+        <field name="model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_action_marquer_dossier_envoye()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('cap_security.group_adv'))]"/>
+    </record>
+    <record id="action_declarer_dossier_incomplet" model="ir.actions.server">
+        <field name="name">Déclarer dossier incomplet</field>
+        <field name="model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_declarer_dossier_incomplet()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('cap_security.group_adv'))]"/>
+    </record>
+    <record id="action_declarer_dossier_refuse" model="ir.actions.server">
+        <field name="name">Déclarer dossier refusé</field>
+        <field name="model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_declarer_dossier_refuse()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('cap_security.group_adv'))]"/>
+    </record>
+        <record id="action_annuler_cee" model="ir.actions.server">
+        <field name="name">Annuler dossier CEE</field>
+        <field name="model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_model_id" ref="cap_account.model_account_move"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_annuler_cee()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice')), (4, ref('cap_security.group_adv'))]"/>
+    </record>
+</odoo>
