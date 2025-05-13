@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_methodes_de_paiement" model="ir.actions.act_window">
+        <field name="name">Méthodes de paiement</field>
+        <field name="res_model">account.payment.method</field>
+        <field name='view_mode'>tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle méthode de paiement
+            </p>
+        </field>
+    </record>
+
+    <record id="methodes_de_paiement_tree_view" model="ir.ui.view">
+        <field name="name">account.payment.method.tree.view</field>
+        <field name="model">account.payment.method</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="payment_type" />
+                <field name="name" />
+                <field name="code" />
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="menu_methodes_de_paiement"
+        action="action_methodes_de_paiement"
+        parent='account.root_payment_menu' name="Méthodes de paiement"/>
+</odoo>

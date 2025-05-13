@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_oblige_wizard" model="ir.ui.view">
+        <field name="name">account.move.oblige.wizard</field>
+        <field name="model">account.move.oblige.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Générer facture(s) obligé">
+                <sheet>
+                    <group invisible="not error_msg">
+                        <div class="alert alert-danger" role="alert">
+                            <field name="error_msg" />
+                        </div>
+                    </group>
+
+                    <group>
+                        <field name="oblige_id" />
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="avec_acompte" widget="radio" options="{'horizontal': true}"/>
+
+                            <label for="acompte_montant_percentage" invisible="avec_acompte != 'pourcentage'"/>
+                            <div invisible="avec_acompte != 'pourcentage'">
+                                <field name="acompte_montant_percentage" required="avec_acompte == 'pourcentage'" invisible="avec_acompte != 'pourcentage'" class="oe_inline"/>
+                                <span invisible="avec_acompte != 'pourcentage'" class="oe_inline">%</span>
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Factures appelées">
+                        <field name="factures_client_ids" nolabel="1" >
+                            <tree decoration-danger="not oblige_id or not cee_financial or etape_cee != 'envoye_oblige' or state != 'posted'">
+                                <field name="name" optional="hide"/>
+                                <field name="project_id"/>
+                                <field name="oblige_id" />
+                                <field name="date_envoi_oblige" string="Date envoi" />
+                                <field name="cee_financial" optional="hide"/>
+                                <field name="invoice_partner_display_name" string="Client" />
+                                <field name="prime_cee_versee_client" string="Prime client" sum="Total"/>
+                                <field name="prime_cee_non_versee_client" string="Prime (HT) non versée"  sum="Total"/>
+                                <field name="mwhc" string="Mwhc"  sum="Total" optional="hide" />
+                                <field name="state" optional="hide"/>
+                                <field name="etape_cee" string="Etat CEE" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirmer" class="btn btn-primary" type="object" name="action_generate_factures_oblige"
+                        invisible="error_msg"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
