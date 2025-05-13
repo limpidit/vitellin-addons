@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Template du report -->
+    <template id="custom_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+
+        <!-- Toujours intituler le document "Devis" -->
+        <xpath expr="//div[hasclass('page')]/h2//span[contains(@t-elif,'doc.state in [')]" position="replace">
+            <span t-if="doc.state not in ['draft','sent']">Devis N°</span>
+        </xpath>
+
+        <!-- Ajout d'une colonne de coordonnées à gauche
+        Exemple :
+            Coordonnées :
+                Tél : 0605040302
+                Email : test@test.fr
+
+               SIRET : 47800554900033
+
+         -->
+        <xpath expr="//t[@t-set='address']" position="before">
+            <t t-set="information_block">
+                <div>
+                    <span t-field="doc.project_id.address_id.name"/>
+                    <span t-if="not doc.partner_id.is_company">
+                        <br/>
+                        <span t-field="doc.partner_id.appartenance_du_bien"/>
+                    </span>
+                    <span t-if="doc.project_id.address_id.mobile"><br/>Tél:
+                        <span t-field="doc.project_id.address_id.mobile"/>
+                    </span>
+                    <span t-if="doc.project_id.address_id.email"><br/>Email:
+                        <span t-field="doc.project_id.address_id.email"/>
+                    </span>
+                </div>
+                <div t-if="doc.partner_id.is_company">
+                    <span t-if="doc.partner_id != doc.project_id.address_id">
+                        <span t-esc="doc.partner_id.name"/>
+                        <br/>
+                    </span>
+                    <span>SIRET:</span>
+                    <span t-if="doc.partner_id.is_company" t-esc="doc.partner_id.siret"/>
+                </div>
+            </t>
+        </xpath>
+
+        <!-- Ajouter le champ "Représenté par" au dessus de l'adresse client dans le cadre d'une COPRO
+        Exemple :
+                                                                        SDC DOMAINE DE CYRANO
+                                                                        REPRESENTE PAR
+                                                                        MME CORINNE BLANCHARD,
+                                                                        PRINCIPALE DE COPROPRIETES
+                                                                        FONCIA FABRE GIBERT
+                                                                        34 BOULEVARD SAINT MICHEL
+                                                                        84000 AVIGNON
+                                                                        France
+        -->
+        <xpath expr="//t[@t-set='address']/div" position="before">
+            <div t-if="doc.project_id.is_copro and doc.represente_par">
+                <span t-esc="doc.project_id.address_id.name"/>
+                <br/>
+                REPRESENTE PAR
+                <span t-field="doc.represente_par"/>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-set='address']/div[@t-field='doc.partner_id']" position="replace">
+            <div t-field="doc.partner_id"
+                 t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+        </xpath>
+
+        <!-- Ajouter la date de la visite technique
+        Exemple de rendu :
+        Date visite technique:      Date du devis :     Vendeur :
+        16/12/2020                  16/12/2020          Administrator
+        -->
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Référence:</strong>
+                    <p class="m-0" t-field="doc.client_order_ref"/>
+                </div>
+                <div t-if="doc.date_generation_devis" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Date devis:</strong>
+                    <p class="m-0" t-field="doc.date_generation_devis" t-options='{"widget": "date"}'/>
+                </div>
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2"
+                     name="expiration_date">
+                    <strong>Expire le:</strong>
+                    <p class="m-0" t-field="doc.validity_date"/>
+                </div>
+                <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Commercial:</strong>
+                    <p class="m-0" t-field="doc.user_id"/>
+                </div>
+            </div>
+            <div class="row mt0 mb32" id="informations_specifiques">
+                <div t-if="doc.project_id" class="col-auto mw-100 mb-2">
+                    <strong>Projet:</strong>
+                    <p class="m-0" t-field="doc.project_id"/>
+                </div>
+                <div t-if="doc.date_visite_technique" class="col-auto mw-100 mb-2">
+                    <strong>Date visite technique:</strong>
+                    <p class="m-0" t-field="doc.date_visite_technique" t-options='{"widget": "date"}'/>
+                </div>
+                <div t-if="doc.origin_zone_ids" class="col-auto mw-100 mb-2">
+                    <strong>Type(s) de travaux:</strong>
+                    <t t-set="type_travaux_ids" t-value="'\n'.join(doc.mapped('origin_zone_ids.type_travaux.name'))"/>
+                    <p class="m-0" t-esc="type_travaux_ids"/>
+                </div>
+                <div t-if="doc.project_id.parcelle_cadastrale" class="col-auto mw-100 mb-2">
+                    <strong>Parcelle cadastrale:</strong>
+                    <p class="m-0" t-field="doc.project_id.parcelle_cadastrale"/>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Ne pas afficher la prime dans la liste des articles -->
+        <xpath expr="//t[@t-foreach='lines_to_report']" position="attributes">
+            <attribute name="t-foreach">doc.order_lines_cee_excluded</attribute>
+        </xpath>
+		
+		
+        <!-- TODO Limpid : Comment arranger cette merde -->
+        <!-- Le sous-total ne doit pas tenir compte de la prime qui sera affichée plus loin -->
+			<!-- Modif Julie : enlever le montant de la prime renov du sous-total -->
+        <!-- <xpath expr="//td[@name='td_amount_untaxed']/span" position="replace">
+            <t t-set="amount_untaxed" t-value="doc.amount_untaxed + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
+            <span t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+        </xpath> -->
+        <!-- Le total ne doit pas tenir compte de la prime qui sera affichée plus loin -->
+			<!-- Modif Julie : enlever le montant de la prime renov du total -->
+		<!-- <xpath expr="//td[@name='td_amount_total']/span" position="replace">
+            <t t-set="amount_total" t-value="doc.amount_total + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
+            <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+        </xpath> -->
+
+        <!-- Afficher une colonne supplémentaire : le prix catalogue -->
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <t t-if="not print_without_prix_catalogue">
+            <th name="th_quantity" class="text-right">Prix catalogue</th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="after">
+            <t t-if="not print_without_prix_catalogue">
+                 <td name="td_prix_catalogue" class="text-right">
+                <span t-field="line.prix_catalogue"
+                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+            </td>
+            </t>
+
+        </xpath>
+        <!--
+            Lorsque le produit correspond à un isolant, remplacer :
+                * la quantité par la surface
+                * la prix unitaire par le résultat du calcul suivant : prix_surfacique = prix_unit * quantite / surface
+        -->
+        <xpath expr="//td[@name='td_quantity']" position="replace">
+            <td name="td_quantity" class="text-right">
+                <t t-if="line.isolant_alternative_id or line.origin_line_id.isolant_alternative_id">
+                    <span t-field="line.surface_m2"/>
+                    <span>m²</span>
+                </t>
+                <t t-else="">
+                    <span t-field="line.product_uom_qty"/>
+                    <span t-field="line.product_uom" groups="uom.group_uom"/>
+                </t>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_priceunit']" position="replace">
+            <td name="td_priceunit" class="text-right">
+                <t t-if="line.isolant_alternative_id or line.origin_line_id.isolant_alternative_id">
+                    <span t-field="line.prix_surfacique"
+                          t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </t>
+                <t t-else="">
+                    <span t-field="line.price_unit"
+                          t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                </t>
+            </td>
+        </xpath>
+
+        <!-- Affichage de la prime dans un bloc dédié -->
+			<!-- Modif Julie : Ajout de la prime renov dans le tableau de la prime cee -->
+		<xpath expr="//div[hasclass('clearfix')]" position="after">
+            <table class="table table-sm mt-3">
+                <tbody class="sale_tbody">
+                    <t t-if="doc.prime_cee_versee_client">
+						<t t-foreach="doc.order_line.filtered(lambda l: l.product_id == doc.company_id.prime_cee_wo_tva_product_id)"
+						   t-as="prime_line">
+							<tr>
+								<td>
+									<span style="font-size: 0.8em">
+										<span t-field="prime_line.name"/>
+									</span>
+								</td>
+								<td class="text-right">
+									<span t-field="prime_line.price_subtotal"
+										  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+								</td>
+							</tr>
+						</t>
+					</t>
+					<t t-if="doc.prime_renov_versee_client">	
+						<t t-foreach="doc.order_line.filtered(lambda l: l.product_id == doc.company_id.prime_renov_wo_tva_product_id)"
+						   t-as="prime_renov_line">
+							<tr>
+								<td>
+									<span style="font-size: 0.8em">
+										<span t-field="prime_renov_line.name"/>
+									</span>
+								</td>
+								<td class="text-right">
+									<span t-field="prime_renov_line.price_subtotal"
+										  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+								</td>
+							</tr>
+						</t>
+					</t>
+                </tbody>
+            </table>
+
+            <div class="clearfix" name="so_total_avec_prime_summary" t-if="doc.prime_cee_versee_client or doc.prime_renov_versee_client">
+                <div id="total_avec_prime" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_total">
+                                <td name="td_amount_total_label">
+                                    <strong>Net à payer</strong>
+                                </td>
+                                <td name="td_amount_total" class="text-right">
+                                    <span t-field="doc.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Ajout d'une mention en cas d'absence de TVA -->
+        <xpath expr="//div[@name='so_total_summary']" position="before">
+            <div t-if="doc.amount_total == doc.amount_untaxed" name="so_mention_no_tva" style="font-size: 0.8em">
+                <p>
+                    Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
+                    secteur du bâtiment selon le 2 nonies de l'article 283 du code général des impôts.
+                </p>
+            </div>
+        </xpath>
+
+        <!-- Ajout d'un bloc de type "Pour Everest Isolation:
+            Pour SDC DOMAINE DE CYRANO REPRESENTE PAR MME CORINNE BLANCHARD, PRINCIPALE DE COPROPRIETES :
+            (Bon pour accord, signature)
+            Le :
+        "-->
+        <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+            <div style="font-size: 0.8em">
+                <!-- Ajout d'une mention obligatoire concernant la société de médiation -->
+                <p t-if="doc.company_id.mediateur_mention_obligatoire and not doc.partner_id.is_company"
+                   style="page-break-inside: avoid;" t-field="doc.company_id.mediateur_mention_obligatoire"/>
+            </div>
+            <div name="so_signature" style="page-break-inside: avoid; font-size: 0.8em;">
+                <p class="pull-right">
+                    Pour
+                    <t t-if="doc.project_id.is_copro and doc.represente_par">
+                        <b>
+                            <span t-esc="doc.project_id.address_id.name"/>
+                        </b>
+                        représenté par
+                    </t>
+                    <t t-set="signataire" t-value="doc.represente_par or doc.partner_id.name"/>
+                    <b>
+                        <span t-esc="signataire"/>
+                    </b>
+                    :
+                    <br/>
+                    (Bon pour accord, Nom et Prénom, Signature)
+                    <br/>
+                    Le:
+                    <br/>
+                    <br/>
+                    <br/>
+                </p>
+            </div>
+        </xpath>
+
+        <xpath expr="//td[@name='td_quantity']" position="attributes">
+            <attribute name="style">white-space: nowrap;</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+            <attribute name="style">white-space: nowrap;</attribute>
+        </xpath>
+
+    </template>
+
+
+    <template id="report_sale_order_without_prix">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="lang"
+                   t-value="doc.partner_id.sudo().lang"/>
+                <t t-set="print_without_prix_catalogue" t-value="True"/>
+                <t t-call="cap_sale.custom_report_saleorder_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_forcer_date_commande" model="ir.actions.server">
+        <field name="name">Forcer la date de commande</field>
+        <field name="groups_id" eval="[(4, ref('cap_security.group_admin_fonc'))]"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_forcer_date_commande()</field>
+    </record>
+
+    <record id="action_print_order_and_additional_files" model="ir.actions.server">
+        <field name="name">Imprimer Devis/Commande et fichiers joints</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_print_order_and_additional_files()</field>
+    </record>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_print_order" model="ir.ui.view">
+        <field name="name">wizard.print.order</field>
+        <field name="model">wizard.print.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="sale_order_id" invisible="1" />
+
+                    <group>
+                        <field name="type_impression" widget="radio" required="1"/>
+                    </group>
+                    <group>
+                        <button string="Télécharger PDF" class="btn btn-primary" type="object" name="action_print" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Fermer" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
