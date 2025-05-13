@@ -43,7 +43,6 @@
                     </div>
                     <group>
                         <group>
-                            <label for="project_status_id"/>
                             <field name="project_status_id" options="{'no_create': True, 'no_open': True}"/>
                             <field name="user_id" readonly="not active"/>
                             <field name="partner_id" required="1"/>
