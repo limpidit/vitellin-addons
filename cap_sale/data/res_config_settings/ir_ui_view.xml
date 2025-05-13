@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <!-- A l'intérieur du bloc "Tarifs" -->
+            <xpath expr="//block[2]" position="inside">
+                <setting id="escompte_automatique" string="Escompte automatique" help="Introduction automatique d'un escompte si le montant restant dû est inférieur ou égal au seuil indiqué.">
+                    <field name="escompte_seuil_max"/>
+                    <field name="escompte_product_id" context="{'default_type': 'service', 'default_company_id': company_id}"/>
+                </setting>
+                <setting id="marge_brute_2" string="Marge brute 2" help="Définir le coût de la main d'oeuvre pour calculer la marge brute 2.">
+                    <field name="cout_horaire_main_oeuvre"/>
+                </setting>
+                <setting id="default_primes" string="Primes" help="Articles de prime CEE utilisés dans les devis et factures">
+                    <field name="prime_cee_w_tva_product_id" context="{'default_type': 'service', 'default_company_id': company_id}"/>
+                    <field name="prime_cee_wo_tva_product_id" context="{'default_type': 'service', 'default_company_id': company_id}"/>
+                </setting>
+            </xpath>
+            
+            <xpath expr="//block[@name='quotation_order_setting_container']" position="inside">
+                <setting id="proffessional_complementary_pdf" string="PDFs complémentaires pour les professionnels" help="Documents complémentaires à imprimer lors de l'édition PDF.">
+                    <field name="additional_pdf_files_pro" widget="many2many_binary"/>
+                </setting>
+                <setting id="individual_complementary_pdf" string="PDFs complémentaires pour les particuliers" help="Documents complémentaires à imprimer lors de l'édition PDF.">
+                    <field name="additional_pdf_files_indiv" widget="many2many_binary"/>            
+                </setting>
+            </xpath>            
+        </field>
+    </record>
+
+    <record id="account_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//block[@name='default_taxes_setting_container']" position="before">
+                <block title="Positions fiscales" name="default_fiscal_positions_setting_container">
+                    <setting id="renovation" string="Rénovation" help="Positions fiscales à utiliser pour un chantier en rénovation.">
+                        <div class="row mt16">
+                            <label for="renovation_sans_cee_fiscal_position_id" string="Sans CEE" class="col-lg-5 o_light_label"/>
+                            <field name="renovation_sans_cee_fiscal_position_id" domain="[('company_id', '=', company_id)]"/>
+                        </div>
+                        <div class="row mt16">
+                            <label for="renovation_avec_cee_fiscal_position_id" string="Avec CEE" class="col-lg-5 o_light_label"/>
+                            <field name="renovation_avec_cee_fiscal_position_id" domain="[('company_id', '=', company_id)]"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+
+            <xpath expr="//block[@name='default_taxes_setting_container']/setting/div" position="inside">
+                <div class="row mt16">
+                    <label string="Taxe à la vente (applicable aux CEE)" for="sale_cee_tax_id" class="col-lg-3 o_light_label"/>
+                    <field name="sale_cee_tax_id" domain="[('type_tax_use', 'in', ('sale', 'all')), ('company_id', '=', company_id)]"/>
+                </div>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

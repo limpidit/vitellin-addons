@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_pricelist_item_tree_view" model="ir.ui.view">
+        <field name="name">product.pricelist.item.tree.view</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="product_tmpl_id" string="Produits" required="1"/>
+                <field name="product_id" string="Variantes" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create':1}"/>
+                <field name="min_quantity"/>
+                <field name="fixed_price" string="Prix"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="pricelist_id" invisible="1"/>
+                <!-- Pricelist ID is here only for related fields to be correctly computed -->
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="base" invisible="1"/>
+                <field name="applied_on" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_form_view" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form.view</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">0</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_search_view" model="ir.ui.view">
+        <field name="name">product.pricelist.item.search.view</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_view_search"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='Product Rule']" position="attributes">
+                <attribute name="string">Applicable à un produit</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='Variant Rule']" position="attributes">
+                <attribute name="string">Applicable à une variante</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_product_pricelist_item" model="ir.actions.act_window">
+        <field name="name">Historique des liste des prix</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist.item</field>
+        <field name="view_id" ref="product_pricelist_item_tree_view" />
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_groupby_vendor': 1}</field>
+    </record>
+
+    <menuitem id="menu_product_pricelist_item"
+        action="action_product_pricelist_item"
+        name="Historique des liste des prix" parent="sale.product_menu_catalog"
+        sequence="13"/>
+</odoo>

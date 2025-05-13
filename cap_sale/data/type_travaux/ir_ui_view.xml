@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="type_travaux_form_view" model="ir.ui.view">
+        <field name="name">type.travaux.form.view</field>
+        <field name="model">type.travaux</field>
+        <field name="inherit_id" ref="cap_ref_models.type_travaux_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <h2 name="generation_devis">Génération du devis</h2>
+                
+                <!-- Combles -->
+                <group name="isolants_proposes" invisible="not typologie == 'iso_combles'">
+                    <group string="Isolants">
+                        <field name="categories_isolants_ids" nolabel="1"/>
+                    </group>
+                </group>
+                <group string="Main d'oeuvre" invisible="not typologie == 'iso_combles'">
+                    <group>
+                        <field name="main_oeuvre_product_id" string="Article"/>
+                    </group>
+                </group>
+                <group string="Accès chantier" invisible="not typologie == 'iso_combles'">
+                    <group>
+                        <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                        <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                        <field name="acces_difficile_product_id" string="Article accès difficile"/>
+                    </group>
+                </group>
+                <group name="combles" invisible="not typologie == 'iso_combles'">
+                    <group string="Trappes">
+                        <field name="traitement_trappe_product_ids" string="Traitements possibles">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Ecarts au feu">
+                        <field name="ecart_au_feu_product_id" string="Article"/>
+                    </group>
+                    <group string="Spots à protéger">
+                        <field name="spot_product_id" string="Article"/>
+                    </group>
+                    <group string="Autres articles">
+                        <field name="traitement_charpente_product_id"/>
+                        <field name="pose_pare_vapeur_product_ids" string="Pare vapeur">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="ml_deflecteur_product_id" string="Déflecteur"/>
+                        <field name="isolant_a_enlever_product_ids">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="encombrant_a_enlever_product_id" string="Encombrant à enlever"/>
+                        <field name="detuilage_product_id" string="Détuilage"/>
+                        <field name="intervention_en_hauteur_product_id" string="Intervention en hauteur"/>
+                        <field name="remise_en_place_isolant_product_id" string="Remise en place isolant"/>
+                        <field name="traitement_antirongeur_product_id" string="Traitement anti-rongeur"/>
+                        <field name="platelage_product_id" string="Article de platelage"/>
+                        <field name="chemin_vie_product_id" string="Article de chemin de vie"/>
+                        <field name="retenue_isolant_product_ids">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="delignement_plancher_product_id" string="Article de délignement de plancher"/>
+                    </group>
+                </group>
+                
+                <!-- Planchers bas -->
+                <group name="isolants_proposes" invisible="not typologie == 'iso_plancher'">
+                    <group string="Isolants">
+                        <field name="categories_isolants_ids" nolabel="1"/>
+                    </group>
+                </group>
+                <group string="Main d'oeuvre" invisible="not typologie == 'iso_plancher'">
+                    <group>
+                        <field name="main_oeuvre_product_id" string="Article"/>
+                    </group>
+                </group>
+                <group string="Accès chantier" invisible="not typologie == 'iso_plancher'">
+                    <group>
+                        <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                        <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                        <field name="acces_difficile_product_id" string="Article accès difficile"/>
+                    </group>
+                </group>
+                <group name="plancher_bas" invisible="not typologie == 'iso_plancher'">
+                    <group string="Articles">
+                        <field name="depose_luminaire_product_id" string="Dépose de luminaire"/>
+                        <field name="isolant_a_enlever_product_ids">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="encombrant_a_enlever_product_id" string="Encombrant à enlever"/>
+                        <field name="intervention_en_hauteur_product_id" string="Intervention en hauteur"/>
+                        <field name="majoration_support_dalle_product_id" string="Majoration support dalle"/>
+                    </group>
+                </group>
+
+                <!-- Calorifugeage -->
+                <group name="isolants_proposes" invisible="not typologie == 'iso_calo'">
+                    <group string="Isolants">
+                        <field name="categories_isolants_ids" nolabel="1"/>
+                    </group>
+                </group>
+                <group string="Main d'oeuvre" invisible="not typologie == 'iso_calo'">
+                    <group>
+                        <field name="main_oeuvre_product_id" string="Article"/>
+                    </group>
+                </group>
+                <group string="Accès chantier" invisible="not typologie == 'iso_calo'">
+                    <group>
+                        <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                        <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                        <field name="acces_difficile_product_id" string="Article accès difficile"/>
+                    </group>
+                </group>
+                <group name="calorifugeage" invisible="not typologie == 'iso_calo'">
+                    <group string="Articles">
+                        <field name="isolant_a_enlever_product_ids">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                        <field name="encombrant_a_enlever_product_id" string="Encombrant à enlever"/>
+                        <field name="intervention_en_hauteur_product_id" string="Intervention en hauteur"/>
+                        <field name="control_confrac_product_id" string="Contrôle CONFRAC"/>
+                    </group>
+                </group>
+
+                <!-- ITI (Isolation des murs par l'intérieur) -->
+                <group name="isolation_iti" invisible="not typologie == 'iso_iti'">
+                    <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                    <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                    <field name="isolant_ids" string="Type d'isolant"/>
+                    <field name="ossature_ids" string="Type d'ossature"/>
+                    <field name="parevapeur_ids" string="Pare vapeur"/>
+                    <field name="majoration_ids" string="Majoration plaque spécifique"/>
+                    <field name="joints_ids" string="Joints"/>
+                    <field name="poncage_ids" string="Ponçage"/>
+                    <field name="peinture_ids" string="Peinture"/>
+                    <field name="depose_ids" string="Traitement points particuliers"/>
+                    <field name="traitementeveils_ids" string="Traitement des éveils"/>
+                </group>
+                
+                <!-- Isolation des murs par l'extérieur (ITE) -->
+                <group name="isolation_ite" invisible="not typologie == 'iso_ite'">
+                    <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                    <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                    <field name="nettoyage_ids" string="Nettoyage support"/>
+                    <field name="majoration_zone_ids" string="Majoration surface zone choc"/>
+                    <field name="echafaudage_ids" string="Echafaudage"/>
+                    <field name="type_isolant_ids" string="Type d'isolant"/>
+                    <field name="type_finition_ids" string="Type de finition"/>
+                    <field name="rail_depart_ids" string="Rail de départ"/>
+                    <field name="arret_lateral_ids" string="Arrêt latéral"/>
+                    <field name="angle_mur_ids" string="Angle de mur"/>
+                    <field name="couvertine_ids" string="Couvertine"/>
+                    <field name="gond_deporte_ids" string="Gonds à déporter"/>
+                    <field name="arret_fenetre_ids" string="Arrêt hauts / arrêt bas de fenêtre"/>
+                    <field name="arret_marseillais_ids" string="Arrêt marseillais"/>
+                    <field name="embrasure_ids" string="Embrasures de fenêtres"/>
+                    <field name="seuil_type_ids" string="Type de seuil de fenêtre"/>
+                    <field name="grille_aeration_ids" string="Grilles d'aération"/>
+                    <field name="goutiere_deporte_ids" string="Goutière d'eau à déporter"/>
+                    <field name="point_lumineux_ids" string="Point lumineux"/>
+                    <field name="point_lourd_deporte_ids" string="Points lourds à déporter"/>
+                    <field name="deporte_client_ids" string="Elements déportés par le client"/>
+                </group>
+
+                <!-- VMC -->
+                <group invisible="not typologie == 'vmc'">
+                    <field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                    <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                    <field name="evacuation_ids" string="Article à évacuer"/>
+					<field name="choix_bloc_vmc_ids" string="Choix du bloc VMC"/>
+					<field name="bouche_sanitaire_ids" string="Fourniture et pose bouche sanitaire"/>
+					<field name="bouche_cuisine_ids" string="Fourniture et pose bouche cuisine" />
+					<field name="fourniture_gaine_isolee_80_id" string="Fourniture et pose de gaine isolée 80 mm" />					
+					<field name="fourniture_gaine_isolee_120_id" string="Fourniture et pose de gaine isolée 120 mm"/>
+					<field name="fourniture_gaine_isolee_160_id" string="Fourniture et pose de gaine isolée 160 mm" />
+					<field name="grille_entree_air_id" string="Grille d''entrée d'air" />
+					<field name="arrive_elec_ids" string="Création d'une arrivée électrique"/>
+					<field name="bouche_supp_ids" string="Création d'une bouche supplémentaire" />
+					<field name="extraction_toiture_ids" string="Extraction VMC en toiture" />
+                </group>
+
+                <!-- Autres -->
+				<group invisible="not typologie == 'autres'">
+					<field name="reservation_stationnement_product_id" string="Article réservation de stationnement"/>
+                    <field name="installation_product_id" string="Installation / Protection / Approvisionnement chantier"/>
+                    <field name="article_autre_ids" string="Article"/>
+				</group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

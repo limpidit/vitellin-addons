@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_force_date_order" model="ir.ui.view">
+        <field name="name">wizard.force.date.order</field>
+        <field name="model">wizard.force.date.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="sale_order_ids" invisible="1" />
+                    <group invisible="not error_msg">
+                        <div class="alert alert-danger" role="alert">
+                            <field name="error_msg" />
+                        </div>
+                    </group>
+
+                    <group string="Date de commande">
+                        <field name="date_commande" string="Date de commande" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirmer" class="btn btn-primary" type="object" name="action_forcer_date_commande" invisible="error_msg"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

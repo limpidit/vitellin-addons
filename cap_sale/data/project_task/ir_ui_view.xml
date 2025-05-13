@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_view_tree_chantier" model="ir.ui.view">
+        <field name="name">project.task.tree.chantier</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="cap_industry_fsm.project_task_view_tree_chantier"/>
+        <field name="arch" type="xml">
+            <field name="type_travaux_ids" position="before">
+                <field name="surface_estimee" optional="show"/>
+                <field name="type_vehicule_ids" widget="many2many_tags" optional="show"/>
+            </field>
+            <field name="type_travaux_ids" position="after">
+                <field name="enlevement_isolant_requis" optional="show"/>
+                <field name="nombre_spots" optional="show"/>
+                <field name="nombre_trappes" optional="show"/>
+                <field name="nombre_ecarts_au_feu" optional="show"/>
+                <field name="nombre_detuilages" optional="show"/>
+            </field>
+            <field name="stage_id" position="after">
+                <button name="action_voir_commande" type="object" class="btn btn-sm btn-secondary" string="Détail" />
+            </field>
+            <field name="acces_chantier" position="after">
+                <field name="commentaires" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_map_view" model="ir.ui.view">
+        <field name="name">project.task.view.map</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="cap_industry_fsm.project_task_map_view"/>
+        <field name="arch" type="xml">
+            <field name="date_debut_intervention" position="before">
+                <field name="commentaires" string="Commentaires"/>
+            </field>
+        </field>
+    </record>
+    
+</odoo>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="certificate_ee_form_view" model="ir.ui.view">
+        <field name="name">certificate.ee.form.view</field>
+        <field name="model">certificate.ee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="oblige_id" context="{'default_is_oblige': True, 'default_company_type': 'company'}" options="{'no_create': True}"/>
+                            <field name="type_travaux" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="numero_fiche" />
+                            <field name="secteur_activite"  options="{'no_create': True, 'no_open': True}"/>
+                            <field name="type_batiment"     options="{'no_create': True, 'no_open': True}" invisible="not secteur_activite"/>
+                            <field name="type_precarite" />
+                            <field name="type_chauffage" />
+                            <field name="departement_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="coef_precarite_qppv" />
+                            <field name="is_qppv" />
+                            <field name="zone_climatique" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="company_id"/>
+                        </group>
+
+                        <group>
+                            <label for="date_debut_validite" string="Période de validité"/>
+                            <div class="w-100">
+                                <div class="o_row">
+                                    <field name="date_debut_validite" widget="daterange" options='{"related_end_date": "date_fin_validite"}'/>
+                                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                    <field name="date_fin_validite" widget="daterange" options='{"related_start_date": "date_debut_validite"}'/>
+                                </div>
+                            </div>
+
+                            <field name="volume_en_MWhc_par_m2" />
+                            <table class="table table-sm text-center" colspan="2">
+                                <thead>
+                                    <tr style="border-top: hidden;">
+                                        <th scope="col"></th>
+                                        <th scope="col" class="table-active col-4">Versé au client</th>
+                                        <th scope="col" class="table-active col-4">Non versé</th>
+                                        <th scope="col" class="table-active col-4">Total</th>
+                                    </tr>
+                                  </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="table-active col-4">Prix obligé en €/MWhc</td>
+                                        <td><field name="prix_oblige_en_eur_par_MWhc_verse_client" nolabel="1" class="oe_inline"/></td>
+                                        <td><field name="prix_oblige_en_eur_par_MWhc_non_verse" nolabel="1" class="oe_inline"/></td>
+                                        <td><field name="prix_oblige_en_eur_par_MWhc" nolabel="1" class="oe_inline"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-active col-4">Prix obligé en €/m²</td>
+                                        <td><field name="prix_au_m2_verse_client" nolabel="1" class="oe_inline"/></td>
+                                        <td><field name="prix_au_m2_non_verse" nolabel="1" class="oe_inline"/></td>
+                                        <td><field name="prix_au_m2" nolabel="1" class="oe_inline"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="certificate_ee_tree_view" model="ir.ui.view">
+        <field name="name">certificate.ee.tree.view</field>
+        <field name="model">certificate.ee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="oblige_id"/>
+                <field name="type_travaux" />
+                <field name="numero_fiche" />
+                <field name="secteur_activite" />
+                <field name="type_batiment" />
+                <field name="type_precarite" />
+                <field name="type_chauffage" />
+                <field name="date_debut_validite" />
+                <field name="date_fin_validite" />
+                <field name="departement_id" />
+                <field name="coef_precarite_qppv" />
+                <field name="is_qppv" />
+                <field name="zone_climatique" />
+                <field name="volume_en_MWhc_par_m2" />
+                <field name="prix_oblige_en_eur_par_MWhc" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_certificate_ee" model="ir.actions.act_window">
+        <field name="name">Certificats d'économies d'énergie</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">certificate.ee</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_certificate_ee"
+        action="action_certificate_ee"
+        name="Certificats d'économies d'énergie" parent="sale.menu_sale_config"
+        sequence="11"/>
+</odoo>

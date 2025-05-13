@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_zone_order_wizard_form_view" model="ir.ui.view">
+        <field name="name">project.task.zone.order.wizard.form.view</field>
+        <field name="model">project.task.zone.order.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Générer un devis">
+                <sheet>
+                    <field name="financement_cee" invisible="1" />
+
+                    <group invisible="not error_msg">
+                        <div class="alert alert-danger" role="alert">
+                            <field name="error_msg"     readonly="1"/>
+                        </div>
+                    </group>
+
+                    <group>
+                        <field name="project_id"  readonly="1" options="{'no_open': True}"/>
+                        <field name="oblige_id" class="oe_inline" invisible="not financement_cee" required="financement_cee"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group string="Zones concernées">
+                        <field name="zones_ids"     nolabel="1"     readonly="1">
+                            <tree>
+                                <field name="batiment_id"/>
+                                <field name="entree_id"/>
+                                <field name="name"/>
+                                <field name="type_travaux"/>
+                                <field name="financement_cee"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <button string="Confirmer" class="btn btn-primary" type="object" name="action_generate_sale_order" invisible="error_msg"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
