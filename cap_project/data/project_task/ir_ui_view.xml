@@ -44,14 +44,14 @@
                 <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
             </field>
 
-            <field name="project_id" position="after">
+            <xpath expr="//sheet/group/group/field[@name='project_id']" position="after">
                 <field name="disponibilite_client" />
                 <field name="en_attente"/>
                 <field name="vehicule" invisible="type_tache != 'chantier'" options="{'no_create': True, 'no_edit': True, 'no_open': 'True'}"/>
                 <field name="non_realisable" invisible="type_tache == 'chantier'"/>
                 <field name="motif_non_realisation" required="non_realisable"
                     invisible="type_tache == 'chantier' or not non_realisable"/>
-            </field>
+            </xpath>
 
             <field name="project_id" position="attributes">
                 <attribute name="readonly">type_tache == 'chantier'</attribute>
