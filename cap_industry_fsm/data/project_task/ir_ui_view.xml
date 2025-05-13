@@ -12,11 +12,11 @@
                 <button name="go_to_folder" string="Consulter dossier" type="object" icon="fa-file-text" class="oe_read_only"/>
             </header>
 
-            <field name="project_id" position="after">
+            <xpath expr="//sheet/group/group/field[@name='project_id']" position="after">
                 <field name="numero_chantier" invisible="type_tache != 'chantier'"/>
                 <field name="numero_semaine" />
                 <field name="planned_hours" widget="float_time" />
-            </field>
+            </xpath>
         </field>
     </record>
 
