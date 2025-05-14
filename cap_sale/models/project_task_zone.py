@@ -50,7 +50,7 @@ class Zone(models.Model):
 
     def get_fiscal_position_id(self):
         self.ensure_one()
-        partner_fiscal_position_id = self.env['account.fiscal.position'].sudo()._get_fiscal_position(self.project_id.partner_id.id)
+        partner_fiscal_position_id = self.env['account.fiscal.position'].sudo()._get_fiscal_position(self.project_id.partner_id)
         if partner_fiscal_position_id:
             return partner_fiscal_position_id.id
         if self.project_id.typology == 'renovation':
