@@ -204,31 +204,30 @@ class Zone(models.Model):
     deporte_client_product_ids = fields.Many2many(string="Eléments déportés par le client", comodel_name='product.product', store="True")
     desc_element_deporte_client = fields.Char(string='Description')
 
-    # TODO : Corriger dépendance cap_sale
-    # @api.depends('type_travaux')
-    # def compute_parois_autorisees(self):
-    #     for record in self:
-    #         record.parois_autorisees = record.type_travaux.paroi_product_ids
+    @api.depends('type_travaux')
+    def compute_parois_autorisees(self):
+        for record in self:
+            record.parois_autorisees = record.type_travaux.paroi_product_ids
 
-    # @api.depends('type_travaux')
-    # def compute_pare_vapeur_autorises(self):
-    #     for record in self:
-    #         record.pare_vapeur_autorises = record.type_travaux.pose_pare_vapeur_product_ids
+    @api.depends('type_travaux')
+    def compute_pare_vapeur_autorises(self):
+        for record in self:
+            record.pare_vapeur_autorises = record.type_travaux.pose_pare_vapeur_product_ids
 
-    # @api.depends('type_travaux')
-    # def compute_retenue_isolant_autorises(self):
-    #     for record in self:
-    #         record.retenue_isolant_autorises = record.type_travaux.retenue_isolant_product_ids
+    @api.depends('type_travaux')
+    def compute_retenue_isolant_autorises(self):
+        for record in self:
+            record.retenue_isolant_autorises = record.type_travaux.retenue_isolant_product_ids
 
-    # @api.depends('type_travaux')
-    # def compute_isolant_a_enlever_autorises(self):
-    #     for record in self:
-    #         record.isolant_a_enlever_autorises = record.type_travaux.isolant_a_enlever_product_ids
+    @api.depends('type_travaux')
+    def compute_isolant_a_enlever_autorises(self):
+        for record in self:
+            record.isolant_a_enlever_autorises = record.type_travaux.isolant_a_enlever_product_ids
 
-    # @api.depends('type_travaux')
-    # def compute_traitements_trappe_autorises(self):
-    #     for record in self:
-    #         record.traitements_trappe_autorises = record.type_travaux.traitement_trappe_product_ids
+    @api.depends('type_travaux')
+    def compute_traitements_trappe_autorises(self):
+        for record in self:
+            record.traitements_trappe_autorises = record.type_travaux.traitement_trappe_product_ids
 
     def _get_document_folder(self):
         return self.project_id.document_folder_id

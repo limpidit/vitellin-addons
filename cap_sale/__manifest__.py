@@ -41,7 +41,6 @@
         'data/res_company/ir_ui_view.xml',
         'data/product_pricelist_item/ir_ui_view.xml',
         'data/project_task/ir_ui_view.xml',
-        'data/project_task_zone/ir_actions_server.xml',
         'data/project_task_zone/ir_ui_view.xml',
         'data/project_task_zone_order_wizard/ir_ui_view.xml',
         'data/project_task_zone_order_wizard/ir_model_access.xml',
