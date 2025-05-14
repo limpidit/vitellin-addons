@@ -292,8 +292,8 @@ class Zone(models.Model):
             'fiscal_position_id': zone_de_reference.get_fiscal_position_id(),
         })
         sale_order_id.ajouter_main_oeuvre()
-        sale_order_id.onchange_partner_id()
-        sale_order_id._compute_tax_id()
+        sale_order_id._onchange_partner_id()
+        sale_order_id._recompute_taxes()
         sale_order_id.order_line.build_description()
         sale_order_id._onchange_commitment_date()
 
