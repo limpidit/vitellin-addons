@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { CalendarFilterPanel } from "@web/static/src/views/calendar/filter_panel/calendar_filter_panel";
+import { CalendarFilterPanel } from "@web/views/calendar/filter_panel/calendar_filter_panel";
 import { onMounted } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 
