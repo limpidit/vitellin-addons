@@ -48,6 +48,7 @@
                 <field name="project_id" string="Projet" />
                 <field name="date_debut_intervention" string="Date souhaitée"/>
                 <field name="type_travaux_str" string="Type de travaux"/>
+                <field name="type_vehicule_str" string="Type véhicule"/>
             </map>
             
             <field name="planned_date_begin" position="replace" />
