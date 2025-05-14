@@ -19,6 +19,13 @@
         <field name="model">project.task.zone</field>
         <field name="inherit_id" ref="cap_project.project_task_zone_tree_view" />
         <field name="arch" type="xml">
+            <field name="project_id" position="before">
+                <header>
+                    <button name="action_generate_sale_order" type="object" class="btn-primary"
+                        groups="sales_team.group_sale_salesman" string="Générer un devis"/>
+                </header>
+            </field>
+
             <field name="type_travaux" position="after">
                 <field name="sale_order_ids" groups="sales_team.group_sale_salesman" widget="many2many_tags"/>
             </field>
