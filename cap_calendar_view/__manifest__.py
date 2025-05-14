@@ -14,7 +14,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'cap_calendar_view/static/src/js/calendar_renderer.js',
+            'cap_calendar_view/static/src/js/calendar_filter_panel.js',
         ],
     },
     'qweb': [],
