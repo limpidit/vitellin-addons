@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <record id="base_view_partner_form" model="ir.ui.view">
-        <field name="name">res.partner.form</field>
+    <record id="vitellin_view_partner_form" model="ir.ui.view">
+        <field name="name">vitellin.view.partner.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
@@ -13,7 +13,7 @@
                 <attribute name="required">type == 'contact' and not is_company</attribute>
             </field>
 
-            <xpath expr="//group/group/div" position="replace">
+            <xpath expr="//div[hasclass('o_address_format')]" position="replace">
                 <div class="o_address_format">
                     <field name="parent_id" invisible="1"/>
                     <field name="type" invisible="1"/>
@@ -38,12 +38,15 @@
                     <field name="country_id" placeholder="Pays" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" 
                         readonly="parent_id and type == 'contact'"/>
                 </div>
+                <field name="origine_contact" options="{'no_create': True}"/>
+                <field name="is_parrainage" />
+                <field name="parrain" invisible="not is_parrainage" options="{'no_create': True}"/>
             </xpath>
         </field>
     </record>
 
-    <record id="view_partner_form" model="ir.ui.view">
-        <field name="name">res.partner.form</field>
+    <record id="vitellin_res_partner_form_l10n_fr" model="ir.ui.view">
+        <field name="name">vitellin.res.partner.form.l10n.fr</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="l10n_fr.res_partner_form_l10n_fr"/>
         <field name="arch" type="xml">
@@ -70,14 +73,7 @@
                         </group>
                     </group>
                 </page>
-            </xpath>
-            <xpath expr="//div[hasclass('o_address_format')]" position="after">
-                <field name="origine_contact" options="{'no_create': True}"/>
-                <field name="is_parrainage" />
-                <field name="parrain" invisible="not is_parrainage" options="{'no_create': True}"/>
-            </xpath>
 
-            <xpath expr="//notebook/page" position="before">
                 <page string="Informations client" invisible="is_company" autofocus="autofocus">
                     <group>
                         <group>
@@ -95,10 +91,6 @@
                 </page>
             </xpath>
 
-            <!-- Customisation de la vue : Contacts et Adresses : alimenter le champ city_id -->
-            <field name="city" position="after">
-                <field name="city_id" invisible="1" />
-            </field>
             <xpath expr="//field[@name='child_ids']" position="attributes">
                 <attribute name="context">{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'other', 'default_city_id': city_id}</attribute>
             </xpath>
