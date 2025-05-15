@@ -13,6 +13,7 @@
         'cap_contact',
         'project',
         'cap_project',
+        'cap_product',
     ],
     'data': [
         'data/account_invoice_report/ir_ui_view.xml',
