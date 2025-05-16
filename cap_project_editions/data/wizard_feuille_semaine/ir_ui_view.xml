@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_feuille_semaine_form_view" model="ir.ui.view">
+        <field name="name">wizard.feuille.semaine.form.view</field>
+        <field name="model">wizard.feuille.semaine</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date_semaine" />
+                    <field name="user_id"/>
+                </group>
+                <group>
+                    <button string="Générer feuille semaine" class="btn btn-primary" icon="fa-upload" type="object" name="action_generer_feuille_semaine" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="acion_wizard_feuille_semaine" model="ir.actions.act_window">
+        <field name="name">Feuille semaine</field>
+        <field name="res_model">wizard.feuille.semaine</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_chantier_feuille_semaine"
+            name="Feuille semaine"
+            action="acion_wizard_feuille_semaine"
+            sequence="30"
+            parent="cap_industry_fsm.menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+</odoo>
