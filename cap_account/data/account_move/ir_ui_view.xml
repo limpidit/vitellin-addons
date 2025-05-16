@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.oblige</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="cee_factures_client_ids" invisible="1" />
+                <field name="cee_factures_oblige_ids" invisible="1" />
+                <button name="voir_factures_appelees" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                        invisible="not cee_factures_client_ids">
+                    <span>Factures appelées</span>
+                </button>
+                <button name="voir_factures_oblige" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                        invisible="not cee_factures_oblige_ids">
+                    <span>Factures obligé</span>
+                </button>
+            </xpath>
+            <xpath expr="//notebook//page[@id='invoice_tab']" position="after">
+                <page name="dossier_cee" string="Dossier CEE" invisible="not oblige_id">
+                    <group>
+                        <group string="Caractéristiques">
+                            <field name="oblige_id"/>
+                            <field name="prime_cee_versee_client"/>
+                            <field name="mwhc"/>
+                        </group>
+                        <group string="Suivi du dossier">
+                            <field name="etape_cee" />
+                            <field name="date_envoi_oblige"/>
+                            <field name="date_retour_dossier_incomplet" invisible="etape_cee == 'refuse'"/>
+                            <field name="motif_dossier_incomplet" invisible="etape_cee == 'refuse'"/>
+                            <field name="date_refus_dossier" invisible="etape_cee != 'refuse'"/>
+                            <field name="motif_refus_dossier" invisible="etape_cee != 'refuse'"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_cee" model="ir.ui.view">
+        <field name="name">account.move.form.cee</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="cap_account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="prime_cee_versee_client" position="after">
+                <field name="prime_cee_non_versee_client" groups="account.group_account_readonly,cap_security.group_adv"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="oblige_id"/>
+            </field>
+
+        </field>
+
+</record>
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tree.oblige</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_residual_signed" position="after">
+                <field name="prime_cee_versee_client" optional="show" sum="Total"/>
+                <field name="oblige_id" optional="show"/>
+                <field name="date_envoi_oblige" optional="hide"/>
+            </field>
+
+            <field name="state" position="after">
+                <field name="etape_cee" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_cee" model="ir.ui.view">
+        <field name="name">account.invoice.tree.cee</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="cap_account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="prime_cee_versee_client" position="after">
+                <field name="prime_cee_non_versee_client" optional="hide" sum="Total" groups="account.group_account_readonly,cap_security.group_adv"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_invoice_pivot_dossier_cee" model="ir.ui.view">
+        <field name="name">account.invoice.pivot.cee</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse des dossiers CEE" disable_linking="False">
+                 <field name="etape_cee" type="row"/>
+                 <field name="oblige_id" type="col"/>
+                 <field name="mwhc" type="measure"/>
+                 <field name="prime_cee_versee_client" type="measure"/>
+                 <field name="prime_cee_non_versee_client" type="measure"/>
+                <field name="montant_ht_hors_prime" type="measure"/>
+             </pivot>
+        </field>
+    </record>
+
+    <record id="action_view_invoice_pivot" model="ir.actions.act_window">
+        <field name="name">Dossiers CEE</field>
+        <field name="res_model">account.move</field>
+        <field name="domain">[('cee_financial', '=', True)]</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'pivot', 'view_id': ref('cap_account.view_invoice_pivot_dossier_cee')}),
+        (0, 0, {'view_mode': 'graph', 'view_id': False})]"/>
+    </record>
+
+    <record id="view_invoice_pivot_tdb_production" model="ir.ui.view">
+        <field name="name">account.invoice.pivot.production</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse de la production" disable_linking="False">
+                 <field name="typology" type="row"/>
+                 <field name="company_type" type="col"/>
+                 <field name="amount_untaxed_signed" type="measure"/>
+             </pivot>
+        </field>
+    </record>
+
+    <record id="action_view_invoice_tdb_production" model="ir.actions.act_window">
+        <field name="name">Analyse de la production</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'pivot', 'view_id': ref('cap_account.view_invoice_pivot_tdb_production')}),
+        (0, 0, {'view_mode': 'graph', 'view_id': False})]"/>
+    </record>
+
+</odoo>

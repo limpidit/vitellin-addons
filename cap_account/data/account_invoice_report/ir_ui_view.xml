@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="account_invoice_report_pivot_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.report.pivot.inherit</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="montant_ht_hors_prime" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+        <record id="account_invoice_report_graph_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.report.graph.inherit</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_graph"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="after">
+                <field name="montant_ht_hors_prime" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

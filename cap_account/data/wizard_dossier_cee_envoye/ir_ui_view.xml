@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_dossier_cee_envoye" model="ir.ui.view">
+        <field name="name">wizard.dossier.cee.envoye</field>
+        <field name="model">wizard.dossier.cee.envoye</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="invoice_ids" invisible="1" />
+                    <group invisible="not error_msg">
+                        <div class="alert alert-danger" role="alert">
+                            <field name="error_msg" />
+                        </div>
+                    </group>
+
+                    <group string="Le dossier a été envoyé à l'obligé">
+                        <field name="date_envoi_dossier" string="Date d'envoi" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirmer" class="btn btn-primary" type="object" name="action_declarer_dossier_envoye" invisible="error_msg"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

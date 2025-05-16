@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="resistance_thermique_form_view" model="ir.ui.view">
+        <field name="name">resistance.thermique.form.view</field>
+        <field name="model">resistance.thermique</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="resistance" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="resistance_thermique_tree_view" model="ir.ui.view">
+        <field name="name">resistance.thermique.tree.view</field>
+        <field name="model">resistance.thermique</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="resistance" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_resistance_thermique" model="ir.actions.act_window">
+        <field name="name">Résistance thermique</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">resistance.thermique</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

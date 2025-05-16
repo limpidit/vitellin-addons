@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="facet_entree" model="documents.facet">
+        <field name="name">Entrée</field>
+        <field name="folder_id" ref="cap_project.document_folder_root_projects" />
+    </record>
+    <record id="facet_vt_combles" model="documents.facet">
+        <field name="name">VT Combles</field>
+        <field name="folder_id" ref="cap_project.document_folder_root_projects" />
+    </record>
+    <record id="facet_etat_des_lieux" model="documents.facet">
+        <field name="name">Etat des lieux</field>
+        <field name="folder_id" ref="cap_project.document_folder_root_projects" />
+    </record>
+</odoo>

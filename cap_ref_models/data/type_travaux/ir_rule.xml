@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.rule" id="type_travaux_company_restriction_rule">
+        <field name="name">Type de travaux: restriction par société</field>
+        <field name="model_id" ref="model_type_travaux"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            [('company_id', 'in', company_ids)]
+        </field>
+    </record>
+</odoo>

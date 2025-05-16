@@ -1,0 +1,58 @@
+.sh_search_results {
+    position: fixed !important;overflow-x: hidden;overflow-y: auto;box-shadow: none;border: none;width: 30vw;z-index: 111;top: 45px;left: auto;right: 0;background: #fff;max-height: 75vh;box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+}
+.sh_search_results .dropdown-item:hover {
+    color: #71639e;
+}
+.sh_search_results .dropdown-item:active {
+    color: #333232;
+}
+.sh_search_container .sh_search_input .clear_Search:focus{outline: none;}
+
+.sh_search_results .dropdown-item {
+    color: #374151;white-space: normal;word-break: break-word;
+}
+
+
+
+
+.sh_search_container {
+    padding-left: 15px;padding-right: 15px;
+}
+
+.sh_search_input .usermenu_search_input {
+    background: transparent;border: none;border-bottom: 1px solid #989898;box-shadow: none;color: #989898;border-radius: unset;padding-bottom: 0 !important;
+}
+.sh_search_input .usermenu_search_input::placeholder {
+    color: #989898;
+}
+
+.input-group-text{
+    background: transparent;border: none;border-bottom: 0px solid #989898; color: #989898;border-radius: 0px;
+}
+.search_company_detail {
+    border-bottom: 1px solid #989898;margin-bottom: 2px;margin-top: 5px;color:#989898;
+}
+
+.clear_Search {
+    background: transparent;border: none;color: #989898;border-bottom: 0px solid #989898; border-radius: 0px;
+}
+
+// .sh_search_container .sh_search_input .input-group-prepend{background: transparent;border: none;border-bottom: 1px solid white;padding-top: 5px;}
+
+@media screen and  (min-width:767.97px)and(max-width:991.99px) {
+    .sh_search_results{
+        width:50vw;
+    }
+}
+
+
+@media screen and (max-width:767.98px) {
+    .sh_search_results{
+        width:100vw;
+    }
+    .sh_search_input .input-group{
+        width:50vw;
+    }
+}

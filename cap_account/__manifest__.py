@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "cap_account",
+    'summary': "Personnalisation du module Facturation.",
+    'description': "Personnalisation du module Facturation.",
+    'author': "Captivea",
+    'website': "https://www.captivea.com",
+    'category': 'Accounting',
+    'version': '17.0.1.0',  # Correction du format de version
+    'depends': [
+        'account',
+        'sale',
+        'cap_contact',
+        'project',
+        'cap_project',
+        'cap_product',
+    ],
+    'data': [
+        'data/account_invoice_report/ir_ui_view.xml',
+        'data/account_journal/ir_actions_server.xml',
+        'data/account_move/ir_actions_server.xml',
+        'data/account_move/ir_ui_view.xml',
+        'data/account_move/ir_ui_menu.xml',
+        'data/account_move_oblige_wizard/ir_ui_view.xml',
+        'data/account_move_oblige_wizard/ir_model_access.xml',
+        'data/account_payment_method/ir_ui_view.xml',
+        'data/wizard_dossier_cee_envoye/ir_ui_view.xml',
+        'data/wizard_dossier_cee_envoye/ir_model_access.xml',
+        'data/wizard_dossier_cee_incomplet/ir_ui_view.xml',
+        'data/wizard_dossier_cee_incomplet/ir_model_access.xml',
+        'data/wizard_dossier_cee_refuse/ir_ui_view.xml',
+        'data/wizard_dossier_cee_refuse/ir_model_access.xml',
+    ],
+    'qweb': [],
+    'demo': [],
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="documents.access_documents_folder_group_user" model="ir.model.access">
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_zone_geo_form_view" model="ir.ui.view">
+        <field name="name">partner.zone.geo.form.view</field>
+        <field name="model">partner.zone.geo</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_zone_geo_tree_view" model="ir.ui.view">
+        <field name="name">partner.zone.geo.tree.view</field>
+        <field name="model">partner.zone.geo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_zone_geo" model="ir.actions.act_window">
+        <field name="name">Zones Géographiques</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.zone.geo</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_partner_zone_geo"
+        action="action_partner_zone_geo"
+        name="Zones Géographiques" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>

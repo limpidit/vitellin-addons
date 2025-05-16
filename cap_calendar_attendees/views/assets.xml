@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="cap_calendar_attendees_assets_backend" model="ir.asset">
+        <field name="name">Calendar Attendees Backend Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">/cap_calendar_attendees/static/src/js/calendar_model.js</field>
+        <field name="sequence">100</field>
+    </record>
+</odoo>

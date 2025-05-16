@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_view_form_chantier" model="ir.ui.view">
+        <field name="name">project.task.form.chantier</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button string="Fragmenter le chantier" name="fragmenter_chantier" type="object" invisible="type_tache != 'chantier'"/>
+            </xpath>
+            <div name="button_box" position="inside">
+                <field name="origin_sale_ids" invisible="1" />
+                <button class="oe_stat_button" name="action_voir_chargement" type="object" icon="fa-truck" invisible="not origin_sale_ids">
+                    <div class="o_stat_info">
+                        <div>Chargement</div>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="project_task_view_tree_chantier" model="ir.ui.view">
+        <field name="name">project.task.tree.chantier</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="cap_industry_fsm.project_task_view_tree_chantier"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="before">
+                <field name="important_product_str" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_map_view" model="ir.ui.view">
+        <field name="name">project.task.view.map</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_enterprise.project_task_map_view"/>
+        <field name="arch" type="xml">
+            <map position="inside">
+                <field name="important_product_str" string="Articles principaux"/>
+            </map>
+        </field>
+    </record>
+
+    <record id="project_task_view_calendar_fsm" model="ir.ui.view">
+        <field name="name">project.task.view.calendar</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="cap_industry_fsm.cap_industry_fsm_project_task_view_calendar_fsm"/>
+        <field name="arch" type="xml">
+            <field name="type_vehicule_str" position="after">
+                <field name="important_product_str" string="Articles principaux"/>
+            </field>
+        </field>
+    </record>
+</odoo>

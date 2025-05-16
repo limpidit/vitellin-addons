@@ -1,0 +1,14 @@
+<odoo>
+    <data noupdate="0">
+        <record id="project_batiment_entree_access_01" model="ir.model.access">
+            <field name="name">project_batiment_entree_access_01</field>
+            <field name="model_id" search="[('model', '=', 'project.batiment.entree')]" model="ir.model"/>
+            <field name="group_id" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

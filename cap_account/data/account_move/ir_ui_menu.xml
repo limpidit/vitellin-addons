@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_analyse_production"
+        action="cap_account.action_view_invoice_tdb_production"
+        name="Analyse production" parent="account.account_reports_management_menu"
+        sequence="10"/>
+
+    <menuitem id="menu_analyse_dossier_cee"
+        action="cap_account.action_view_invoice_pivot"
+        name="Dossier CEE" parent="account.account_reports_management_menu"
+        sequence="11"/>
+</odoo>

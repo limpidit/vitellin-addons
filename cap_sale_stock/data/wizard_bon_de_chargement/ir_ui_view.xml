@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_bon_de_chargement_form_view" model="ir.ui.view">
+        <field name="name">wizard.bon.de.chargement.form.view</field>
+        <field name="model">wizard.bon.de.chargement</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date_debut" />
+                        <field name="date_fin" />
+                        <field name="utilisateur_id" />
+                    </group>
+                    <group>
+                        <button string="Télécharger" class="btn btn-primary" icon="fa-upload" type="object" name="action_generer_bon_de_chargement" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Fermer" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="acion_wizard_bon_de_chargement" model="ir.actions.act_window">
+        <field name="name">Bon de chargement</field>
+        <field name="res_model">wizard.bon.de.chargement</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_chantier_bon_de_chargement"
+            name="Bon de chargement"
+            action="acion_wizard_bon_de_chargement"
+            sequence="20"
+            parent="cap_industry_fsm.menu_chantiers_root"
+            groups="industry_fsm.group_fsm_user" />
+</odoo>

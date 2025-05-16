@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_project_form_view" model="ir.ui.view">
+        <field name="name">project.project.form.view</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="cap_project.project_project_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="go_to_planning" string="Planning complet" type="object" icon="fa-calendar" class="oe_read_only"/>
+            </xpath>
+            <xpath expr="//page[@name='visites_techniques']//field[@name='task_vt_ids']" position="before">
+                <button name="go_to_planning_visites" string="Planning des visites" type="object" icon="fa-calendar" class="btn-sm btn-secondary"/>
+            </xpath>
+            <xpath expr="//page[@name='chantiers']//field[@name='task_ch_ids']" position="before">
+                <button name="go_to_planning_chantiers" string="Planning des chantiers" type="object" icon="fa-calendar" class="btn-sm btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

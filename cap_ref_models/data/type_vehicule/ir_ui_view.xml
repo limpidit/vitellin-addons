@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="type_vehicule_form_view" model="ir.ui.view">
+        <field name="name">type.vehicule.form.view</field>
+        <field name="model">type.vehicule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="type_vehicule_tree_view" model="ir.ui.view">
+        <field name="name">type.vehicule.tree.view</field>
+        <field name="model">type.vehicule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_type_vehicule" model="ir.actions.act_window">
+        <field name="name">Types de véhicules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">type.vehicule</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

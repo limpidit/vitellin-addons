@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="systeme_chauffage_form_view" model="ir.ui.view">
+        <field name="name">systeme.chauffage.form.view</field>
+        <field name="model">systeme.chauffage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="systeme_chauffage_tree_view" model="ir.ui.view">
+        <field name="name">systeme.chauffage.tree.view</field>
+        <field name="model">systeme.chauffage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_systeme_chauffage" model="ir.actions.act_window">
+        <field name="name">Systèmes de chauffage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">systeme.chauffage</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

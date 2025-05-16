@@ -1,0 +1,7 @@
+"id","name","sequence"
+"activity_building_indiv","Individuel","1"
+"activity_building_collectif","Collectif","2"
+"activity_building_sante","Santé","3"
+"activity_building_office","Bureaux - Enseignement - Commerce","4"
+"activity_building_food","Hôtellerie - Restauration","5"
+"activity_building_other","Autres","6"

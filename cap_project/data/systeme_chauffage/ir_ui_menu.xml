@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_systeme_chauffage"
+        action="cap_ref_models.action_systeme_chauffage"
+        name="Systèmes de chauffage" parent="project.menu_project_config"
+        sequence="12"/>
+</odoo>

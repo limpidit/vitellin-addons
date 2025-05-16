@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+        <!-- Ajout d'une colonne de coordonnées à gauche
+        Exemple :
+            Coordonnées :
+                Tél : 0605040302
+                Email : test@test.fr
+
+               SIRET : 47800554900033
+
+         -->
+        <xpath expr="//t[@t-set='address']" position="before">
+            <t t-set="information_block">
+                <div>
+                    <span t-field="o.sale_id.project_id.address_id.name"/>
+                    <span t-if="not o.partner_id.is_company"><br/><span t-field="o.partner_id.appartenance_du_bien"/></span>
+                    <span t-if="o.project_id.address_id.mobile"><br/>Tél: <span t-field="o.sale_id.project_id.address_id.mobile"/></span>
+                    <span t-if="o.project_id.address_id.email"><br/>Email: <span t-field="o.sale_id.project_id.address_id.email"/></span>
+                </div>
+                <div t-if="o.partner_id.is_company">
+                    <span t-if="o.partner_id != o.sale_id.project_id.address_id"><span t-esc="o.partner_id.name"/><br/></span>
+                    <span>SIRET: </span><span t-if="o.partner_id.is_company" t-esc="o.partner_id.siret"/>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//t[@t-set='address']/address" position="replace">
+            <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+        </xpath>
+
+        <!-- Ajouter le champ "Représenté par" au dessus de l'adresse client dans le cadre d'une COPRO
+        Exemple :
+                                                                        SDC DOMAINE DE CYRANO
+                                                                        REPRESENTE PAR
+                                                                        MME CORINNE BLANCHARD,
+                                                                        PRINCIPALE DE COPROPRIETES
+                                                                        FONCIA FABRE GIBERT
+                                                                        34 BOULEVARD SAINT MICHEL
+                                                                        84000 AVIGNON
+                                                                        France
+        -->
+        <xpath expr="//t[@t-set='address']/address" position="before">
+            <div t-if="o.sale_id.project_id.is_copro and o.sale_id.represente_par">
+                <span t-esc="o.sale_id.project_id.address_id.name" /><br/>
+                REPRESENTE PAR <span t-field="o.sale_id.represente_par" />
+            </div>
+        </xpath>
+
+        <!-- Ajouter la date de la visite technique et Date de début des travaux
+        Exemple de rendu :
+        Date visite technique:      Date début des travaux:     Date de la facture :        Origine :
+        16/12/2020                  31/12/2020                  31/12/2020                  SO0020
+        -->
+        <xpath expr="//div[@id='informations']" position="after">
+            <div class="row mt0 mb32" id="informations_specifiques">
+                <div t-if="o.sale_id.project_id" class="col-auto mw-100 mb-2">
+                    <strong>Projet:</strong>
+                    <p class="m-0" t-field="o.sale_id.project_id" />
+                </div>
+                <div t-if="o.sale_id.date_visite_technique" class="col-auto mw-100 mb-2">
+                    <strong>Date visite technique:</strong>
+                    <p class="m-0" t-field="o.sale_id.date_visite_technique" t-options='{"widget": "date"}'/>
+                </div>
+                <div t-if="o.sale_id.chantier_task_ids" class="col-auto mw-100 mb-2">
+                    <strong>Date début travaux:</strong>
+                    <p class="m-0" t-field="o.sale_id.chantier_task_ids[0].planned_date_begin" t-options='{"widget": "date"}'/>
+                </div>
+                <div t-if="o.sale_id.origin_zone_ids" class="col-auto mw-100 mb-2">
+                    <strong>Type(s) de travaux:</strong>
+                    <t t-set="type_travaux_ids" t-value="'\n'.join(o.sale_id.mapped('origin_zone_ids.type_travaux.name'))"/>
+                    <p class="m-0" t-esc="type_travaux_ids"/>
+                </div>
+                <div t-if="o.sale_id.project_id.parcelle_cadastrale" class="col-auto mw-100 mb-2">
+                    <strong>Parcelle cadastrale:</strong>
+                    <p class="m-0" t-field="o.sale_id.project_id.parcelle_cadastrale" />
+                </div>
+            </div>
+        </xpath>
+
+        <!-- limiter l'origine à 40 caractères -->
+        <xpath expr="//span[@t-field='o.invoice_origin']" position="replace">
+            <span class="m-0" t-if="len(o.invoice_origin) &lt; 33" t-field="o.invoice_origin"/>
+            <span t-else="" class="m-0">
+                <t t-set="truncated_invoice_origin" t-value="o.invoice_origin[:32] + '...'"/>
+                <span t-esc="truncated_invoice_origin" />
+            </span>
+        </xpath>
+
+        <!-- Retirer la prime CEE pour les factures client (non obligé) -->
+			<!-- Modif Julie : retirer prime renov aussi -->
+        <xpath expr="//tbody[hasclass('invoice_tbody')]//t[@t-set='lines']" position="after">
+            <t t-if="not o.partner_id.is_oblige" t-set="lines" t-value="lines.filtered(lambda l: l.product_id != o.company_id.prime_cee_wo_tva_product_id and l.product_id != o.company_id.prime_renov_wo_tva_product_id)"/>
+        </xpath>
+
+        <!-- TODO Limpidit : Arranger ca -->
+
+        <!-- <xpath expr="//div[@id='total']//span[@t-field='o.amount_untaxed']" position="replace">
+            <t t-if="not o.partner_id.is_oblige">
+                <t t-set="amount_untaxed" t-value="o.amount_untaxed + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
+                <span t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            </t>
+            <t t-else="">
+                <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            </t>
+        </xpath>
+
+        <xpath expr="//tr[hasclass('o_total')]//span[@t-field='o.amount_total']" position="replace">
+            <t t-if="not o.partner_id.is_oblige">
+                <t t-set="amount_total" t-value="o.amount_total + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
+                <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            </t>
+            <t t-else="">
+                <span class="text-nowrap" t-field="o.amount_total"/>
+            </t>
+        </xpath> -->
+
+        <!-- Afficher le nombre de m² et le prix/m² lorsque l'article est un isolant -->
+        <xpath expr="//span[@t-field='line.quantity']/parent::td" position="replace">
+            <td class="text-right" style="white-space: nowrap;">
+                <span t-if="line.product_id.is_isolant or any(line.sale_line_ids.mapped('origin_line_id.isolant_alternative_id'))" t-field="line.surface_m2"/><span t-else="" t-field="line.quantity"/>
+                <span t-if="line.product_id.is_isolant or any(line.sale_line_ids.mapped('origin_line_id.isolant_alternative_id'))">m²</span><span t-else="" t-field="line.product_uom_id"  groups="uom.group_uom"/>
+            </td>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="replace">
+            <span t-if="line.product_id.is_isolant or any(line.sale_line_ids.mapped('origin_line_id.isolant_alternative_id'))" class="text-nowrap" t-field="line.prix_surfacique" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+            <span t-else="" class="text-nowrap" t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+        </xpath>
+
+        <xpath expr="//span[@id='line_tax_ids']/parent::td" position="attributes">
+            <attribute name="style">white-space: nowrap;</attribute>
+        </xpath>
+
+        <!-- Affichage de la prime dans un bloc dédié -->
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
+            <table class="table table-sm mt-3">
+                <tbody class="invoice_tbody">
+                    <t t-if="o.prime_cee_versee_client">
+						          <t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_cee_wo_tva_product_id)" t-as="prime_line">
+                        <tr>
+                          <td>
+                            <span style="font-size: 0.8em">
+							  <span t-field="prime_line.description_multiligne"/>
+							  <!-- <t t-if="prime_line.description_multiligne"> -->
+								<!-- <span t-field="prime_line.description_multiligne"/> -->
+							  <!-- </t> -->
+							  <!-- <t t-else=""> -->
+								<!-- <span t-field="prime_line.name"/> -->
+							  <!-- </t> -->
+                            </span>
+                          </td>
+                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                        </tr>
+					          	</t>
+					          </t>
+          					<t t-if="o.prime_renov_versee_client">	
+          						<t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_renov_wo_tva_product_id)" t-as="prime_line">
+                        <tr>
+                          <td>
+                            <span style="font-size: 0.8em">
+                              <span t-field="prime_line.description_multiligne"/>
+							  <!-- <t t-if="prime_line.description_multiligne"> -->
+								<!-- <span t-field="prime_line.description_multiligne"/> -->
+							  <!-- </t> -->
+							  <!-- <t t-else=""> -->
+								<!-- <span t-field="prime_line.name"/> -->
+							  <!-- </t> -->
+                            </span>
+                          </td>
+                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                        </tr>
+          						</t>
+          					</t>
+                </tbody>
+            </table>
+
+            <div class="clearfix" name="inv_total_avec_prime_summary" t-if="o.prime_cee_versee_client or o.prime_renov_versee_client">
+                <div id="total_avec_prime" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_total">
+                                <td name="td_amount_total_label"><strong>Net à payer</strong></td>
+                                <td name="td_amount_total" class="text-right">
+                                    <span class="text-nowrap" t-field="o.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- Ajout d'une mention en cas d'absence de TVA -->
+        <xpath expr="//div[hasclass('clearfix')]" position="before">
+            <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
+                <p>
+                    Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
+                    secteur du bâtiment selon le 2 nonies de l'article 283 du code général des impôts.
+                </p>
+            </div>
+        </xpath>
+
+        <xpath expr="//p[@name='note']" position="after">
+            <div style="font-size: 0.8em">
+                <!-- Ajout d'une mention obligatoire concernant la société de médiation -->
+                <p t-if="o.company_id.mediateur_mention_obligatoire and not o.partner_id.is_company" style="page-break-inside: avoid;" t-field="o.company_id.mediateur_mention_obligatoire" />
+            </div>
+        </xpath>
+
+        <!-- Indiquer l'IBAN pour virement -->
+        <xpath expr="//p[@name='payment_communication']" position="after">
+            <p t-if="o.partner_bank_id and o.partner_bank_id.acc_type == 'iban'" name="payment_iban">
+                IBAN: <b><span t-field="o.partner_bank_id"/></b>
+            </p>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="vitellin_view_partner_form" model="ir.ui.view">
+        <field name="name">vitellin.view.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//span[@name='address_name']/b[1]" position="replace">
+                <b invisible="type != 'contact'">Adresse</b>
+            </xpath>
+            <field name="mobile" position="attributes">
+                <attribute name="required">type == 'contact' and not is_company</attribute>
+            </field>
+
+            <xpath expr="//div[hasclass('o_address_format')]" position="replace">
+                <div class="o_address_format">
+                    <field name="parent_id" invisible="1"/>
+                    <field name="type" invisible="1"/>
+                    <field name="street" placeholder="N° et voie..." class="o_address_street"
+                        required="not parent_id or (type != 'contact' and parent_id)" 
+                        readonly="parent_id and type == 'contact'"/>
+                    <field name="street2" placeholder="Complément d'adresse..." class="o_address_street" 
+                        readonly="parent_id and type == 'contact'"/>
+                    <field name="zip" placeholder="Code postal" class="o_address_zip" 
+                        required="not parent_id or (type != 'contact' and parent_id)" 
+                        readonly="parent_id and type == 'contact'" 
+                        style="margin-right: 2%;"/>
+                    <field name="city" placeholder="City" invisible="1"/>
+                    <field name="city_id" placeholder="Ville" class="o_address_city"
+                        required="not parent_id or (type != 'contact' and parent_id)" 
+                        readonly="parent_id and type == 'contact'"
+                        options="{'no_create': True, 'no_open': True}"/>
+                    <field name="state_id" class="o_address_state" placeholder="Département"
+                           options="{&quot;no_open&quot;: True}"
+                           readonly="parent_id and type == 'contact'" context="{'country_id': country_id, 'zip': zip}"
+                           style="margin-right: unset;"/>
+                    <field name="country_id" placeholder="Pays" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" 
+                        readonly="parent_id and type == 'contact'"/>
+                </div>
+                <field name="origine_contact" options="{'no_create': True}"/>
+                <field name="is_parrainage" />
+                <field name="parrain" invisible="not is_parrainage" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="vitellin_res_partner_form_l10n_fr" model="ir.ui.view">
+        <field name="name">vitellin.res.partner.form.l10n.fr</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="l10n_fr.res_partner_form_l10n_fr"/>
+        <field name="arch" type="xml">
+            <!-- masquer les champs existants, ils seront positionnés ultérieurement -->
+            <field name="vat" position="replace"/>
+            <field name="siret" position="replace"/>
+            <field name="title" position="replace"/>
+
+            <!-- Customisations pour la vue 'Société' -->
+            <xpath expr="//notebook/page" position="before">
+                <page string="Informations légales" invisible="not is_company" autofocus="autofocus">
+                    <group>
+                        <group>
+                            <field name="forme_juridique" options="{'no_create': True}"/>
+                            <field name="siret" required="is_company"/>
+                            <field name="secteur_activite" options="{'no_create': True}" />
+                            <field name="vat" />
+                            <field name="is_oblige" />
+                            <field name="invoice_libelle_prime_cee" required="is_oblige" invisible="not is_oblige"/>
+                            <div class="alert alert-info" role="alert" invisible="not is_oblige" colspan="2">
+                                <p><span title="Champ dynamique" class="fa fa-info-circle"/><b> Champ dynamique</b></p>
+                                <p>Utiliser le mot clef ${MONTANT} pour injecter le montant de la prime dans le libellé.</p>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+
+                <page string="Informations client" invisible="is_company" autofocus="autofocus">
+                    <group>
+                        <group>
+                            <field name="appartenance_du_bien" required="not is_company"/>
+                            <field name="disponibilite_recurrente" />
+                            <field name="code_securite_client" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="taille_menage" />
+                            <field name="revenu_fiscal_reference" />
+                            <field name="annee_revenu_fiscal_reference" />
+                            <field name="type_precarite" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='child_ids']" position="attributes">
+                <attribute name="context">{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'other', 'default_city_id': city_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']//form//field[@name='mobile']" position="attributes"><attribute name="required">not is_company</attribute></xpath>
+            
+        </field>
+    </record>
+
+    <record id="vitellin_partner_firstname_view_form" model="ir.ui.view">
+        <field name="name">vitellin.partner.firstname.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_firstname.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Customisations pour la vue 'Particulier' -->
+            <field name="lastname" position="before">
+                <field name="title" string="Civilité" options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="res_partner_search_inherit" model="ir.ui.view">
+        <field name="name">res.partner.select</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.res_partner_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position="after">
+                <filter string="Obligés" name="oblige" domain="[('is_oblige','=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="contacts.action_contacts" model="ir.actions.act_window">
+        <field name="context">{'default_is_company': False}</field>
+    </record>
+</odoo>

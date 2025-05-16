@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_status_form_view" model="ir.ui.view">
+        <field name="name">project.status.form.view</field>
+        <field name="model">project.status</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_status_tree_view" model="ir.ui.view">
+        <field name="name">project.status.tree.view</field>
+        <field name="model">project.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_status" model="ir.actions.act_window">
+        <field name="name">Statuts projets</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.status</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_project_status"
+        action="action_project_status"
+        name="Statuts projets" parent="project.menu_project_config"
+        sequence="12"/>
+</odoo>

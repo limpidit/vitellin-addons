@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="product_isolant_alternative_tree_view" model="ir.ui.view">
+        <field name="name">product.isolant.alternative.tree.view</field>
+        <field name="model">product.isolant.alternative</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="libelle_vente" />
+                <field name="resistance_thermique" />
+                <field name="epaisseur_de_pose" />
+                <field name="nombre_sac_pour_100m2" />
+                <field name="prix_par_m2" />
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_isolant_alternative" model="ir.actions.act_window">
+        <field name="name">Déclinaisons d'isolants</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.isolant.alternative</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_product_isolant_alternative"
+              action="action_product_isolant_alternative"
+              name="Déclinaisons d'isolants" parent="sale.product_menu_catalog"
+              groups="base.group_no_one"
+              sequence="9"/>
+</odoo>

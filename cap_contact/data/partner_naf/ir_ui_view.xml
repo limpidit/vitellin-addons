@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_naf_form_view" model="ir.ui.view">
+        <field name="name">partner.naf.form.view</field>
+        <field name="model">partner.naf</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="code_naf" />
+                        </group>
+                        <group>
+                            <field name="section_no" />
+                            <field name="section_description" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_naf_tree_view" model="ir.ui.view">
+        <field name="name">partner.naf.tree.view</field>
+        <field name="model">partner.naf</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_naf" />
+                <field name="name" />
+                <field name="section_no" />
+                <field name="section_description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_naf" model="ir.actions.act_window">
+        <field name="name">Codes NAF/APE</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.naf</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_partner_naf"
+        action="action_partner_naf"
+        name="Codes NAF/APE" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+</odoo>

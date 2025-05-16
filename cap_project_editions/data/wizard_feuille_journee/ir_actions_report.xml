@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="paperformat_feuille_journee" model="report.paperformat">
+        <field name="name">Feuille journée</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">80</field>
+    </record>
+
+<!--    <record-->
+<!--        id="report_feuille_journee"-->
+<!--        model="project.task"-->
+<!--        string="Feuille journée"-->
+<!--        report_type="qweb-html"-->
+<!--        name="cap_project_editions.report_feuille_journee"-->
+<!--        file="cap_project_editions.report_feuille_journee"-->
+<!--        paperformat="cap_project_editions.paperformat_feuille_journee"/>-->
+    
+    <record id="report_feuille_journee"
+            model="ir.actions.report">
+        <field name="name">Feuille journée</field>
+        <field name="model">project.task</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">cap_project_editions.report_feuille_journee2</field>
+<!--        <field name="report_file">cap_project_editions.report_feuille_journee</field>-->
+        <field name="binding_model_id" ref="model_project_task"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_feuille_journee"/>
+    </record>
+    
+</odoo>

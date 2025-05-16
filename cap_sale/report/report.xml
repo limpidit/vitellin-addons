@@ -1,0 +1,18 @@
+<odoo>
+<!--    <report
+        id="report_sale_order_without_prix_catalogue"
+        model="sale.order"
+        string="Devis / Commande sans prix catalogue"
+        report_type="qweb-html"
+        name="cap_sale.report_sale_order_document_without_prix_catalogue"
+        file="cap_sale.report_sale_order_document_without_prix_catalogue"/>-->
+            <record id="report_sale_order_without_prix_catalogue" model="ir.actions.report">
+            <field name="name">Devis / Commande sans prix catalogue</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cap_sale.report_sale_order_without_prix</field>
+            <field name="report_file">cap_sale.report_sale_order_without_prix</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+</odoo>
