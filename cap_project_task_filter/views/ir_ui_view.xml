@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Vue recherche : ajout du filtre réalisé -->
+    <record id="cap_project_task_view_search_fsm" model="ir.ui.view">
+        <field name="name">cap.project.task.search.fsm</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.project_task_view_search_fsm"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_tasks']" position="replace">
+                <filter domain="[('user_ids','in',uid)]" name="my_tasks" string="Mes tâches"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

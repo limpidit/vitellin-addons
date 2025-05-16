@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_feuille_semaine_document">
+        <t t-call="web.internal_layout">
+            <div class="page" style="font-size: x-small;">
+                <h2>Feuille semaine</h2>
+
+                <t t-set="header" t-value="feuille_semaine['header']"/>
+                <t t-set="content" t-value="feuille_semaine['content']"/>
+
+                <div class=""><!-- container -->
+                    <!-- Entête -->
+                    <div class="row mt10">
+                        <div class="col ml-2">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="bg-secondary">Véhicule</th>
+                                        <td scope="col"><t t-esc="header['vehicule']"/></td>
+                                        <th scope="col" class="bg-secondary">Equipe prévue:</th>
+                                        <td scope="col"><t t-esc="header['equipe']"/></td>
+                                        <th scope="col" class="bg-secondary">Année</th>
+                                        <td scope="col"><t t-esc="header['annee']"/></td>
+                                        <th scope="col" class="bg-secondary">Type travaux:</th>
+                                        <td scope="col"><t t-esc="header['type_travaux']"/></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Immatriculation</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <th class="bg-secondary">Mois</th>
+                                        <td><t t-esc="header['mois']"/></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Contenu -->
+                    <div class="row mt10">
+                        <div class="col ml-2">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="bg-secondary text-center">
+                                        <th scope="col" colspan="1">Lundi <t t-esc="content['j1']"/></th>
+                                        <th scope="col" colspan="1">Mardi <t t-esc="content['j2']"/></th>
+                                        <th scope="col" colspan="1">Mercredi <t t-esc="content['j3']"/></th>
+                                        <th scope="col" colspan="1">Jeudi <t t-esc="content['j4']"/></th>
+                                        <th scope="col" colspan="1">Vendredi <t t-esc="content['j5']"/></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="range(content['max_nb_chantier'])" t-as="num_chantier">
+                                        <tr>
+                                            <t t-foreach="range(5)" t-as="weekday">
+                                                <t t-set="chantier_jX_id" t-value="content['chantiers_jX'][weekday][num_chantier] if len(content['chantiers_jX'][weekday]) >= num_chantier+1 else False"/>
+                                                <t t-set="chantier_jX" t-value="env['project.task'].browse(chantier_jX_id)"/>
+
+                                                <td class="p-0">
+                                                    <t t-if="chantier_jX">
+                                                        <table class="table table-sm table-bordered m-0">
+                                                            <tr>
+                                                                <th style="width: 100px;">Chantier</th>
+                                                                <td><t t-esc="chantier_jX.name" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>N° Chantier</th>
+                                                                <td><t t-esc="chantier_jX.numero_chantier" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>N° devis</th>
+                                                                <td><t t-esc="','.join(chantier_jX.origin_sale_ids.mapped('name'))" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Nom client</th>
+                                                                <td><t t-esc="chantier_jX.project_id.address_id.name" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Nom commercial</th>
+                                                                <td><t t-esc="','.join(chantier_jX.origin_sale_ids.mapped('user_id.name'))" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Heure rdv</th>
+                                                                <td><t t-esc="chantier_jX.heure_debut_intervention" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Code postal</th>
+                                                                <td><t t-esc="chantier_jX.code_postal_adresse_chantier" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Ville</th>
+                                                                <td><t t-esc="chantier_jX.ville_adresse_chantier" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>M²</th>
+                                                                <td><t t-esc="chantier_jX.surface_estimee" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Epaisseur</th>
+                                                                <td><t t-esc="chantier_jX.isolant_alternative_id.epaisseur_de_pose" /> mm</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Isolant</th>
+                                                                <td><t t-esc="chantier_jX.isolant_product_id.name" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Nbre sacs</th>
+                                                                <td><t t-esc="chantier_jX.isolant_qty" /></td>
+                                                            </tr>
+                                                        </table>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_feuille_semaine_hebdo">
+        <t t-call="web.html_container">
+            <t t-foreach="feuilles_semaines" t-as="feuille_semaine">
+                <t t-call="cap_project_editions.report_feuille_semaine_document" />
+            </t>
+        </t>
+    </template>
+</odoo>

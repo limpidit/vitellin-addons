@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_feuille_journee_document">
+
+        <t t-set="chantiers_sorted" t-value="docs.get_chantiers_sorted()"/>
+        <div>
+            <t t-foreach="chantiers_sorted" t-as="task_id">
+                <t t-set="user_id" t-value="task_id[0]"/>
+                <t t-set="date" t-value="task_id[1]"/>
+                <t t-call="web.internal_layout">
+                <!-- toutes les tâches de "docs" sont des chantiers. Tous ces chantiers concernent le même user_id et même planned_date_begin -->
+                <div class="page" style="font-size: x-small;">
+                    <h2>Feuille journée</h2>
+                    <div class="">
+                        <!-- container -->
+                        <div class="row mt10">
+                            <!-- tableau "Véhicule" -->
+                            <div class="col-3 ml-2">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="bg-secondary">
+                                            <th scope="col" style="width: 50%">Véhicule</th>
+                                            <th scope="col" style="width: 50%">
+                                                <t t-esc="user_id.firstname"/>
+                                                <br/>
+                                                <t t-esc="user_id.lastname"/>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Immatriculation</th>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Type</th>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- tableau "Equipe" -->
+                            <div class="col-5 ml-2">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr class="bg-secondary">
+                                            <th scope="col" style="width: 10%">Equipe</th>
+                                            <th scope="col" style="width: 20%">Prévue</th>
+                                            <th scope="col" style="width: 30%">Réelle</th>
+                                            <th scope="col" style="width: 20%">Heure départ</th>
+                                            <th scope="col" style="width: 20%">Heure arrivée</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Prénom<br/>Nom</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Prénom<br/>Nom</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- tableau "Semaine / Date intervention" -->
+                            <div class="col-3 ml-2">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="bg-secondary">Semaine</th>
+                                            <th scope="col">
+                                                <t t-esc="task_id[2][0].numero_semaine"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col" class="bg-secondary">Jour de l'intervention</th>
+                                            <th scope="col">
+                                                <t t-esc="date.strftime('%Y-%m-%d')"/>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt32">
+                            <!-- tableau "Chantiers" -->
+                            <table class="table table-sm table-bordered table-hover">
+                                <thead>
+                                    <tr class="table-active">
+                                        <th scope="col">N° Devis</th>
+                                        <th scope="col">Heure prévue</th>
+                                        <th scope="col">Nom Commercial</th>
+                                        <th scope="col">Nom Client</th>
+                                        <th scope="col">Tel Client</th>
+                                        <th scope="col">Nom Projet</th>
+                                        <th scope="col">Adresse chantier</th>
+                                        <th scope="col">CP Chantier</th>
+                                        <th scope="col">Ville chantier</th>
+                                        <th scope="col">Type de travaux</th>
+                                        <th scope="col">Surface</th>
+                                        <th scope="col">Type isolant</th>
+                                        <th scope="col">Nbre d'unités prévue</th>
+                                        <th scope="col">Epaisseur</th>
+                                        <th scope="col">Dépose</th>
+                                        <th scope="col">Nbre spots</th>
+                                        <th scope="col">Nbre trappes</th>
+                                        <th scope="col">Nbre écarts au feu</th>
+                                        <th scope="col">Nbre détuilages</th>
+                                        <th scope="col">Ml de chemin</th>
+                                        <th scope="col">Anti-rongeur</th>
+                                        <th scope="col">Surface réelle</th>
+                                        <th scope="col">Nbre sacs utilisés</th>
+                                        <th scope="col">Nbre sacs restants</th>
+                                        <th scope="col">Temps passé</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="task_id[2]" t-as="task">
+                                        <t t-set="devis" t-value="task.origin_sale_ids[0]"/>
+                                        <t t-set="chargement_ids" t-value="task.chargement_ids"/>
+                                        <t t-set="move_line_isolants" t-value="chargement_ids.move_lines.filtered(lambda l: l.product_id.is_isolant)"/>
+                                        <t t-set="order_line_isolants" t-value="move_line_isolants.mapped('sale_line_id')"/>
+                                        <tr>
+                                            <th scope="row">
+                                                    <t t-esc="devis.name"/>
+                                            </th>
+                                            <td>
+                                                <t t-esc="task.heure_debut_intervention"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="devis.user_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.partner_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.address_mobile"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.project_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.address_id.street"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.address_id.zip"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.address_id.city"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.type_travaux_ids[0].display_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="task.surface_estimee"/> m²
+                                            </td>
+                                            <td>
+                                                <t t-set="isolants" t-value="move_line_isolants.mapped('product_id')"/>
+                                                <t t-foreach="isolants" t-as="isolant">
+                                                    <span t-field="isolant.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="move_line_isolants" t-as="ligne_chargement">
+                                                    <span t-field="ligne_chargement.chantier_quantite_a_charger" />
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-set="isolant_alternative_ids" t-value="order_line_isolants.mapped('isolant_alternative_id')"/>
+                                                <t t-foreach="isolant_alternative_ids" t-as="isolant_alternative_id">
+                                                    <span t-field="isolant_alternative_id.epaisseur_de_pose" />mm<br/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <span t-if="task.enlevement_isolant_requis">Oui</span>
+                                                <span t-else="">Non</span>
+                                            </td>
+                                            <td>
+                                                <span t-field="task.nombre_spots"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="task.nombre_trappes"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="task.nombre_ecarts_au_feu"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="task.nombre_detuilages"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="task.ml_deflecteur"/>
+                                            </td>
+
+                                            <td>
+                                                <span t-if="task.traitement_antirongeur">Oui</span>
+                                                <span t-else="">Non</span>
+                                            </td>
+
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Commentaires VT : </td>
+                                            <td colspan="11">
+                                                <span t-field="task.commentaires"/>
+                                            </td>
+                                            <td>Accès chantier : </td>
+                                            <td colspan="11">
+                                                <span t-field="task.acces_chantier"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr class="table-active">
+                                        <td colspan="11"></td>
+                                        <th>
+                                            <t t-foreach="task_id[3]" t-as="isolant_concat">
+                                                <t t-foreach="isolant_concat" t-as="isolant">
+                                                    <span t-field="isolant.name"/>
+                                                    <br/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                        <th>
+                                            <t t-foreach="task_id[4]" t-as="isolant_qty_concat">
+                                                <t t-foreach="isolant_qty_concat" t-as="isolant_qty">
+                                                    <t t-esc="isolant_qty"/>
+                                                    <br/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                        <td colspan="2"></td>
+                                        <th>
+                                            <t t-esc="sum(task.nombre_spots for task in task_id[2])"/>
+                                            <br/>
+                                        </th>
+                                        <td colspan="9"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </t>
+            </t>
+        </div>
+
+    </template>
+
+    <template id="report_feuille_journee2">
+        <t t-call="web.html_container">
+            <t t-call="cap_project_editions.report_feuille_journee_document"/>
+        </t>
+    </template>
+</odoo>
