@@ -70,11 +70,13 @@ class ResPartner(models.Model):
         fieldTel = getattr(self, tel)
         if not fieldTel:
             return
+        
         digits = "".join([c for c in fieldTel if c in string.digits])
 
-        if digits.startswith('33') and len(digits) > 2:
+        if digits.startswith('33') and len(digits) == 11 and digits[2] in '123456789':
             digits = '0' + digits[2:]
-            digits = ' '.join(digits[i:i+2] for i in range(0, len(digits), 2))
+        digits = ' '.join(digits[i:i+2] for i in range(0, len(digits), 2))
+        
         setattr(self, tel, digits)
         
     @api.onchange('mobile')
