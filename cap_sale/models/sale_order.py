@@ -300,7 +300,7 @@ class SaleOrder(models.Model):
         if self.cee_financial:
             invoice_values.update({
                                    'cee_financial': self.cee_financial,
-                                   'oblige_id': self.oblige_id,
+                                   'oblige_id': self.oblige_id.id,
                                    'prime_cee_versee_client': self.prime_cee_versee_client,
                                    'prime_cee_non_versee_client': self.prime_cee_non_versee_client,
                                    'mwhc': self.mwhc,
