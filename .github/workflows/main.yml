@@ -3,7 +3,7 @@ name: Run
 on:
   push:
     branches: [migration, staging]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
