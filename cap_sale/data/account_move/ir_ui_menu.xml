@@ -13,5 +13,6 @@
             name="Factures"
             action="action_customer_invoices"
             parent="sale.sale_menu_root"
-            sequence="4" groups="sales_team.group_sale_salesman"/>
+            sequence="35" 
+            groups="sales_team.group_sale_salesman"/>
 </odoo>

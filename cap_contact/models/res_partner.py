@@ -66,12 +66,26 @@ class ResPartner(models.Model):
             record.type_precarite = self.env['partner.insecurity.rule'].get_type_precarite(taille_menage=record.taille_menage,
                                                                                            revenu_fiscal_reference=record.revenu_fiscal_reference)
 
-    @api.onchange('mobile', 'phone')
-    def clean_phones(self):
-        if self.phone:
-            self.phone = "".join([c for c in self.phone if c in string.digits])
-        if self.mobile:
-            self.mobile = "".join([c for c in self.mobile if c in string.digits])
+    def clean_phones(self, tel):
+        fieldTel = getattr(self, tel)
+        if not fieldTel:
+            return
+        
+        digits = "".join([c for c in fieldTel if c in string.digits])
+
+        if digits.startswith('33') and len(digits) == 11 and digits[2] in '123456789':
+            digits = '0' + digits[2:]
+        digits = ' '.join(digits[i:i+2] for i in range(0, len(digits), 2))
+        
+        setattr(self, tel, digits)
+        
+    @api.onchange('mobile')
+    def clean_mobile(self):
+        self.clean_phones('mobile')
+
+    @api.onchange('phone')
+    def clean_phone(self):
+        self.clean_phones('phone')
 
     def compute_city(self):
         for record in self:

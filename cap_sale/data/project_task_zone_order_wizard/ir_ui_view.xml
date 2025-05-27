@@ -8,19 +8,17 @@
                 <sheet>
                     <field name="financement_cee" invisible="1" />
 
-                    <group invisible="not error_msg">
-                        <div class="alert alert-danger" role="alert">
-                            <field name="error_msg"     readonly="1"/>
-                        </div>
-                    </group>
+                    <div invisible="not error_msg" class="alert alert-danger" role="alert">
+                        <field name="error_msg" readonly="1"/>
+                    </div>
 
                     <group>
                         <field name="project_id"  readonly="1" options="{'no_open': True}"/>
                         <field name="oblige_id" class="oe_inline" invisible="not financement_cee" required="financement_cee"
                                options="{'no_create': True, 'no_open': True}"/>
                     </group>
-                    <group string="Zones concernées">
-                        <field name="zones_ids"     nolabel="1"     readonly="1">
+                    <div string="Zones concernées">
+                        <field name="zones_ids" nolabel="1" readonly="1">
                             <tree>
                                 <field name="batiment_id"/>
                                 <field name="entree_id"/>
@@ -29,7 +27,7 @@
                                 <field name="financement_cee"/>
                             </tree>
                         </field>
-                    </group>
+                    </div>
 
                 </sheet>
                 <footer>

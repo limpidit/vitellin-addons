@@ -13,7 +13,11 @@
                 <attribute name="required">type == 'contact' and not is_company</attribute>
             </field>
 
-            <xpath expr="//div[hasclass('o_address_format')]" position="replace">
+            <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[hasclass('o_address_format')]" position="after">
                 <div class="o_address_format">
                     <field name="parent_id" invisible="1"/>
                     <field name="type" invisible="1"/>

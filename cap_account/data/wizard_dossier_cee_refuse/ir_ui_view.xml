@@ -7,11 +7,9 @@
             <form>
                 <sheet>
                     <field name="invoice_ids" invisible="1" />
-                    <group invisible="not error_msg">
-                        <div class="alert alert-danger" role="alert">
-                            <field name="error_msg" />
-                        </div>
-                    </group>
+                    <div invisible="not error_msg" class="alert alert-danger" role="alert">
+                        <field name="error_msg" />
+                    </div>
 
                     <group string="Refus du dossier par l'obligé">
                         <field name="date_refus_dossier" string="Date" />
@@ -21,7 +19,7 @@
                 <footer>
                     <button string="Confirmer" class="btn btn-primary" type="object" name="action_declarer_dossier_refuse" invisible="error_msg"/>
                     <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
-                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="not error_msg"/>
                 </footer>
             </form>
         </field>
