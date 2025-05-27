@@ -1,0 +1,14 @@
+name: Run
+
+on:
+  push:
+    branches: [migration, staging]
+  pull_request:
+
+jobs:
+  lint:
+    uses: limpidit/odoo-ci-cd/.github/workflows/linter.yml@main
+    with:
+      python-version: '3.10' 
+    secrets:
+      token: ${{ secrets.CI_PAT }}
