@@ -1,0 +1,12 @@
+name: Run
+
+on:
+  push:
+    branches: [staging]
+  pull_request:
+
+jobs:
+  lint:
+    uses: limpidit/odoo-ci-cd/.github/workflows/linter.yml@main
+    with:
+      python-version: '3.10' 
