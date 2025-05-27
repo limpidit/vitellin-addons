@@ -6,11 +6,9 @@
         <field name="arch" type="xml">
             <form string="Générer facture(s) obligé">
                 <sheet>
-                    <group invisible="not error_msg">
-                        <div class="alert alert-danger" role="alert">
-                            <field name="error_msg" />
-                        </div>
-                    </group>
+                    <div invisible="not error_msg" class="alert alert-danger" role="alert">
+                        <field name="error_msg" />
+                    </div>
 
                     <group>
                         <field name="oblige_id" />
@@ -27,7 +25,7 @@
                             </div>
                         </group>
                     </group>
-                    <group string="Factures appelées">
+                    <div string="Factures appelées">
                         <field name="factures_client_ids" nolabel="1" >
                             <tree decoration-danger="not oblige_id or not cee_financial or etape_cee != 'envoye_oblige' or state != 'posted'">
                                 <field name="name" optional="hide"/>
@@ -43,13 +41,13 @@
                                 <field name="etape_cee" string="Etat CEE" />
                             </tree>
                         </field>
-                    </group>
+                    </div>
                 </sheet>
                 <footer>
                     <button string="Confirmer" class="btn btn-primary" type="object" name="action_generate_factures_oblige"
                         invisible="error_msg"/>
                     <button string="Annuler" class="btn-secondary" special="cancel" invisible="error_msg"/>
-                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="error_msg"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel" invisible="not error_msg"/>
                 </footer>
             </form>
         </field>

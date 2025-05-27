@@ -183,14 +183,16 @@ class Invoice(models.Model):
             'invoice_date': fields.date.today(),
             'partner_id': oblige_id.id,
             'cee_factures_client_ids': self.ids,
-            'invoice_line_ids': [{
-                'name': "Acompte " + product_id.name,
-                'product_id': product_id.id,
-                'quantity': 1,
-                'product_uom_id': product_id.uom_id.id,
-                'price_unit': montant,
-                'tax_ids': product_id.taxes_id.ids,
-            }]
+            'invoice_line_ids': [
+                (0, 0, {
+                    'name': "Acompte " + product_id.name,
+                    'product_id': product_id.id,
+                    'quantity': 1,
+                    'product_uom_id': product_id.uom_id.id,
+                    'price_unit': montant,
+                    'tax_ids': product_id.taxes_id.ids,
+                })
+            ]
         }
 
     def _prepare_facture_oblige(self, oblige_id, montant_prime, product_id):
@@ -208,15 +210,16 @@ class Invoice(models.Model):
             'invoice_date': fields.date.today(),
             'partner_id': oblige_id.id,
             'cee_factures_client_ids': self.ids,
-            'invoice_line_ids': [{
-                'name': product_id.name,
-                'product_id': product_id.id,
-                'quantity': 1,
-                'product_uom_id': product_id.uom_id.id,
-                'price_unit': montant_prime,
-                'tax_ids': product_id.taxes_id.ids,
-
-            }]
+            'invoice_line_ids': [
+                (0, 0, {
+                    'name': product_id.name,
+                    'product_id': product_id.id,
+                    'quantity': 1,
+                    'product_uom_id': product_id.uom_id.id,
+                    'price_unit': montant_prime,
+                    'tax_ids': product_id.taxes_id.ids,
+                })
+            ]
         }
 
     def voir_factures_appelees(self):

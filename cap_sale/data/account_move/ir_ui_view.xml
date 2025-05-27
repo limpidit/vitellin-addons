@@ -5,6 +5,15 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+
+            <xpath expr="//header/button[@name='action_register_payment']" position="after">
+                <button name="action_generate_factures_oblige" 
+                        type="object" 
+                        string="Générer factures obligé"
+                        class="btn-primary" 
+                        invisible="state != 'posted' or etape_cee != 'envoye_oblige'"
+                        groups="account.group_account_invoice,cap_security.group_adv"/>
+            </xpath>
             <xpath expr="//notebook//field[@name='invoice_line_ids']//field[@name='quantity']" position="before">
                 <field name="surface_m2" optional="hide"/>
             </xpath>
