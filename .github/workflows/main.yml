@@ -2,7 +2,7 @@ name: Run
 
 on:
   push:
-    branches: [staging]
+    branches: [migration, staging]
   pull_request:
 
 jobs:
