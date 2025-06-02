@@ -240,7 +240,7 @@
                     </group>
                     
                     <!-- Isolation des murs par l'extérieur (ITE) -->
-                    <group required="typologie_type_travaux != 'iso_iti'">
+                    <group invisible="typologie_type_travaux != 'iso_ite'">
                         <group>                           
                             <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_ite'"/>
 							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
