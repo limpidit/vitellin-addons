@@ -2,8 +2,8 @@ name: Run
 
 on:
   push:
-    branches: [staging]
-  pull_request:
+    branches: [migration, staging]
+  workflow_dispatch:
 
 jobs:
   lint:
