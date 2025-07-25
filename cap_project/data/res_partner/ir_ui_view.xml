@@ -10,13 +10,20 @@
                     <button string="Nouveau projet" name="create_new_projet" type="object" groups="cap_security.group_project_creator"/>
                 </header>
             </xpath>
+        </field>
+    </record>
 
-            <div class="oe_button_box" position="inside">
+    <record id="vitellin_partner_project_list_view_form" model="ir.ui.view">
+        <field name="name">vitellin.partner.project.list.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale.res_partner_view_buttons"/>
+        <field name="arch" type="xml">
+            <button position="before">
                 <button class="oe_stat_button" type="object" name="action_view_projects" invisible="project_count == 0" 
                     groups="project.group_project_user" icon="fa-tasks">
                     <field  string="Projets" name="project_count" widget="statinfo"/>
                 </button>
-            </div>
+            </button>
         </field>
     </record>
 
