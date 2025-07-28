@@ -13,6 +13,7 @@
             </header>
 
             <xpath expr="//sheet/group/group/field[@name='project_id']" position="after">
+                <field name="type_tache" invisible="1"/>
                 <field name="numero_chantier" invisible="type_tache != 'chantier'"/>
                 <field name="numero_semaine" />
                 <field name="planned_hours" widget="float_time" />
