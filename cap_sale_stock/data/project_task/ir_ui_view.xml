@@ -5,6 +5,9 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
+            <header position="before">
+                <field name="type_tache" invisible="1"/>
+            </header>
             <xpath expr="//header" position="inside">
                 <button string="Fragmenter le chantier" name="fragmenter_chantier" type="object" invisible="type_tache != 'chantier'"/>
             </xpath>
