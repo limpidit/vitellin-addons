@@ -1,6 +1,9 @@
 from odoo import models, fields, tools, api, _
 from odoo.exceptions import UserError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class ProductIsolantAlternative(models.Model):
     _name = 'product.isolant.alternative'
@@ -34,18 +37,29 @@ class ProductIsolantAlternative(models.Model):
             record.prix_par_m2 = record.product_id.list_price * record.nombre_sac_pour_100m2 / 100
 
     def find_one(self, resistance_thermique, product_id):
+        if not resistance_thermique or not product_id:
+            return False
+
         if product_id.is_isolant:
             domain = [('resistance_thermique', '=', resistance_thermique)]
-            if product_id._name == 'product.product':
+            if product_id._name == 'product.product' and product_id.product_tmpl_id:
                 domain += [('product_id', '=', product_id.product_tmpl_id.id)]
             elif product_id._name == 'product.template':
                 domain += [('product_id', '=', product_id.id)]
+
             isolant_alternative_id = self.search(domain, limit=1)
+
             if not isolant_alternative_id:
-                raise UserError("Aucune déclinaison trouvée pour '{}' en RT de {}.".format(product_id.name, resistance_thermique))
+                if not self.env.context.get('install_mode'):
+                    raise UserError("Aucune déclinaison trouvée pour '{}' en RT de {}.".format(product_id.name, resistance_thermique))
+                else:
+                    _logger.warning("Aucune déclinaison (safe mode) pour '%s'", product_id.name)
+                    return False
+
             return isolant_alternative_id
         else:
             return self.env[self._name]
+
 
     def evaluate_qty(self, surface):
         if self:
