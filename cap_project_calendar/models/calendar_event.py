@@ -80,7 +80,7 @@ class CalendarEvent(models.Model):
 
 
         attendee_values = []
-        for partner in partner_ids:
+        for partner in partner_ids[2]:
             attendee_values.append((0, 0, {
                 'partner_id': partner,
                 'state': 'accepted',
