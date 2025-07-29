@@ -28,7 +28,7 @@
                 </button>
             </xpath>
 
-            <xpath expr="//header/button" position="after">
+            <xpath expr="//header" position="inside">
                 <button name="action_create_batiment" string="Bâtiment" type="object" icon="fa-plus" class="btn-primary" />
                 <button name="action_create_entree" string="Entrée" type="object" icon="fa-plus" class="btn-primary" />
             </xpath>
