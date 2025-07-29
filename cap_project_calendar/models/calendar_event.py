@@ -68,6 +68,8 @@ class CalendarEvent(models.Model):
             self.with_context(context).unlink()
             return
 
+        _logger.info(f"LIMPIDIT")
+
         task_values = {
             'name': name,
             'start': start_datetime,
