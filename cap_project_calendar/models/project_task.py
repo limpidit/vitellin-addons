@@ -59,9 +59,7 @@ class ProjectTask(models.Model):
 
 
     def update_from_calendar_event(self, planned_date_begin, planned_date_end, user_id, user_ids, calendar_event_id):
-        """
-            Actualiser une tâche à partir d'un évènement (déjà lié à la tâche)
-        """
+        """Actualiser une tâche à partir d'un évènement (déjà lié à la tâche)"""
         self.ensure_one()
         context = {'update_from_calendar_event': True}
         event_vals = {
