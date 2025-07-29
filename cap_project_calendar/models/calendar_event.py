@@ -68,8 +68,6 @@ class CalendarEvent(models.Model):
             self.with_context(context).unlink()
             return
 
-        _logger.info(f"LIMPIDIT")
-
         task_values = {
             'name': name,
             'start': start_datetime,
@@ -79,6 +77,15 @@ class CalendarEvent(models.Model):
             'task_ids': task_id.ids,
             'partner_ids': partner_ids,
         }
+
+        attendee_values = []
+        for user in user_ids:
+            attendee_values.append((0, 0, {
+                'partner_id': user.id,
+                'state': 'accepted',
+            }))
+        
+        task_values['attendee_ids'] = attendee_values
         
         if not self:
             self.with_context(context).create(task_values)
