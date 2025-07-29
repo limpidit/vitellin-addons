@@ -161,12 +161,13 @@ class ResPartner(models.Model):
         else:
             return None, None
 
-    @api.model
-    def create(self, vals):
-        record = super(ResPartner, self).create(vals)
-        if not (vals.get('partner_latitude', False) and vals.get('partner_longitude', False)):
-            record.geo_localize()
-        return record
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for vals, record in zip(vals_list, records):
+            if not (vals.get('partner_latitude') and vals.get('partner_longitude')):
+                record.geo_localize()
+        return records
 
     def write(self, vals):
         if not (vals.get('partner_latitude', False) and vals.get('partner_longitude', False)):
