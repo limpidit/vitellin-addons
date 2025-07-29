@@ -18,13 +18,12 @@ class ProjectTask(models.Model):
         self.env['calendar.event'].update_from_task(
             name=rec.display_name,
             start_datetime=rec.planned_date_begin,
-            stop_datetime=rec.date_end,
+            stop_datetime=rec.date_deadline or rec.date_end,
             user_id=rec.user_id,
             user_ids=[x.id for x in rec.user_ids],
             task_id=rec,
             partner_ids=[(6, 0, [x.partner_id.id for x in self.user_ids])]
         )
-        _logger.info(f"Created calendar {rec.display_name} event")
         return rec
 
     def write(self, vals):

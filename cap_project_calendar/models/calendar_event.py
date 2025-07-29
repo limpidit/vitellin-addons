@@ -79,8 +79,7 @@ class CalendarEvent(models.Model):
         }
         
         if not self:
-            res = self.with_context(context).create(task_values)
-            _logger.info(f"Created calendar event {res.name} for task {task_id.id}")
+            self.with_context(context).create(task_values)
         else:
             self.ensure_one()
             self.with_context(context).write(task_values)
