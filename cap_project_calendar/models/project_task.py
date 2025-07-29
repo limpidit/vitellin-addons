@@ -11,40 +11,39 @@ class ProjectTask(models.Model):
     calendar_event_id = fields.Many2one(string='Evènement associé', comodel_name='calendar.event', readonly=True)
 
     @api.model
-    def create(self, values):
-        """
-            Déclenche la génération d'un évènement dans l'agenda
-        """
-        rec = super().create(values)
+    def create(self, vals):
+        """Déclenche la génération d'un évènement dans l'agenda"""
+        rec = super().create(vals)
         # Génération de l'évènement dans l'agenda
-        self.env['calendar.event'].update_from_task(name=rec.display_name,
-                                                    start_datetime=rec.planned_date_begin,
-                                                    stop_datetime=rec.date_end,
-                                                    user_id=rec.user_id,
-                                                    user_ids=[x.id for x in rec.user_ids],
-                                                    task_id=rec,
-                                                    partner_ids=[(6, 0, [x.partner_id.id for x in self.user_ids])],)
+        self.env['calendar.event'].update_from_task(
+            name=rec.display_name,
+            start_datetime=rec.planned_date_begin,
+            stop_datetime=rec.date_end,
+            user_id=rec.user_id,
+            user_ids=[x.id for x in rec.user_ids],
+            task_id=rec,
+            partner_ids=[(6, 0, [x.partner_id.id for x in self.user_ids])]
+        )
+        _logger.info(f"Created calendar {rec.display_name} event")
         return rec
 
-    def write(self, values):
+    def write(self, vals):
         """
             Synchronise un l'évènement de l'agenda avec les données de la tâche
         """
         #Here we amend the user_id to the first user in user_ids
         if self.user_ids:
-            values.update({'user_id': self.user_ids[0]._origin})
+            vals.update({'user_id': self.user_ids[0]._origin})
             user = self.user_ids[0]._origin
         else:
             user = False
 
-        _logger.info(f"this is values: {values}")
-
-        res = super(ProjectTask, self).write(values)
+        res = super(ProjectTask, self).write(vals)
 
         # Mise à jour de l'évènement dans l'agenda
-        if not self._context.get('update_from_calendar_event', False) and ('planned_date_begin' in values
-                                                                           or 'date_end' in values
-                                                                           or 'user_ids' in values):
+        if not self._context.get('update_from_calendar_event', False) and ('planned_date_begin' in vals
+                                                                           or 'date_end' in vals
+                                                                           or 'user_ids' in vals):
             for task_id in self:
                 event_id = task_id.calendar_event_id or self.env['calendar.event']
                 _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.date_end} user_ids {task_id.user_ids}")
@@ -65,11 +64,11 @@ class ProjectTask(models.Model):
         """
         self.ensure_one()
         context = {'update_from_calendar_event': True}
-        event_values = {
+        event_vals = {
             'planned_date_begin': planned_date_begin,
             'date_end': planned_date_end,
             'user_id': user_id.id,
             'user_ids': user_ids,
             'calendar_event_id': calendar_event_id.id,
         }
-        self.with_context(context).write(event_values)
+        self.with_context(context).write(event_vals)
