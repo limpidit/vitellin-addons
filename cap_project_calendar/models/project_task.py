@@ -10,21 +10,22 @@ class ProjectTask(models.Model):
 
     calendar_event_id = fields.Many2one(string='Evènement associé', comodel_name='calendar.event', readonly=True)
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         """Déclenche la génération d'un évènement dans l'agenda"""
-        rec = super().create(vals)
+        res = super().create(vals_list)
         # Génération de l'évènement dans l'agenda
-        self.env['calendar.event'].update_from_task(
-            name=rec.display_name,
-            start_datetime=rec.planned_date_begin,
-            stop_datetime=rec.date_deadline or rec.date_end,
-            user_id=rec.user_id,
-            user_ids=[x.id for x in rec.user_ids],
-            task_id=rec,
-            partner_ids=[(6, 0, [x.partner_id.id for x in rec.user_ids])]
-        )
-        return rec
+        for record in res:
+            self.env['calendar.event'].update_from_task(
+                name=record.display_name,
+                start_datetime=record.planned_date_begin,
+                stop_datetime=record.date_deadline or record.date_end,
+                user_id=record.user_id,
+                user_ids=[x.id for x in record.user_ids],
+                task_id=record,
+                partner_ids=[(6, 0, [x.partner_id.id for x in record.user_ids])]
+            )
+        return res
 
     def write(self, vals):
         """

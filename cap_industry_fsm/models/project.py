@@ -4,12 +4,11 @@ from odoo import api, models
 class Project(models.Model):
     _inherit = 'project.project'
 
-    @api.model
-    def create(self, values):
-        """ Ensure project are all 'visite technique' type """
-        project = super(Project, self).create(values)
-        project.write({'is_fsm': True})
-        return project
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['is_fsm'] = True
+        return super().create(vals_list)
 
     def go_to_planning_visites(self):
         return self.env['project.task'].go_to_planning('visite')

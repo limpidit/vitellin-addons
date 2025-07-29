@@ -18,12 +18,13 @@ class PartnerCity(models.Model):
     state_id = fields.Many2one(string='État', comodel_name='res.country.state', required=True, ondelete="restrict", domain=lambda self: [('country_id', '=', self.env.ref('base.fr').id)])
     country_id = fields.Many2one('res.country', default=lambda self: self.env.ref('base.fr'))
 
-    @api.model
-    def create(self, values):
-        zipcode = values.get('zipcode', False)
-        if zipcode:
-            values.update({'zipcode': zipcode.zfill(5)})
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            zipcode = vals.get('zipcode')
+            if zipcode:
+                vals['zipcode'] = zipcode.zfill(5)
+        return super().create(vals_list)
 
     @staticmethod
     def _load_city_csv(_cr):

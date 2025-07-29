@@ -119,40 +119,51 @@ class Project(models.Model):
         for record in self:
             record.chantier_renovation = record.typology == 'renovation'
 
-    @api.model
-    def create(self, values):
-        """ Ensure project are all 'visite technique' type """
-        # Créer le répertoire projet à la volée
-        folder_name = values.get('name')
+    @api.model_create_multi
+    def create(self, vals_list):
+        DocumentFolder = self.env['documents.folder']
+        Batiment = self.env['project.batiment']
+        Entree = self.env['project.batiment.entree']
+        company = self.env.company
 
-        folder_id = self.env['documents.folder'].create({
-            'name': folder_name,
-            'parent_folder_id': self.env.company.project_company_folder_id.id or self.env.ref('cap_project.document_folder_root_projects').id,
-            'company_id':  values.get('company_id', False),
-        })
-        values.update({
-            'document_folder_id': folder_id.id,
-        })
-        project = super(Project, self).create(values)
+        # Précharger le dossier parent par défaut (une seule fois)
+        default_parent_folder = company.project_company_folder_id.id or \
+            self.env.ref('cap_project.document_folder_root_projects').id
 
-        if project.partner_id:
-        # Créer 1 batiment
-            batiment_id = self.env['project.batiment'].create({
-                'name': 'Bâtiment 1',
-                'project_id': project.id,
-                'adresse_id': project.address_id.id,
+        projects = []
+
+        for vals in vals_list:
+            folder_name = vals.get('name')
+            folder_id = DocumentFolder.create({
+                'name': folder_name,
+                'parent_folder_id': default_parent_folder,
+                'company_id': vals.get('company_id'),
             })
-            # Créer 1 entrée
-            entree_id = self.env['project.batiment.entree'].create({
-                'name': 'Entrée 1',
-                'batiment_id': batiment_id.id,
-                'adresse_id': batiment_id.adresse_id.id,
-            })
+            vals.update({'document_folder_id': folder_id.id,})
 
-            # Rattacher le batiment et l'entrée au projet
-            # Forcer les projets à apparaitre dans le module Services sur site
-            project.write({'is_fsm': True, 'batiment_ids': batiment_id.ids})
-        return project
+        # Création des projets
+        projects = super().create(vals_list)
+
+        # Création des bâtiments / entrées uniquement après création
+        for vals, project in zip(vals_list, projects):
+            if project.partner_id:
+                batiment = Batiment.create({
+                    'name': 'Bâtiment 1',
+                    'project_id': project.id,
+                    'adresse_id': project.address_id.id,
+                })
+                Entree.create({
+                    'name': 'Entrée 1',
+                    'batiment_id': batiment.id,
+                    'adresse_id': batiment.adresse_id.id,
+                })
+                # Forcer FSM + rattacher bâtiment
+                project.write({
+                    'is_fsm': True,
+                    'batiment_ids': [(6, 0, batiment.ids)],
+                })
+
+        return projects
 
     def _get_document_folder(self):
         return self.document_folder_id

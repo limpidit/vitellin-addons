@@ -118,14 +118,13 @@ class ProjectTask(models.Model):
 
     # ------------------------------------------------------------------------------
 
-    @api.model
-    def create(self, values):
-        """ Assigner aux tâches chantier un numéro auto incrémenté """
-        if not values.get('numero_chantier', False) and values.get('type_tache', False) == 'chantier':
-            values.update({
-                'numero_chantier': self.env.ref('cap_industry_fsm.seq_project_task_chantier').next_by_id()
-            })
-        return super(ProjectTask, self).create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        seq = self.env.ref('cap_industry_fsm.seq_project_task_chantier')
+        for vals in vals_list:
+            if not vals.get('numero_chantier') and vals.get('type_tache') == 'chantier':
+                vals['numero_chantier'] = seq.next_by_id()
+        return super().create(vals_list)
 
     def _subtask_default_fields(self):
         """ Faire en sorte que les sous-tâches héritent de la tâche parente :
