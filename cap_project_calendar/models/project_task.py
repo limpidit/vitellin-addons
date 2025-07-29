@@ -22,7 +22,7 @@ class ProjectTask(models.Model):
             user_id=rec.user_id,
             user_ids=[x.id for x in rec.user_ids],
             task_id=rec,
-            partner_ids=[(6, 0, [x.partner_id.id for x in self.user_ids])]
+            partner_ids=[(6, 0, [x.partner_id.id for x in rec.user_ids])]
         )
         return rec
 
@@ -52,7 +52,7 @@ class ProjectTask(models.Model):
                                           user_id=user if user else task_id.user_id,
                                           user_ids=[x.id for x in task_id.user_ids],
                                           task_id=task_id,
-                                          partner_ids=[(6, 0, [x.partner_id.id for x in self.user_ids])],
+                                          partner_ids=[(6, 0, [x.partner_id.id for x in task_id.user_ids])],
                                           )
         return res
 
