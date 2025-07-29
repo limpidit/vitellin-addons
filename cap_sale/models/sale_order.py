@@ -270,15 +270,13 @@ class SaleOrder(models.Model):
                     montant_escompte_ht = compute_all_dict['total_excluded']
                     order_line.price_unit = -montant_escompte_ht
 
-    @api.model
-    def create(self, values):
-        """
-            Calcul automatique de la prime CEE
-        """
-        rec = super(SaleOrder, self).create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        orders = super().create(vals_list)
         if not self._context.get('skip_prime_cee', False):
-            rec.with_context(skip_prime_cee=True).process_cee_prime_amount()
-        return rec
+            for order in orders:
+                order.with_context(skip_prime_cee=True).process_cee_prime_amount()
+        return orders
 
     def write(self, values):
         """ Actualisation du montant de prime CEE """
