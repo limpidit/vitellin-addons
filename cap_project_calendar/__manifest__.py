@@ -14,8 +14,14 @@
     'version': '17.0.1.0.0',  # Mise à jour pour Odoo 17
     # any module necessary for this one to work correctly
     'depends': [
+        'cap_calendar_attendees',
+        'cap_ref_models',
+        'cap_industry_fsm',
+        'cap_project',
+        'cap_sale',
         'project_enterprise', 
-        'calendar'
+        'calendar',
+        'sale',
     ],
     # always loaded
     'data': [
