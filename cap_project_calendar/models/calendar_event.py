@@ -1,4 +1,5 @@
-from odoo import models, fields,api
+
+from odoo import models, fields, api
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -23,55 +24,50 @@ class CalendarEvent(models.Model):
     # La relation est réellement un One2one
     task_ids = fields.One2many(string='Taĉhes', comodel_name='project.task', inverse_name='calendar_event_id', readonly=True)
     task_id = fields.Many2one(string='Tâche liée', comodel_name='project.task', compute='compute_task_id')
-    partner_ids = fields.Many2many(
-        'res.partner', 'calendar_event_res_partner_rel',
-        string='Attendees', compute="compute_partner_ids",store=True)
+    partner_ids = fields.Many2many('res.partner', 'calendar_event_res_partner_rel', string='Attendees', store=True)
+
     def compute_task_id(self):
-        """
-            Représente la 1ère tâche du champ task_ids (fonctionnellement task_ids ne doit contenir qu'une tâche)
-        """
+        """Représente la 1ère tâche du champ task_ids (fonctionnellement task_ids ne doit contenir qu'une tâche)"""
         for record in self:
             record.task_id = record.task_ids[0] if record.task_ids else False
 
-    def write(self, values):
-        res = super().write(values)
-        if not self._context.get('update_from_task', False) and ('start' in values
-                                                                 or 'stop' in values
-                                                                 or 'user_ids' in values):
-            # Actualiser la tache associée
+    def write(self, vals):
+        res = super().write(vals)
+        # Actualiser la tache associée
+        if not self._context.get('update_from_task', False) and ('start' in vals or 'stop' in vals or 'user_ids' in vals):
             for event_id in self.filtered(lambda e: e.task_id):
-                event_id.task_id.update_from_calendar_event(planned_date_begin=event_id.start,
-                                                            planned_date_end=event_id.stop,
-                                                            user_id=event_id.user_id,
-                                                            user_ids=[x.id for x in event_id.user_ids],
-                                                            calendar_event_id=event_id)
+                event_id.task_id.update_from_calendar_event(
+                    planned_date_begin=event_id.start,
+                    planned_date_end=event_id.stop,
+                    user_id=event_id.user_id,
+                    user_ids=[x.id for x in event_id.user_ids],
+                    calendar_event_id=event_id
+                )
         return res
 
     def unlink(self):
-        """
-            set the date to false in the task if the calendar event is deleted
-        """
+        """set the date to false in the task if the calendar event is deleted"""
         if not self._context.get('update_from_task', False):
             for event_id in self.filtered(lambda e: e.task_id):
-                event_id.task_id.update_from_calendar_event(planned_date_begin=False,
-                                                            planned_date_end=False,
-                                                            user_id=event_id.user_id,
-                                                            user_ids=[x.id for x in event_id.user_ids],
-                                                            calendar_event_id=event_id)
+                event_id.task_id.update_from_calendar_event(
+                    planned_date_begin=False,
+                    planned_date_end=False,
+                    user_id=event_id.user_id,
+                    user_ids=[x.id for x in event_id.user_ids],
+                    calendar_event_id=event_id
+                )
         res = super().unlink()
-
         return res
 
     def update_from_task(self, name, start_datetime, stop_datetime, user_id, user_ids, task_id, partner_ids):
-        """
-            Créer ou Actualise un évènement à partir d'une tâche
-        """
+        """Créer ou Actualise un évènement à partir d'une tâche"""
         context = {'update_from_task': True}
 
-        #Delete the calendar event if there is no date or user_ids in the task
+        # Delete the calendar event if there is no date or user_ids in the task
         if not start_datetime or not stop_datetime or not user_ids or not task_id:
             self.with_context(context).unlink()
             return
+
         task_values = {
             'name': name,
             'start': start_datetime,
@@ -81,6 +77,7 @@ class CalendarEvent(models.Model):
             'task_ids': task_id.ids,
             'partner_ids': partner_ids,
         }
+        
         if not self:
             self.with_context(context).create(task_values)
         else:
