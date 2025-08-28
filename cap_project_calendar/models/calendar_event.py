@@ -78,8 +78,6 @@ class CalendarEvent(models.Model):
             'partner_ids': partner_ids,
         }
 
-        print(partner_ids)
-
         attendee_values = []
         for partner in partner_ids[0][2]:
             attendee_values.append((0, 0, {
