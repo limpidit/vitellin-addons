@@ -48,7 +48,7 @@ class ProjectTask(models.Model):
                 _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.date_end} user_ids {task_id.user_ids}")
                 event_id.update_from_task(name=task_id.display_name,
                                           start_datetime=task_id.planned_date_begin,
-                                          stop_datetime=task_id.date_end,
+                                          stop_datetime=task_id.date_end or task_id.date_deadline,
                                           user_id=user if user else task_id.user_id,
                                           user_ids=[x.id for x in task_id.user_ids],
                                           task_id=task_id,
