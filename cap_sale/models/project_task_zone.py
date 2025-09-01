@@ -107,8 +107,8 @@ class Zone(models.Model):
                     # Rechercher si la quantité doit être dépendante de la surface
                     alternative_id = self.env['product.isolant.alternative'].find_one(resistance_thermique=resistance_thermique, product_id=product_id)
                     if not alternative_id:
-                        raise UserError(_("Aucune déclinaison d'isolant trouvée pour la résistance thermique de {} pour l'article {}." +
-                        "Veuillez en créer une.".format(resistance_thermique, product_id.name)))
+                        raise UserError(_("Aucune déclinaison d'isolant trouvée pour la résistance thermique de {} pour l'article {}."\
+                            .format(resistance_thermique, product_id.name) + "Veuillez en créer une."))
 
                     quantite_par_surface = alternative_id.evaluate_qty(surface=surface_a_isoler)
 
