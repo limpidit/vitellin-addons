@@ -1,6 +1,7 @@
 import operator
 
 from odoo import models, fields, _
+from odoo.exceptions import UserError
 
 
 class Zone(models.Model):
@@ -105,6 +106,10 @@ class Zone(models.Model):
                 else:
                     # Rechercher si la quantité doit être dépendante de la surface
                     alternative_id = self.env['product.isolant.alternative'].find_one(resistance_thermique=resistance_thermique, product_id=product_id)
+                    if not alternative_id:
+                        raise UserError(_("Aucune déclinaison d'isolant trouvée pour la résistance thermique de {} pour l'article {}." +
+                        "Veuillez en créer une.".format(resistance_thermique, product_id.name)))
+
                     quantite_par_surface = alternative_id.evaluate_qty(surface=surface_a_isoler)
 
                     if not (qty or quantite_par_surface) and omit_line_if_0_qty:
