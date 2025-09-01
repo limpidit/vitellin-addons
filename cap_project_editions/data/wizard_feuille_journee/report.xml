@@ -125,7 +125,7 @@
                                     <t t-foreach="task_id[2]" t-as="task">
                                         <t t-set="devis" t-value="task.origin_sale_ids[0]"/>
                                         <t t-set="chargement_ids" t-value="task.chargement_ids"/>
-                                        <t t-set="move_line_isolants" t-value="chargement_ids.move_line_ids.filtered(lambda l: l.product_id.is_isolant)"/>
+                                        <t t-set="move_line_isolants" t-value="chargement_ids.move_ids.filtered(lambda l: l.product_id.is_isolant)"/>
                                         <t t-set="order_line_isolants" t-value="move_line_isolants.mapped('sale_line_id')"/>
                                         <tr>
                                             <th scope="row">
