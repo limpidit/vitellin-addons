@@ -64,7 +64,7 @@ class Tasks(models.Model):
         for x in chantiers:
             count += 1
             begin_date = x.planned_date_begin
-            while begin_date <= x.planned_date_end:
+            while begin_date <= x.date_deadline:
                 days.append(begin_date)
                 begin_date = begin_date + timedelta(days=1)
         return days
