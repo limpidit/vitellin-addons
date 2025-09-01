@@ -23,7 +23,7 @@ class Tasks(models.Model):
         "      if not, we append datas with a new list of user, date, [task]"
         for chantier in chantiers_sorted:
             dates_chantier = self.get_days(chantier)
-            all_move_lines_isolant = chantier.mapped('chargement_ids.move_line_ids').filtered(lambda l: l.product_id.is_isolant)
+            all_move_lines_isolant = chantier.mapped('chargement_ids.move_ids').filtered(lambda l: l.product_id.is_isolant)
             all_products_isolant = all_move_lines_isolant.mapped('product_id')
             total_qty=[]
             for isolant_product_id in all_products_isolant:
