@@ -31,7 +31,7 @@ A global search used to search any object based on the configuration. You can se
         'web.assets_backend': [
             'sh_global_search/static/src/scss/GlobalSearch.scss',
             'sh_global_search/static/src/xml/*.xml',
-            'sh_global_search/static/src/js/*',
+            'sh_global_search/static/src/js/GlobalSearch.js',
         ]
     },
 
