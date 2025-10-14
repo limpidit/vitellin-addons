@@ -106,10 +106,6 @@ class Zone(models.Model):
                 else:
                     # Rechercher si la quantité doit être dépendante de la surface
                     alternative_id = self.env['product.isolant.alternative'].find_one(resistance_thermique=resistance_thermique, product_id=product_id)
-                    if not alternative_id:
-                        raise UserError(_("Aucune déclinaison d'isolant trouvée pour la résistance thermique de {} pour l'article {}."\
-                            .format(resistance_thermique, product_id.name) + "Veuillez en créer une."))
-
                     quantite_par_surface = alternative_id.evaluate_qty(surface=surface_a_isoler)
 
                     if not (qty or quantite_par_surface) and omit_line_if_0_qty:
@@ -174,7 +170,7 @@ class Zone(models.Model):
                 res += _add_product_line(product_id=zone.poncage_type_product_id, qty=zone.surface_a_isoler)
                 res += _add_product_line(product_id=zone.peinture_type_product_id, qty=zone.surface_a_isoler)
                 res += _add_product_line(product_id=zone.depose_product_id, qty=zone.qte_depose) 
-                res += _add_product_line(product_id=zone.traitementeveils_product_id, qty=zone.qte_traitementeveils) 
+                res += _add_product_line(product_id=zone.traitementeveils_product_id, qty=zone.qte_traitementeveils)
                 # res += _add_product_line(product_id=type_travaux.majoration_support_dalle_product_id, qty=zone.surface_a_isoler if zone.majoration_support_dalle else 0)
                 # res += _add_product_line(product_id=type_travaux.jointement_plaques_product_id, qty=zone.surface_a_isoler if zone.jointement_des_plaques else 0)
                 # res += _add_product_line(product_id=type_travaux.poncage_product_id, qty=zone.surface_a_isoler if zone.poncage else 0)
