@@ -7,9 +7,6 @@
         <field name="priority">1</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet//span[@name='address_name']/b[1]" position="replace">
-                <b invisible="type != 'contact'">Adresse</b>
-            </xpath>
             <field name="mobile" position="attributes">
                 <attribute name="required">type == 'contact' and not is_company</attribute>
             </field>
