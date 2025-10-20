@@ -33,6 +33,8 @@
                 <button name="action_create_entree" string="Entrée" type="object" icon="fa-plus" class="btn-primary" />
             </xpath>
 
+            <xpath expr="//field[@name='tag_ids']" position="replace"/>
+
             <field name="partner_id" position="after">
                 <field name="address_id"
                        class="o_fsm_task_customer_field"
@@ -41,7 +43,7 @@
                        widget="res_partner_many2one" />
                 <field name="type_tache" readonly="1" invisible="1"/>
                 <field name="type_visite" />
-                <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" context="{'project_id': project_id}"/>
             </field>
 
             <xpath expr="//sheet/group/group/field[@name='project_id']" position="after">
@@ -51,6 +53,10 @@
                 <field name="non_realisable" invisible="type_tache == 'chantier'"/>
                 <field name="motif_non_realisation" required="non_realisable"
                     invisible="type_tache == 'chantier' or not non_realisable"/>
+            </xpath>
+
+            <xpath expr="//sheet/group/group/field[@name='user_ids']" position="after">
+                <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
             </xpath>
 
             <field name="project_id" position="attributes">
@@ -73,6 +79,62 @@
             </xpath>
         </field>
     </record>
+
+    <record id="project_task_view_form_2" model="ir.ui.view">
+        <field name="name">project.task.view.form.2</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//label[@for='allocated_hours']" position="replace"/>
+            <xpath expr="//div[contains(@class, 'text-nowrap')][.//field[@name='allocated_hours']]" position="replace"/>
+
+            <xpath expr="//field[@name='type_travaux_ids']" position="after">
+                <label for="allocated_hours"
+                    groups="hr_timesheet.group_hr_timesheet_user"
+                    invisible="not allow_timesheets"/>
+                <div class="text-nowrap"
+                    groups="hr_timesheet.group_hr_timesheet_user"
+                    invisible="not allow_timesheets">
+                    <field name="allocated_hours"
+                        class="oe_inline o_field_float_time o_task_planned_hours"
+                        widget="timesheet_uom_no_toggle"/>
+
+                    <span invisible="subtask_count == 0">
+                        (incl. <field name="subtask_allocated_hours" nolabel="1"
+                                    widget="timesheet_uom_no_toggle" class="oe_inline"/> on
+                        <span class="fw-bold text-dark"> Sub-tasks</span>)
+                    </span>
+
+                    <span invisible="not project_id">
+                        (<field name="progress" class="oe_inline" nolabel="1" widget="integer"/> %)
+                    </span>
+                </div>
+                <label for="date_deadline"/>
+                <div id="date_deadline_and_recurring_task" class="d-inline-flex w-100">
+                    <field name="date_deadline" nolabel="1" decoration-danger="date_deadline and date_deadline &lt; current_date and state not in ['1_done', '1_canceled']"/>
+                    <field name="recurring_task" nolabel="1" class="ms-0" style="width: fit-content;"
+                            widget="boolean_icon" options="{'icon': 'fa-repeat'}"
+                            invisible="not active or parent_id"
+                            groups="project.group_project_recurring_tasks"/>
+                </div>
+                <label for="repeat_interval" groups="project.group_project_recurring_tasks" invisible="not recurring_task" />
+                <div invisible="not recurring_task" class="d-flex" groups="project.group_project_recurring_tasks">
+                    <field name="repeat_interval" required="recurring_task"
+                            class="me-2" style="max-width: 2rem !important;" />
+                    <field name="repeat_unit" required="recurring_task"
+                            class="me-2" style="max-width: 4rem !important;" />
+                    <field name="repeat_type" required="recurring_task"
+                            class="me-2" style="max-width: 15rem !important;" />
+                    <field name="repeat_until" invisible="repeat_type != 'until'" required="repeat_type == 'until'"
+                            class="me-2" />
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+
 
     <!-- Project Task Kanban View -->
     <record id="view_task_kanban" model="ir.ui.view">
