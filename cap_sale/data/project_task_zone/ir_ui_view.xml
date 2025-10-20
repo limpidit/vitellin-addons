@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="project_task_zone_form_view" model="ir.ui.view">
+    <record id="project_task_zone_form_view_inherit" model="ir.ui.view">
         <field name="name">project.task.zone.form.view</field>
         <field name="model">project.task.zone</field>
         <field name="inherit_id" ref="cap_project.project_task_zone_form_view" />
@@ -10,6 +10,13 @@
                         groups="sales_team.group_sale_salesman">
                     <field string="Devis" name="sale_order_count" widget="statinfo"/>
                 </button>
+            </xpath>
+
+            <xpath expr="//sheet" position="inside">
+                <header>
+                    <button name="action_generate_sale_order" type="object" class="btn-primary"
+                        groups="sales_team.group_sale_salesman" string="Générer un devis"/>
+                </header>
             </xpath>
         </field>
     </record>
