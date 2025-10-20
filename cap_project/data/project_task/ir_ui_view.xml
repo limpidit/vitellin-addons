@@ -80,7 +80,7 @@
         </field>
     </record>
 
-    <record id="project_task_view_form_2" model="ir.ui.view">
+    <!-- <record id="project_task_view_form_2" model="ir.ui.view">
         <field name="name">project.task.view.form.2</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
@@ -132,7 +132,7 @@
             </xpath>
 
         </field>
-    </record>
+    </record> -->
 
 
 
