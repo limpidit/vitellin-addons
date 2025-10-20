@@ -42,7 +42,6 @@
                        options="{'always_reload': True}"
                        widget="res_partner_many2one" />
                 <field name="type_tache" readonly="1" invisible="1"/>
-                <field name="type_visite" />
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" context="{'project_id': project_id}"/>
             </field>
 
@@ -56,6 +55,7 @@
             </xpath>
 
             <xpath expr="//sheet/group/group/field[@name='user_ids']" position="after">
+                <field name="type_visite" />
                 <field name="type_travaux_ids" required="1" options="{'no_create': True, 'no_open': 'True'}" widget="many2many_tags"/>
             </xpath>
 
