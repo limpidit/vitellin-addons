@@ -143,7 +143,7 @@ class Zone(models.Model):
     qte_article5_autre = fields.Integer(string='Quantité 5')
     
     # ITI
-    ossature_product_id = fields.Many2one(string="Type d\'ossature", comodel_name='product.product')
+    ossature_product_id = fields.Many2one(string="Type d\'ossature", comodel_name='product.product', domain=[('id', 'in', 'type_travaux_ids.ossature_ids.ids')])
     isolant_type_product_id = fields.Many2one(string="Type d\'isolant", comodel_name='product.product')
     majoration_type_product_id = fields.Many2one(string="Majoration plaque spécifique", comodel_name='product.product')
     joints_type_product_id = fields.Many2one(string="Joints", comodel_name='product.product')
