@@ -32,6 +32,8 @@ class ProjectTask(models.Model):
     non_realisable = fields.Boolean(string='Visite non réalisable')
     motif_non_realisation = fields.Char(string='Motif de non réalisation')
 
+    _inverse_task_vt_ids
+
     def _compute_anti_rongeur(self):
         for record in self:
             record.traitement_antirongeur=False
