@@ -8,6 +8,7 @@ class Project(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             vals['is_fsm'] = True
+            vals['company_id'] = self.env.company.id
         return super().create(vals_list)
 
     def go_to_planning_visites(self):
