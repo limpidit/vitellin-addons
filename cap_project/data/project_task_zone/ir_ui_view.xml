@@ -9,8 +9,50 @@
                 <field name="is_client_particulier" invisible="1" />
                 <field name="isolant_categories_autorisees" invisible="1" />
                 <field name="finition_categories_autorisees" invisible="1" />
-				
+
+                <field name="isolant_category_id_domain" invisible="1"/>
+                <field name="finition_category_id_domain" invisible="1"/>
 				<field name="ossature_product_domain" invisible="1"/>
+                <field name="evacuationvmc_product_id_domain" invisible="1"/>
+                <field name="choixvmc_product_id_domain" invisible="1"/>
+                <field name="bouchesanitaire_product_id_domain" invisible="1"/>
+                <field name="bouchecuisine_product_id_domain" invisible="1"/>
+                <field name="arriveelec_product_id_domain" invisible="1"/>
+                <field name="bouchesupp_product_id_domain" invisible="1"/>
+                <field name="extractiontoiture_product_id_domain" invisible="1"/>
+                <field name="articleautre1_product_id_domain" invisible="1"/>
+                <field name="articleautre2_product_id_domain" invisible="1"/>
+                <field name="articleautre3_product_id_domain" invisible="1"/>
+                <field name="articleautre4_product_id_domain" invisible="1"/>   
+                <field name="articleautre5_product_id_domain" invisible="1"/> 
+                <field name="embrasure_product_id_domain" invisible="1"/>
+                <field name="seuil_type_product_id_domain" invisible="1"/>
+                <field name="grille_aeration_product_id_domain" invisible="1"/>
+                <field name="goutiere_deporte_product_id_domain" invisible="1"/>
+                <field name="point_lumineux_product_id_domain" invisible="1"/>
+                <field name="point_lourd_deporte_product_id_domain" invisible="1"/>
+                <field name="deporte_client_product_ids_domain" invisible="1"/>
+                <field name="ossature_product_domain" invisible="1"/>
+                <field name="angle_mur_product_id_domain" invisible="1"/>
+                <field name="nettoyage_product_id_domain" invisible="1"/>
+                <field name="type_isolant_product_id_domain" invisible="1"/>
+                <field name="type_finition_product_id_domain" invisible="1"/>
+                <field name="couvertine_product_id_domain" invisible="1"/>
+                <field name="rail_depart_product_id_domain" invisible="1"/>
+                <field name="arret_lateral_product_id_domain" invisible="1"/>
+                <field name="majoration_zone_product_id_domain" invisible="1"/>
+                <field name="echafaudage_product_id_domain" invisible="1"/>
+                <field name="joints_type_product_id_domain" invisible="1"/>
+                <field name="gond_deporte_product_id_domain" invisible="1"/>
+                <field name="isolant_type_product_id_domain" invisible="1"/>
+                <field name="parevapeur_type_product_id_domain" invisible="1"/>
+                <field name="poncage_type_product_id_domain" invisible="1"/>
+                <field name="peinture_type_product_id_domain" invisible="1"/>
+                <field name="arret_fenetre_product_id_domain" invisible="1"/>
+                <field name="majoration_type_product_id_domain" invisible="1"/>
+                <field name="traitementeveils_product_id_domain" invisible="1"/>
+                <field name="arret_marseillais_product_id_domain" invisible="1"/>
+                <field name="depose_product_id_domain" invisible="1"/>
 
                 <sheet>
                     <div class="oe_button_box" name="button_box" groups="base.group_user">
@@ -77,14 +119,15 @@
 					<group invisible="typologie_type_travaux != 'vmc'">
 						
 						<field name="evacuation_vmc" />
-                        <field name="evacuationvmc_product_id" invisible="not evacuation_vmc" options="{'no_open': True, 'no_create': True}" />
+                        <field name="evacuationvmc_product_id" invisible="not evacuation_vmc" options="{'no_open': True, 'no_create': True}"
+                            domain="evacuationvmc_product_id_domain"/>
 
-                        <field name="choixvmc_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="choixvmc_product_id" options="{'no_open': True, 'no_create': True}" domain="choixvmc_product_id_domain"/>
 						<field name="nombre_bloc_vmc" />
 						
-                        <field name="bouchesanitaire_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="bouchesanitaire_product_id" options="{'no_open': True, 'no_create': True}" domain="bouchesanitaire_product_id_domain"/>
 						<field name="nombre_bouche_sanitaire" />
-                        <field name="bouchecuisine_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="bouchecuisine_product_id" options="{'no_open': True, 'no_create': True}" domain="bouchecuisine_product_id_domain"/>
 						<field name="nombre_bouche_cuisine" />
 					
 						<field name="fourniture_gaine_isolee_80" />
@@ -92,12 +135,12 @@
 						<field name="fourniture_gaine_isolee_160" />
 						<field name="nombre_grille_entree_air" />
 				
-                        <field name="arriveelec_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="arriveelec_product_id" options="{'no_open': True, 'no_create': True}" domain="arriveelec_product_id_domain"/>
 						
-                        <field name="bouchesupp_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="bouchesupp_product_id" options="{'no_open': True, 'no_create': True}" domain="bouchesupp_product_id_domain"/>
 						<field name="nombre_bouche_creer" />
 					
-						<field name="extractiontoiture_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="extractiontoiture_product_id" options="{'no_open': True, 'no_create': True}" domain="extractiontoiture_product_id_domain"/>
 						<field name="nombre_extraction_toiture" />
 						
 					</group>
@@ -106,19 +149,19 @@
 					<!-- Autre -->
 					<group invisible="typologie_type_travaux != 'autre'">
 						
-                        <field name="articleautre1_product_id" options="{'no_open': True, 'no_create': True}" />
+                        <field name="articleautre1_product_id" options="{'no_open': True, 'no_create': True}" domain="articleautre1_product_id_domain"/>
 						<field name="qte_article1_autre" />
 						
-						<field name="articleautre2_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="articleautre2_product_id" options="{'no_open': True, 'no_create': True}" domain="articleautre2_product_id_domain"/>
 						<field name="qte_article2_autre" />
 						
-						<field name="articleautre3_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="articleautre3_product_id" options="{'no_open': True, 'no_create': True}" domain="articleautre3_product_id_domain"/>
 						<field name="qte_article3_autre" />
 						
-						<field name="articleautre4_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="articleautre4_product_id" options="{'no_open': True, 'no_create': True}" domain="articleautre4_product_id_domain"/>
 						<field name="qte_article4_autre" />
 						
-						<field name="articleautre5_product_id" options="{'no_open': True, 'no_create': True}" />
+						<field name="articleautre5_product_id" options="{'no_open': True, 'no_create': True}" domain="articleautre5_product_id_domain"/>
 						<field name="qte_article5_autre" />
 						
 						<field name="type_camion_requis" />
@@ -180,7 +223,8 @@
                     <!-- Plancher bas -->
                     <group invisible="typologie_type_travaux != 'iso_plancher'">
                         <group>
-                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_plancher'" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_plancher'" options="{'no_open': True, 'no_create': True}"
+                                domain="isolant_category_id_domain"/>
                             <field name="isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_plancher'"/>
                             <field name="type_support" options="{'no_open': True, 'no_create': True}"/>
@@ -205,7 +249,8 @@
                             <field name="destination"/>
                             <field name="isolant_a_enlever_product_id" invisible="is_chantier_renovation == False" options="{'no_open': True, 'no_create': True}"/>
                             <field name="m2_isolant_a_enlever" string="ml d'isolant à déposer"/>
-                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_calo'" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_category_id" required="typologie_type_travaux == 'iso_calo'" options="{'no_open': True, 'no_create': True}"
+                                domain="isolant_category_id_domain"/>
                             <field name="isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="surface_a_isoler" string="ml à isoler" required="typologie_type_travaux == 'iso_calo'"/>
                             <field name="hauteur_reseau_ok"/>
@@ -222,17 +267,17 @@
 							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
 							
 							<field name="ossature_product_id" options="{'no_open': True, 'no_create': True}" domain="ossature_product_domain"/>
-                            <field name="isolant_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="isolant_type_product_id" options="{'no_open': True, 'no_create': True}" domain="isolant_type_product_id_domain"/>
 							
 							
-							<field name="parevapeur_type_product_id" options="{'no_open': True, 'no_create': True}"/>
-							<field name="majoration_type_product_id" options="{'no_open': True, 'no_create': True}"/>
-							<field name="joints_type_product_id" options="{'no_open': True, 'no_create': True}"/>
-							<field name="poncage_type_product_id" options="{'no_open': True, 'no_create': True}"/>
-							<field name="peinture_type_product_id" options="{'no_open': True, 'no_create': True}"/>
-							<field name="depose_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="parevapeur_type_product_id" options="{'no_open': True, 'no_create': True}" domain="parevapeur_type_product_id_domain"/>
+							<field name="majoration_type_product_id" options="{'no_open': True, 'no_create': True}" domain="majoration_type_product_id_domain"/>
+							<field name="joints_type_product_id" options="{'no_open': True, 'no_create': True}" domain="joints_type_product_id_domain"/>
+							<field name="poncage_type_product_id" options="{'no_open': True, 'no_create': True}" domain="poncage_type_product_id_domain"/>
+							<field name="peinture_type_product_id" options="{'no_open': True, 'no_create': True}" domain="peinture_type_product_id_domain"/>
+							<field name="depose_product_id" options="{'no_open': True, 'no_create': True}" domain="depose_product_id_domain"/>
 							<field name="qte_depose" />
-							<field name="traitementeveils_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="traitementeveils_product_id" options="{'no_open': True, 'no_create': True}" domain="traitementeveils_product_id_domain"/>
 							<field name="qte_traitementeveils" />
 							
                             <field name="resistance_thermique" required="typologie_type_travaux == 'iso_iti'" options="{'no_open': True, 'no_create': True}"/>
@@ -245,45 +290,45 @@
                             <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_ite'"/>
 							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
                             
-                            <field name="echafaudage_product_id" options="{'no_open': True, 'no_create': True}"/>
-                            <field name="nettoyage_product_id" options="{'no_open': True, 'no_create': True}"/>
-                            <field name="type_isolant_product_id" options="{'no_open': True, 'no_create': True}"/>
-                            <field name="type_finition_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="echafaudage_product_id" options="{'no_open': True, 'no_create': True}" domain="echafaudage_product_id_domain"/>
+                            <field name="nettoyage_product_id" options="{'no_open': True, 'no_create': True}" domain="nettoyage_product_id_domain"/>
+                            <field name="type_isolant_product_id" options="{'no_open': True, 'no_create': True}" domain="type_isolant_product_id_domain"/>
+                            <field name="type_finition_product_id" options="{'no_open': True, 'no_create': True}" domain="type_finition_product_id_domain"/>
 
-                            <field name="majoration_zone_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="majoration_zone_product_id" options="{'no_open': True, 'no_create': True}" domain="majoration_zone_product_id_domain"/>
                             <field name="m2_majoration_zone" />
 
-                            <field name="rail_depart_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="rail_depart_product_id" options="{'no_open': True, 'no_create': True}" domain="rail_depart_product_id_domain"/>
                             <field name="ml_rail_depart" />
-                            <field name="arret_lateral_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="arret_lateral_product_id" options="{'no_open': True, 'no_create': True}" domain="arret_lateral_product_id_domain"/>
                             <field name="ml_arret_lateral" />
-                            <field name="angle_mur_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="angle_mur_product_id" options="{'no_open': True, 'no_create': True}" domain="angle_mur_product_id_domain"/>
                             <field name="ml_angle_mur" />
-                            <field name="couvertine_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="couvertine_product_id" options="{'no_open': True, 'no_create': True}" domain="couvertine_product_id_domain"/>
                             <field name="ml_couvertine" />
 
-                            <field name="gond_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="gond_deporte_product_id" options="{'no_open': True, 'no_create': True}" domain="gond_deporte_product_id_domain"/>
                             <field name="nb_gond_deporte" />
-                            <field name="arret_fenetre_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="arret_fenetre_product_id" options="{'no_open': True, 'no_create': True}" domain="arret_fenetre_product_id_domain"/>
                             <field name="nb_arret_fenetre" />
-                            <field name="arret_marseillais_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="arret_marseillais_product_id" options="{'no_open': True, 'no_create': True}" domain="arret_marseillais_product_id_domain"/>
                             <field name="nb_arret_marseillais" />
 
-                            <field name="embrasure_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="embrasure_product_id" options="{'no_open': True, 'no_create': True}" domain="embrasure_product_id_domain"/>
                             <field name="ml_embrasure" />
-                            <field name="seuil_type_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="seuil_type_product_id" options="{'no_open': True, 'no_create': True}" domain="seuil_type_product_id_domain"/>
                             <field name="ml_seuil" />
 
-                            <field name="grille_aeration_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="grille_aeration_product_id" options="{'no_open': True, 'no_create': True}" domain="grille_aeration_product_id_domain"/>
                             <field name="nb_grille_aeration" />
-                            <field name="goutiere_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="goutiere_deporte_product_id" options="{'no_open': True, 'no_create': True}" domain="goutiere_deporte_product_id_domain"/>
                             <field name="ml_goutiere_deporte" />
-                            <field name="point_lumineux_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="point_lumineux_product_id" options="{'no_open': True, 'no_create': True}" domain="point_lumineux_product_id_domain"/>
                             <field name="nb_point_lumineux" />
-                            <field name="point_lourd_deporte_product_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="point_lourd_deporte_product_id" options="{'no_open': True, 'no_create': True}" domain="point_lourd_deporte_product_id_domain"/>
                             <field name="nb_point_lourd_deporte" />
 
-                            <field name="deporte_client_product_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="deporte_client_product_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" domain="deporte_client_product_ids_domain"/>
                             <field name="desc_element_deporte_client" />
                             <field name="resistance_thermique" required="typologie_type_travaux == 'iso_ite'" options="{'no_open': True, 'no_create': True}"/>
                         </group>
