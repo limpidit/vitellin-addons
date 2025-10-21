@@ -124,27 +124,6 @@ class ProjectTask(models.Model):
         action = self.env['project.task.zone'].action_view_zones(self.project_id)
         return action
 
-    # def name_get(self):
-    #     """
-    #         Surcharge pour modifier le rendu des tâches (display_name)
-    #         * une tâche 'visite' est représentée par :
-    #             - [VT] "Code postal" "Ville" "Nom client" "Rue"
-    #         * une tâche 'chantier' est représentée par :
-    #             - [CH] name
-
-    #     """
-    #     if self._context.get('show_standard_displayname', False):
-    #         return super().name_get()
-    #     else:
-    #         result = []
-    #         for rec in self:
-    #             parts = [rec.address_zip, rec.address_city, rec.address_street, rec.partner_id.name]
-    #             if rec.type_tache == 'visite':
-    #                 result.append((rec.id, "VT " + ",".join([x for x in parts if x])))
-    #             else:
-    #                 result.append((rec.id, "CH " + " ".join([x for x in parts if x])))
-    #         return result
-
     @api.depends('type_tache', 'address_zip', 'address_city', 'address_street', 'partner_id.name')
     def _compute_display_name(self):
         """
@@ -162,8 +141,8 @@ class ProjectTask(models.Model):
             parts = filter(None, [
                 rec.address_zip,
                 rec.address_city,
-                rec.partner_id.name,
                 rec.address_street,
+                rec.partner_id.name,
             ])
             prefix = "[VT]" if rec.type_tache == 'visite' else "[CH]"
             rec.display_name = f"{prefix} " + ", ".join(parts)
