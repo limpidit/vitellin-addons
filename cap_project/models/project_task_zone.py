@@ -143,7 +143,7 @@ class Zone(models.Model):
     qte_article5_autre = fields.Integer(string='Quantité 5')
     
     # ITI
-    ossature_product_id = fields.Many2one(string="Type d\'ossature", comodel_name='product.product', domain=[('id', 'in', 'type_travaux_ids.ossature_ids.ids')])
+    ossature_product_id = fields.Many2one(string="Type d\'ossature", comodel_name='product.product')
     isolant_type_product_id = fields.Many2one(string="Type d\'isolant", comodel_name='product.product')
     majoration_type_product_id = fields.Many2one(string="Majoration plaque spécifique", comodel_name='product.product')
     joints_type_product_id = fields.Many2one(string="Joints", comodel_name='product.product')
@@ -406,11 +406,9 @@ class Zone(models.Model):
     @api.onchange('type_travaux')
     def _onchange_ossature_product_id(self):
         self.ossature_product_id = False
-        if self.type_travaux.ossature_ids:
-            product_ids = [o.default_product_id.id for o in self.type_travaux.ossature_ids]
-            if len(product_ids) == 1:
-                self.ossature_product_id = product_ids[0]
-            return {'domain': {'ossature_product_id': [('id', 'in', product_ids)]}}
+        if self.type_travaux:
+            ossature_ids = self.type_travaux.mapped('ossature_ids').ids
+            return {'domain': {'ossature_product_id': [('id', 'in', ossature_ids)]}}
         return {'domain': {'ossature_product_id': []}}
     
     @api.onchange('type_travaux')
