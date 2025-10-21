@@ -403,13 +403,15 @@ class Zone(models.Model):
         return self._get_article_autre_domain(5)
     
     # ITI onchange methods
-    @api.onchange('type_travaux')
-    def _onchange_ossature_product_id(self):
-        self.ossature_product_id = False
-        if self.type_travaux:
-            ossature_ids = self.type_travaux.ossature_ids.mapped('id')
-            return {'domain': {'ossature_product_id': [('id', 'in', ossature_ids)]}}
-        return {'domain': {'ossature_product_id': []}}
+    ossature_product_domain = fields.Char(compute='_compute_ossature_domain')
+    @api.depends('type_travaux')
+    def _compute_ossature_domain(self):
+        for rec in self:
+            if rec.type_travaux:
+                oss_ids = rec.type_travaux.ossature_ids.ids
+                rec.ossature_product_domain = str([('id', 'in', oss_ids)])
+            else:
+                rec.ossature_product_domain = "[]"
     
     @api.onchange('type_travaux')
     def _onchange_isolant_type_product_id(self):
