@@ -408,7 +408,7 @@ class Zone(models.Model):
     def _compute_ossature_domain(self):
         for rec in self:
             if rec.type_travaux:
-                oss_ids = rec.type_travaux.ossature_ids.ids
+                oss_ids = rec.type_travaux.ossature_ids.mapped('default_product_id').ids
                 rec.ossature_product_domain = str([('id', 'in', oss_ids)])
             else:
                 rec.ossature_product_domain = "[]"
