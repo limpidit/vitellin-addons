@@ -5,6 +5,8 @@ class ProjectTask(models.Model):
     _name = 'project.task'
     _inherit = ['project.task', 'documents.mixin']
 
+    display_name = fields.Char(compute='_compute_display_name', store=False)
+
     user_id = fields.Many2one(comodel_name='res.users', default=False)
     address_id = fields.Many2one('res.partner', string="Adresse intervention", related='project_id.address_id')
     type_tache = fields.Selection(selection=[('visite', 'Visite technique'), ('chantier', 'Chantier')], default='visite', required=True)
@@ -122,23 +124,46 @@ class ProjectTask(models.Model):
         action = self.env['project.task.zone'].action_view_zones(self.project_id)
         return action
 
-    def name_get(self):
-        """
-            Surcharge pour modifier le rendu des tâches (display_name)
-            * une tâche 'visite' est représentée par :
-                - [VT] "Code postal" "Ville" "Nom client" "Rue"
-            * une tâche 'chantier' est représentée par :
-                - [CH] name
+    # def name_get(self):
+    #     """
+    #         Surcharge pour modifier le rendu des tâches (display_name)
+    #         * une tâche 'visite' est représentée par :
+    #             - [VT] "Code postal" "Ville" "Nom client" "Rue"
+    #         * une tâche 'chantier' est représentée par :
+    #             - [CH] name
 
+    #     """
+    #     if self._context.get('show_standard_displayname', False):
+    #         return super().name_get()
+    #     else:
+    #         result = []
+    #         for rec in self:
+    #             parts = [rec.address_zip, rec.address_city, rec.address_street, rec.partner_id.name]
+    #             if rec.type_tache == 'visite':
+    #                 result.append((rec.id, "VT " + ",".join([x for x in parts if x])))
+    #             else:
+    #                 result.append((rec.id, "CH " + " ".join([x for x in parts if x])))
+    #         return result
+
+    @api.depends('type_tache', 'address_zip', 'address_city', 'address_street', 'partner_id.name')
+    def _compute_display_name(self):
         """
-        if self._context.get('show_standard_displayname', False):
-            return super().name_get()
-        else:
-            result = []
-            for rec in self:
-                parts = [rec.address_zip, rec.address_city, rec.address_street, rec.partner_id.name]
-                if rec.type_tache == 'visite':
-                    result.append((rec.id, "VT " + ",".join([x for x in parts if x])))
-                else:
-                    result.append((rec.id, "CH " + " ".join([x for x in parts if x])))
-            return result
+        Surcharge pour modifier le rendu des tâches (display_name)
+        * une tâche 'visite' est représentée par :
+            - [VT] "Code postal" "Ville" "Nom client" "Rue"
+        * une tâche 'chantier' est représentée par :
+            - [CH] name
+        """
+        for rec in self:
+            if self.env.context.get('show_standard_displayname', False):
+                rec.display_name = super(ProjectTask, rec).display_name
+                continue
+
+            parts = filter(None, [
+                rec.address_zip,
+                rec.address_city,
+                rec.partner_id.name,
+                rec.address_street,
+            ])
+            prefix = "[VT]" if rec.type_tache == 'visite' else "[CH]"
+            rec.display_name = f"{prefix} " + ", ".join(parts)
