@@ -407,7 +407,7 @@ class Zone(models.Model):
     def _onchange_ossature_product_id(self):
         self.ossature_product_id = False
         if self.type_travaux:
-            ossature_ids = self.type_travaux.mapped('ossature_ids').ids
+            ossature_ids = self.type_travaux.ossature_ids.mapped('id')
             return {'domain': {'ossature_product_id': [('id', 'in', ossature_ids)]}}
         return {'domain': {'ossature_product_id': []}}
     
