@@ -10,7 +10,7 @@
                 <field name="isolant_categories_autorisees" invisible="1" />
                 <field name="finition_categories_autorisees" invisible="1" />
 				
-				
+				<field name="ossature_product_domain" invisible="1"/>
 
                 <sheet>
                     <div class="oe_button_box" name="button_box" groups="base.group_user">
@@ -221,7 +221,7 @@
                             <field name="surface_a_isoler" required="typologie_type_travaux == 'iso_iti'"/>
 							<field name="type_support" options="{'no_open': True, 'no_create': True}"/>
 							
-							<field name="ossature_product_id" options="{'no_open': True, 'no_create': True}"/>
+							<field name="ossature_product_id" options="{'no_open': True, 'no_create': True}" domain="ossature_product_domain"/>
                             <field name="isolant_type_product_id" options="{'no_open': True, 'no_create': True}"/>
 							
 							
