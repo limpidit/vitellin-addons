@@ -25,8 +25,8 @@ class Project(models.Model):
     represente_par = fields.Text(string='Représenté par')
 
     task_vt_count = fields.Integer(compute='_compute_task_vt_count')
-    task_vt_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_vt_ids', inverse='_inverse_task_vt_ids', store=True)
-    task_ch_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_ch_ids', inverse='_inverse_task_ch_ids', store=True)
+    task_vt_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_vt_ids', inverse='_inverse_task_vt_ids')
+    task_ch_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_ch_ids', inverse='_inverse_task_ch_ids')
 
     batiment_ids = fields.One2many(string='Bâtiments', comodel_name='project.batiment', inverse_name='project_id')
     count_batiment_ids = fields.Integer(compute='_compute_count_batiment_ids')

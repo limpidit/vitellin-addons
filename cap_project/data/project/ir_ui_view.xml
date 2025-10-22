@@ -65,8 +65,8 @@
                         <page string="Visites techniques" name="visites_techniques" invisible="not id">
                             <field name="task_vt_ids" string="Visite technique" context="{'form_view_ref': 'industry_fsm.project_task_view_form', 'hide_zones': True}">
                                 <tree create="false" delete="false">
-                                    <field name="name" />
-                                    <field name="user_id" />
+                                    <field name="display_name" />
+                                    <field name="user_ids" />
                                     <field name="planned_hours" />
                                     <field name="stage_id" />
                                 </tree>
@@ -75,8 +75,8 @@
                         <page string="Chantiers" name="chantiers" invisible="not id">
                             <field name="task_ch_ids" string="Chantiers" context="{'form_view_ref': 'industry_fsm.project_task_view_form', 'hide_zones': True}">
                                 <tree create="false" delete="false">
-                                    <field name="name" />
-                                    <field name="user_id" />
+                                    <field name="display_name" />
+                                    <field name="user_ids" />
                                     <field name="planned_hours" />
                                     <field name="stage_id" />
                                 </tree>
