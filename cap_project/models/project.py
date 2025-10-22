@@ -25,8 +25,8 @@ class Project(models.Model):
     represente_par = fields.Text(string='Représenté par')
 
     task_vt_count = fields.Integer(compute='_compute_task_vt_count')
-    task_vt_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_vt_ids', inverse='_inverse_task_vt_ids')
-    task_ch_ids = fields.One2many(comodel_name='project.task', compute='_compute_task_ch_ids', inverse='_inverse_task_ch_ids')
+    task_vt_ids = fields.One2many(comodel_name='project.task', inverse_name='project_id', domain=[('type_tache', '=', 'visite')])
+    task_ch_ids = fields.One2many(comodel_name='project.task', inverse_name='project_id', domain=[('type_tache', '=', 'chantier')])
 
     batiment_ids = fields.One2many(string='Bâtiments', comodel_name='project.batiment', inverse_name='project_id')
     count_batiment_ids = fields.Integer(compute='_compute_count_batiment_ids')
@@ -64,46 +64,46 @@ class Project(models.Model):
         for record in self:
             record.entree_ids = record.batiment_ids.mapped('entree_ids')
 
-    @api.depends('task_ids.type_tache')
-    def _compute_task_ch_ids(self):
-        for record in self:
-            record.task_ch_ids = record.task_ids.filtered(lambda t: t.type_tache == 'chantier')
+    # @api.depends('task_ids.type_tache')
+    # def _compute_task_ch_ids(self):
+    #     for record in self:
+    #         record.task_ch_ids = record.task_ids.filtered(lambda t: t.type_tache == 'chantier')
 
-    def _inverse_task_ch_ids(self):
-        """
-            Ne gère que l'update d'une tâche existante !
+    # def _inverse_task_ch_ids(self):
+    #     """
+    #         Ne gère que l'update d'une tâche existante !
 
-            Objectif : permettre la correction du contenu d'une tache en cas d'erreur
-            La suppression n'est pas à gérer ici (que faire : supprimer ? archiver ?)
-        """
-        for project in self:
-            tasks_to_add = project.task_ch_ids - project.task_ids
-            if tasks_to_add:
-                raise UserError(_("Opération non autorisée."))
-            tasks_to_remove = project.task_ids - project.task_ch_ids
-            if tasks_to_remove:
-                raise UserError(_("Opération non autorisée."))
+    #         Objectif : permettre la correction du contenu d'une tache en cas d'erreur
+    #         La suppression n'est pas à gérer ici (que faire : supprimer ? archiver ?)
+    #     """
+    #     for project in self:
+    #         tasks_to_add = project.task_ch_ids - project.task_ids
+    #         if tasks_to_add:
+    #             raise UserError(_("Opération non autorisée."))
+    #         tasks_to_remove = project.task_ids - project.task_ch_ids
+    #         if tasks_to_remove:
+    #             raise UserError(_("Opération non autorisée."))
 
-    @api.depends('task_ids.type_tache')
-    def _compute_task_vt_ids(self):
-        for record in self:
-            record.task_vt_ids = record.task_ids.filtered(lambda t: t.type_tache == 'visite')
+    # @api.depends('task_ids.type_tache')
+    # def _compute_task_vt_ids(self):
+    #     for record in self:
+    #         record.task_vt_ids = record.task_ids.filtered(lambda t: t.type_tache == 'visite')
 
-    def _inverse_task_vt_ids(self):
-        """
-            Ne gère que l'update d'une tâche existante !
+    # def _inverse_task_vt_ids(self):
+    #     """
+    #         Ne gère que l'update d'une tâche existante !
 
-            Objectif : permettre la correction du contenu d'une tache en cas d'erreur
-            La suppression n'est pas à gérer ici (que faire : supprimer ? archiver ?)
-            L'ajout doit passer par le bouton "Nouvelle visite technique"
-        """
-        for project in self:
-            tasks_to_add = project.task_vt_ids - project.task_ids
-            if tasks_to_add:
-                raise UserError(_("Opération non autorisée."))
-            tasks_to_remove = project.task_ids - project.task_vt_ids
-            if tasks_to_remove:
-                raise UserError(_("Opération non autorisée."))
+    #         Objectif : permettre la correction du contenu d'une tache en cas d'erreur
+    #         La suppression n'est pas à gérer ici (que faire : supprimer ? archiver ?)
+    #         L'ajout doit passer par le bouton "Nouvelle visite technique"
+    #     """
+    #     for project in self:
+    #         tasks_to_add = project.task_vt_ids - project.task_ids
+    #         if tasks_to_add:
+    #             raise UserError(_("Opération non autorisée."))
+    #         tasks_to_remove = project.task_ids - project.task_vt_ids
+    #         if tasks_to_remove:
+    #             raise UserError(_("Opération non autorisée."))
 
     @api.depends('task_vt_ids')
     def _compute_task_vt_count(self):
