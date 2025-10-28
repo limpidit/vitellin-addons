@@ -44,7 +44,7 @@ class WizardFragmentationChantier(models.TransientModel):
         # Dupliquer le chantier
         chantier_copie = self.chantier_id.copy(default={'user_id': False,
                                                         'planned_date_begin': False,
-                                                        'planned_date_end': False})
+                                                        'date_deadline': False})
 
         # Lier les chargements à la tâche si ce n'était pas déjà le cas
         chargements_a_decouper = self.chantier_id.chargement_ids
