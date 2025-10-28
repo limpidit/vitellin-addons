@@ -20,7 +20,7 @@
         <field name="name">Feuille semaine</field>
         <field name="res_model">wizard.feuille.semaine</field>
         <field name="view_mode">form</field>
-        <field name="target">current</field>
+        <field name="target">new</field>
     </record>
 
     <menuitem id="menu_chantier_feuille_semaine"
