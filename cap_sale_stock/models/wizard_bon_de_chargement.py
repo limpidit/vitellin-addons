@@ -65,8 +65,8 @@ class WizardBonDeChargement(models.TransientModel):
                                                          '|',
                                                          '|',
                                                          '&', ('planned_date_begin', '>=', datetime_debut_periode), ('planned_date_begin', '<=', datetime_fin_periode),
-                                                         '&', ('planned_date_end', '>=', datetime_debut_periode), ('planned_date_end', '<=', datetime_fin_periode),
-                                                         '&', ('planned_date_begin', '<=', datetime_debut_periode), ('planned_date_end', '>=', datetime_fin_periode),
+                                                         '&', ('date_deadline', '>=', datetime_debut_periode), ('date_deadline', '<=', datetime_fin_periode),
+                                                         '&', ('planned_date_begin', '<=', datetime_debut_periode), ('date_deadline', '>=', datetime_fin_periode),
                                                          ])
         mouvements_stock_ids = chantiers_ids.mapped('chargement_ids.move_lines')
         articles_dict = {}
