@@ -26,23 +26,26 @@ class FeuilleSemaine(models.TransientModel):
     def action_generer_feuille_semaine(self):
         self.ensure_one()
         if self.user_id:
-            tous_chantiers = self.env['project.task'].search([('type_tache', '=', 'chantier'),
-                                                          ('numero_semaine', '=', self.date_semaine.isocalendar()[1]),
-                                                          ('user_id','=',self.user_id.id),
-                                                          ('stage_id', '=', self.env.ref('cap_industry_fsm.project_task_type_a_realiser').id)])
+            tous_chantiers = self.env['project.task'].search([
+                ('type_tache', '=', 'chantier'),
+                ('numero_semaine', '=', self.date_semaine.isocalendar()[1]),
+                ('user_ids', 'in', self.user_id.id),
+                ('stage_id', '=', self.env.ref('cap_industry_fsm.project_task_type_a_realiser').id)
+            ])
         else:
-            tous_chantiers = self.env['project.task'].search([('type_tache', '=', 'chantier'),
-                                                          ('numero_semaine', '=', self.date_semaine.isocalendar()[1]),
-                                                          ('stage_id', '=', self.env.ref(
-                                                              'cap_industry_fsm.project_task_type_a_realiser').id)])
+            tous_chantiers = self.env['project.task'].search([
+                ('type_tache', '=', 'chantier'),
+                ('numero_semaine', '=', self.date_semaine.isocalendar()[1]),
+                ('stage_id', '=', self.env.ref('cap_industry_fsm.project_task_type_a_realiser').id)
+            ])
 
         if not tous_chantiers:
             return
 
-        users = tous_chantiers.mapped('user_id')
+        users = tous_chantiers.mapped('user_ids')
         datas = []
         for user_id in users:
-            chantiers_for_user_id = tous_chantiers.filtered(lambda c: c.user_id == user_id)
+            chantiers_for_user_id = tous_chantiers.filtered(lambda c: user_id in c.user_ids.ids)
             vehicule_ids = chantiers_for_user_id.mapped('type_vehicule_ids')
             type_travaux_ids = chantiers_for_user_id.mapped('type_travaux_ids')
 
