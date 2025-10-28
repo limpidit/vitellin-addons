@@ -68,7 +68,7 @@ class WizardBonDeChargement(models.TransientModel):
                                                          '&', ('date_deadline', '>=', datetime_debut_periode), ('date_deadline', '<=', datetime_fin_periode),
                                                          '&', ('planned_date_begin', '<=', datetime_debut_periode), ('date_deadline', '>=', datetime_fin_periode),
                                                          ])
-        mouvements_stock_ids = chantiers_ids.mapped('chargement_ids.move_lines')
+        mouvements_stock_ids = chantiers_ids.mapped('chargement_ids.move_line_ids')
         articles_dict = {}
         for move in mouvements_stock_ids:
             product_id = move.product_id.id
