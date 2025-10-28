@@ -10,7 +10,7 @@
                     <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px;"/>
                 </div>
                 <div class="col-6 text-center">
-                    <span class="mt0" t-field="company.report_header" style="font-size: 14;"/>
+                    <span class="mt0" t-field="company.report_header" style="font-size: 10px;"/>
                 </div>
                 <div class="col-3 text-right">
                     <img t-if="company.logo_certification_rge" t-att-src="image_data_uri(company.logo_certification_rge)" style="max-height: 90px;"/>
