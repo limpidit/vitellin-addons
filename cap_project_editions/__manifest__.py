@@ -14,6 +14,7 @@
         'data/wizard_feuille_semaine/ir_ui_view.xml',
         'data/wizard_feuille_semaine/report.xml',
         'data/wizard_feuille_semaine/ir_actions_report.xml',
+        'data/report_layout.xml',
     ],
     'qweb': [],
     'demo': [],
