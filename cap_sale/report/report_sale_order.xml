@@ -18,6 +18,7 @@
                SIRET : 47800554900033
 
          -->
+   
         <xpath expr="//t[@t-set='address']" position="before">
             <t t-set="information_block">
                 <div>

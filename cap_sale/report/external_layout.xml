@@ -21,7 +21,7 @@
 
         <!-- réduction de l'espacement sous l'en-tête -->
         <xpath expr="//t[@t-call='web.address_layout']/parent::div" position="attributes">
-            <attribute name="class">pt-1</attribute>
+            <attribute name="class">pt-0</attribute>
         </xpath>
 
         <!-- remplacement du footer-->
