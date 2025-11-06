@@ -192,7 +192,16 @@
         </xpath>
 
         <!-- Ajout d'une mention en cas d'absence de TVA -->
-        <xpath expr="//div[hasclass('clearfix')]" position="before">
+        <!-- <xpath expr="//div[hasclass('clearfix')]" position="before">
+            <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
+                <p>
+                    Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
+                    secteur du bâtiment selon le 2 nonies de l'article 283 du code général des impôts.
+                </p>
+            </div>
+        </xpath> -->
+
+        <xpath expr="//table" position="after">
             <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
                 <p>
                     Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
