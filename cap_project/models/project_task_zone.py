@@ -1,4 +1,4 @@
-from odoo import models, fields, api,exceptions
+from odoo import models, fields, api, exceptions
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -17,8 +17,8 @@ class Zone(models.Model):
     batiment_id = fields.Many2one(string='Bâtiment', comodel_name='project.batiment', domain="[('project_id', '=', project_id)]", required=True)
     entree_id = fields.Many2one(string='Entrée', comodel_name='project.batiment.entree', domain="[('batiment_id', '=', batiment_id)]", required=True)
 
-    is_chantier_renovation = fields.Boolean(string='Est un chantier de rénovation', compute='compute_is_chantier_renovation')
-    is_client_particulier = fields.Boolean(string='Est un chantier de rénovation', compute='compute_is_client_particulier')
+    is_chantier_renovation = fields.Boolean(string='Est un chantier de rénovation', compute='_compute_is_chantier_renovation')
+    is_client_particulier = fields.Boolean(string='Est un chantier de rénovation', compute='_compute_is_client_particulier')
 
     type_zone = fields.Many2one(string='Type de zone', comodel_name='project.task.zone.type')
     secteur_activite = fields.Many2one(string="Secteur d'activité", comodel_name='secteur.activite', required=True)
@@ -41,29 +41,25 @@ class Zone(models.Model):
     nombre_spots_a_proteger = fields.Integer(string='Nombre de spots à protéger')
     nombre_cheminees = fields.Integer(string='Nombre de cheminées')
     nombre_ecart_au_feu = fields.Integer(string="Nombre d'écart au feu à réaliser")
-    isolant_a_enlever_autorises = fields.Many2many(comodel_name='product.product', compute='compute_isolant_a_enlever_autorises')
+    isolant_a_enlever_autorises = fields.Many2many(comodel_name='product.product', compute='_compute_isolant_a_enlever_autorises')
     isolant_a_enlever_product_id = fields.Many2one(string='Isolant à enlever', comodel_name='product.product', domain="[('id', 'in', isolant_a_enlever_autorises)]")
     m2_isolant_a_enlever = fields.Float(string="Isolant à enlever (m²)")
     m2_isolant_a_remettre = fields.Float(string='Isolant à remettre en place (m²)')
     encombrants_a_enlever = fields.Selection(string='Pièce encombrée', selection=[('non', 'Non'), ('oui', 'Oui'), ('occupant', "Oui fait par l'occupant")])
     m2_plateforme = fields.Float(string='Nombre de m² de plateforme à créer')
 
-    pare_vapeur_autorises = fields.Many2many(comodel_name='product.product', compute='compute_pare_vapeur_autorises')
+    pare_vapeur_autorises = fields.Many2many(comodel_name='product.product', compute='_compute_pare_vapeur_autorises')
     pose_pare_vapeur_product_id = fields.Many2one(string="Pose d'un pare vapeur", comodel_name='product.product', domain="[('id', 'in', pare_vapeur_autorises)]")
     m2_pare_vapeur = fields.Float(string='Nombre de m² de pare vapeur')
     ml_deflecteur = fields.Float(string='Nombre de ml de déflecteur')
-    #finition = fields.Many2one(string='Finition', comodel_name='product.template')
-    retenue_isolant_autorises = fields.Many2many(comodel_name='product.product', compute='compute_retenue_isolant_autorises')
+    retenue_isolant_autorises = fields.Many2many(comodel_name='product.product', compute='_compute_retenue_isolant_autorises')
     retenue_isolant_product_id = fields.Many2one(string="Retenue isolant", comodel_name='product.product', domain="[('id', 'in', retenue_isolant_autorises)]")
  
-
-    finition_category_id = fields.Many2one(string="Catégorie de finition", comodel_name='product.category',domain="[('id', 'in', finition_categories_autorisees)]")
+    finition_category_id = fields.Many2one(string="Catégorie de finition", comodel_name='product.category', domain="[('id', 'in', finition_categories_autorisees)]")
     finition_id = fields.Many2one(string='Finition', comodel_name='product.product', domain="[('categ_id', '=', finition_category_id)]")
-    finition_categories_autorisees = fields.Many2many(comodel_name='product.category', compute='compute_finition_categories_autorisees')
+    finition_categories_autorisees = fields.Many2many(comodel_name='product.category', compute='_compute_finition_categories_autorisees')
 
-    # nettoyage_au_metre_carre = fields.Float(string='Nettoyage m2')
     nettoyage_au_metre_carre = fields.Boolean(string='Nettoyage m2')
-    #nettoyage_au_metre_carre_selection = fields.Text(string='Article nettoyage')
     resistance_thermique = fields.Many2one(string='Résistance thermique', comodel_name='resistance.thermique')
     type_camion_requis = fields.Many2one(string='Type de camion pour intervention', comodel_name='type.vehicule')
     commentaires = fields.Text(string='Commentaires')
@@ -71,12 +67,12 @@ class Zone(models.Model):
                                           domain="[('id', 'in', isolant_categories_autorisees)]")
     isolant_product_id = fields.Many2one(string="Isolant", comodel_name='product.product', domain="[('categ_id', '=', isolant_category_id)]")
 
-    isolant_categories_autorisees = fields.Many2many(comodel_name='product.category', compute='compute_isolant_categories_autorisees')
+    isolant_categories_autorisees = fields.Many2many(comodel_name='product.category', compute='_compute_isolant_categories_autorisees')
 
     count_batiment_ids = fields.Integer(related='project_id.count_batiment_ids')
     count_entree_ids = fields.Integer(related='project_id.count_entree_ids')
 
-    traitements_trappe_autorises = fields.Many2many(comodel_name='product.product', compute='compute_traitements_trappe_autorises')
+    traitements_trappe_autorises = fields.Many2many(comodel_name='product.product', compute='_compute_traitements_trappe_autorises')
     traitement_trappe_product_id = fields.Many2one(string="Traitement de la trappe à traiter", comodel_name='product.product', domain="[('id', 'in', traitements_trappe_autorises)]")
     nombre_trappes_a_traiter = fields.Integer(string='Nombre de trappes à traiter')
 
@@ -100,7 +96,7 @@ class Zone(models.Model):
     hauteur_reseau_ok = fields.Boolean(string='1,20m < ml hauteur réseau < 2,50m')
     controle_confrac = fields.Boolean(string='Contrôle CONFRAC')
 
-    parois_autorisees = fields.Many2many(comodel_name='product.product', compute='compute_parois_autorisees')
+    parois_autorisees = fields.Many2many(comodel_name='product.product', compute='_compute_parois_autorisees')
     paroi_product_id = fields.Many2one(string='Paroi (cloison doublage)', comodel_name='product.product', domain="[('id', 'in', parois_autorisees)]")
     jointement_des_plaques = fields.Boolean(string='Jointement des plaques')
     enveloppe = fields.Boolean(string='Enveloppe')
@@ -114,7 +110,7 @@ class Zone(models.Model):
     reserver_stationnement = fields.Boolean(string='Réserver stationnement')
     install_appro = fields.Boolean(string='Installation / protection / approvisionnement chantier')
     
-    # Modif Julie : VMC
+    # VMC
     evacuation_vmc = fields.Boolean(string='Evacuation de la VMC existante')
     nombre_bloc_vmc = fields.Integer(string='Nombre de bloc VMC')
     nombre_bouche_sanitaire = fields.Integer(string='Nombre de bouche sanitaire (80)')
@@ -134,7 +130,7 @@ class Zone(models.Model):
     bouchesupp_product_id = fields.Many2one(string="Création d'une bouche supplémentaire", comodel_name='product.product') 
     extractiontoiture_product_id = fields.Many2one(string="Extraction VMC en toiture", comodel_name='product.product')
     
-    # Modif Julie : Autres
+    # Autres
     articleautre1_product_id = fields.Many2one(string="Article 1", comodel_name='product.product')
     qte_article1_autre = fields.Integer(string='Quantité 1')
     articleautre2_product_id = fields.Many2one(string="Article 2", comodel_name='product.product')
@@ -146,7 +142,7 @@ class Zone(models.Model):
     articleautre5_product_id = fields.Many2one(string="Article 5", comodel_name='product.product')
     qte_article5_autre = fields.Integer(string='Quantité 5')
     
-    # Modif Julie : ITI
+    # ITI
     ossature_product_id = fields.Many2one(string="Type d\'ossature", comodel_name='product.product')
     isolant_type_product_id = fields.Many2one(string="Type d\'isolant", comodel_name='product.product')
     majoration_type_product_id = fields.Many2one(string="Majoration plaque spécifique", comodel_name='product.product')
@@ -158,10 +154,8 @@ class Zone(models.Model):
     qte_depose = fields.Integer(string='Nombre de points particuliers') 
     traitementeveils_product_id = fields.Many2one(string="Traitement des éveils", comodel_name='product.product')
     qte_traitementeveils = fields.Integer(string='Nombre d\'éveils à traiter')    
-    # poncage = fields.Boolean(string='Ponçage')
-    # peinture = fields.Boolean(string='Peinture')
     
-    # Modif Julie : ITE    
+    # ITE    
     echafaudage_product_id = fields.Many2one(string="Echafaudage", comodel_name='product.product')
     nettoyage_product_id = fields.Many2one(string="Nettoyage support", comodel_name='product.product')
     type_isolant_product_id = fields.Many2one(string="Type d\'isolant", comodel_name='product.product')
@@ -200,32 +194,31 @@ class Zone(models.Model):
     point_lourd_deporte_product_id = fields.Many2one(string="Points lourds à déporter", comodel_name='product.product')
     nb_point_lourd_deporte = fields.Integer(string='Nombre de points lourds à déporter')
 
-    # deporte_client_product_id = fields.Many2one(string="Elément déportés par le client", comodel_name='product.product')
-    deporte_client_product_ids = fields.Many2many(string="Eléments déportés par le client", comodel_name='product.product', store="True")
+    deporte_client_product_ids = fields.Many2many(string="Eléments déportés par le client", comodel_name='product.product', store=True)
     desc_element_deporte_client = fields.Char(string='Description')
 
     @api.depends('type_travaux')
-    def compute_parois_autorisees(self):
+    def _compute_parois_autorisees(self):
         for record in self:
             record.parois_autorisees = record.type_travaux.paroi_product_ids
 
     @api.depends('type_travaux')
-    def compute_pare_vapeur_autorises(self):
+    def _compute_pare_vapeur_autorises(self):
         for record in self:
             record.pare_vapeur_autorises = record.type_travaux.pose_pare_vapeur_product_ids
 
     @api.depends('type_travaux')
-    def compute_retenue_isolant_autorises(self):
+    def _compute_retenue_isolant_autorises(self):
         for record in self:
             record.retenue_isolant_autorises = record.type_travaux.retenue_isolant_product_ids
 
     @api.depends('type_travaux')
-    def compute_isolant_a_enlever_autorises(self):
+    def _compute_isolant_a_enlever_autorises(self):
         for record in self:
             record.isolant_a_enlever_autorises = record.type_travaux.isolant_a_enlever_product_ids
 
     @api.depends('type_travaux')
-    def compute_traitements_trappe_autorises(self):
+    def _compute_traitements_trappe_autorises(self):
         for record in self:
             record.traitements_trappe_autorises = record.type_travaux.traitement_trappe_product_ids
 
@@ -239,680 +232,762 @@ class Zone(models.Model):
         return self.env['project.batiment.entree'].action_view_entrees(self.project_id)
 
     @api.onchange('project_id')
-    def preremplir_automatiquement(self):
+    def _onchange_preremplir_automatiquement(self):
         """
-            A la saisie d’une zone, de nombreuses informations sont à renseigner.
-            Lors de la saisie d’une 2nde zone, nombre de ces informations sont généralement identiques.
+            A la saisie d'une zone, de nombreuses informations sont à renseigner.
+            Lors de la saisie d'une 2nde zone, nombre de ces informations sont généralement identiques.
             Il convient donc de préremplir les champs concernés avec la valeur saisie sur la 1ère zone.
         """
         zone_de_reference = self.search([('project_id', '=', self.project_id.id)], limit=1)
         if zone_de_reference:
-            self.write({
-                'batiment_id': zone_de_reference.batiment_id.id,
-                'entree_id': zone_de_reference.entree_id.id,
-                'secteur_activite': zone_de_reference.secteur_activite.id,
-                'type_batiment': zone_de_reference.type_batiment.id,
-                'type_chauffage': zone_de_reference.type_chauffage.id,
-                'type_travaux': zone_de_reference.type_travaux.id,
-                'reserver_stationnement': zone_de_reference.reserver_stationnement,
-                'install_appro': zone_de_reference.install_appro,
-            })
+            self.batiment_id = zone_de_reference.batiment_id
+            self.entree_id = zone_de_reference.entree_id
+            self.secteur_activite = zone_de_reference.secteur_activite
+            self.type_batiment = zone_de_reference.type_batiment
+            self.type_chauffage = zone_de_reference.type_chauffage
+            self.type_travaux = zone_de_reference.type_travaux
+            self.reserver_stationnement = zone_de_reference.reserver_stationnement
+            self.install_appro = zone_de_reference.install_appro
 
     @api.depends('type_travaux')
-    def compute_isolant_categories_autorisees(self):
+    def _compute_isolant_categories_autorisees(self):
         for record in self:
             record.isolant_categories_autorisees = record.type_travaux.categories_isolants_ids.mapped('category_id')
     
-    #Finition
     @api.depends('type_travaux')
-    def compute_finition_categories_autorisees(self):
+    def _compute_finition_categories_autorisees(self):
         for record in self:
             record.finition_categories_autorisees = record.type_travaux.finition_ids.mapped('category_id')
 
     @api.onchange('type_travaux')
-    def onchange_type_travaux(self):
+    def _onchange_type_travaux(self):
         self.isolant_category_id = False
-        domain = {}
         if self.type_travaux:
             if self.isolant_categories_autorisees and len(self.isolant_categories_autorisees) == 1:
-                self.isolant_category_id = self.isolant_categories_autorisees
-        domain['isolant_category_id'] = [('id', 'in', self.isolant_categories_autorisees.ids)]
-        # domain['finition_category_id'] = [('id', 'in', self.isolant_categories_autorisees.ids)]
-        return {'domain': domain}
+                self.isolant_category_id = self.isolant_categories_autorisees[0]
 
-    #Finition
+    isolant_category_id_domain = fields.Char(compute='_compute_isolant_category_id_domain')
+    @api.depends('type_travaux')
+    def _compute_isolant_category_id_domain(self):
+        for record in self:
+            category_ids = record.isolant_categories_autorisees.ids
+            record.isolant_category_id_domain = str([('id', 'in', category_ids)])
+
     @api.onchange('type_travaux')
-    def onchange_finition_type_travaux(self):
+    def _onchange_finition_type_travaux(self):
         self.finition_category_id = False
-        domain = {}
         if self.type_travaux:
             if self.finition_categories_autorisees and len(self.finition_categories_autorisees) == 1:
-                self.finition_category_id = self.finition_categories_autorisees
-        domain['finition_category_id'] = [('id', 'in', self.finition_categories_autorisees.ids)]
-        return {'domain': domain}
+                self.finition_category_id = self.finition_categories_autorisees[0]
+
+    finition_category_id_domain = fields.Char(compute='_compute_finition_category_id_domain')
+    @api.depends('type_travaux')
+    def _compute_finition_category_id_domain(self):
+        for record in self:
+            category_ids = record.finition_categories_autorisees.ids
+            record.finition_category_id_domain = str([('id', 'in', category_ids)])
 
     @api.onchange('isolant_category_id')
-    def onchange_isolant_category_id(self):
+    def _onchange_isolant_category_id(self):
         self.isolant_product_id = False
         if self.isolant_category_id:
             product_ids = self.env['product.product'].search([('categ_id', '=', self.isolant_category_id.id)])
             if product_ids and len(product_ids) == 1:
-                self.isolant_product_id = product_ids
-    #Finition
+                self.isolant_product_id = product_ids[0]
+
     @api.onchange('finition_category_id')
-    def onchange_finition_category_id(self):
+    def _onchange_finition_category_id(self):
         self.finition_id = False
         if self.finition_category_id:
             product_ids = self.env['product.product'].search([('categ_id', '=', self.finition_category_id.id)])
             if product_ids and len(product_ids) == 1:
-                self.finition_id = product_ids
+                self.finition_id = product_ids[0]
 
-    # EVACUATION VMC   
+    # VMC onchange methods
     @api.onchange('type_travaux')
-    def onchange_evacuationvmc_product_id(self):
+    def _onchange_evacuationvmc_product_id(self):
         self.evacuationvmc_product_id = False
-        domain = {}
-        if self.type_travaux.evacuation_ids and len(self.type_travaux.evacuation_ids) > 0:
-            product_ids = [evacuation_id.default_product_id.id for evacuation_id in self.type_travaux.evacuation_ids]
+        if self.type_travaux.evacuation_ids:
+            product_ids = [evac.default_product_id.id for evac in self.type_travaux.evacuation_ids]
             if len(product_ids) == 1:
-                self.evacuationvmc_product_id = product_ids[0]                
-                domain['evacuationvmc_product_id'] = [('id', 'in', product_ids)]
-
-            elif product_ids:
-                domain['evacuationvmc_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}  
-    # fin EVACUATION VMC
+                self.evacuationvmc_product_id = product_ids[0]
     
-    # CHOIX VMC
+    evacuationvmc_product_id_domain = fields.Char(compute='_compute_evacuationvmc_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_evacuationvmc_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.evacuation_ids:
+                product_ids = [evac.default_product_id.id for evac in record.type_travaux.evacuation_ids]
+                record.evacuationvmc_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.evacuationvmc_product_id_domain = "[]"
+    
     @api.onchange('type_travaux')
-    def onchange_choixvmc_product_id(self):
+    def _onchange_choixvmc_product_id(self):
         self.choixvmc_product_id = False
-        domain = {}
-        if self.type_travaux.choix_bloc_vmc_ids and len(self.type_travaux.choix_bloc_vmc_ids) > 0:
-            product_ids = [choixvmc_id.default_product_id.id for choixvmc_id in self.type_travaux.choix_bloc_vmc_ids]
+        if self.type_travaux.choix_bloc_vmc_ids:
+            product_ids = [choix.default_product_id.id for choix in self.type_travaux.choix_bloc_vmc_ids]
             if len(product_ids) == 1:
-                self.choixvmc_product_id = product_ids[0]                
-                domain['choixvmc_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['choixvmc_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # fin CHOIX VMC
+                self.choixvmc_product_id = product_ids[0]
+
+
+    choixvmc_product_id_domain = fields.Char(compute='_compute_choixvmc_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_choixvmc_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.choix_bloc_vmc_ids:
+                product_ids = [choix.default_product_id.id for choix in record.type_travaux.choix_bloc_vmc_ids]
+                record.choixvmc_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.choixvmc_product_id_domain = "[]"
     
-    
-    # FOURNITURE ET POSE BOUCHE SANITAIRE
     @api.onchange('type_travaux')
-    def onchange_bouchesanitaire_product_id(self):
+    def _onchange_bouchesanitaire_product_id(self):
         self.bouchesanitaire_product_id = False
-        domain = {}
-        if self.type_travaux.bouche_sanitaire_ids and len(self.type_travaux.bouche_sanitaire_ids) > 0:
-            product_ids = [bouchesanitaire_id.default_product_id.id for bouchesanitaire_id in self.type_travaux.bouche_sanitaire_ids]
+        if self.type_travaux.bouche_sanitaire_ids:
+            product_ids = [b.default_product_id.id for b in self.type_travaux.bouche_sanitaire_ids]
             if len(product_ids) == 1:
-                self.bouchesanitaire_product_id = product_ids[0]                
-                domain['bouchesanitaire_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['bouchesanitaire_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # fin FOURNITURE ET POSE BOUCHE SANITAIRE
-    
-    # FOURNITURE ET POSE BOUCHE CUISINE
+                self.bouchesanitaire_product_id = product_ids[0]
+
+    bouchesanitaire_product_id_domain = fields.Char(compute='_compute_bouchesanitaire_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_bouchesanitaire_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.bouche_sanitaire_ids:
+                product_ids = [b.default_product_id.id for b in record.type_travaux.bouche_sanitaire_ids]
+                record.bouchesanitaire_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.bouchesanitaire_product_id_domain = "[]"
     @api.onchange('type_travaux')
-    def onchange_bouchecuisine_product_id(self):
+    def _onchange_bouchecuisine_product_id(self):
         self.bouchecuisine_product_id = False
-        domain = {}
-        if self.type_travaux.bouche_cuisine_ids and len(self.type_travaux.bouche_cuisine_ids) > 0:
-            product_ids = [bouchecuisine_id.default_product_id.id for bouchecuisine_id in self.type_travaux.bouche_cuisine_ids]
+        if self.type_travaux.bouche_cuisine_ids:
+            product_ids = [b.default_product_id.id for b in self.type_travaux.bouche_cuisine_ids]
             if len(product_ids) == 1:
-                self.bouchecuisine_product_id = product_ids[0]                
-                domain['bouchecuisine_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['bouchecuisine_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # fin FOURNITURE ET POSE BOUCHE CUISINE
+                self.bouchecuisine_product_id = product_ids[0]
 
-    # CREATION D'UNE ARRIVEE ELECTRIQUE
+    bouchecuisine_product_id_domain = fields.Char(compute='_compute_bouchecuisine_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_bouchecuisine_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.bouche_cuisine_ids:
+                product_ids = [b.default_product_id.id for b in record.type_travaux.bouche_cuisine_ids]
+                record.bouchecuisine_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.bouchecuisine_product_id_domain = "[]"
+
     @api.onchange('type_travaux')
-    def onchange_arriveelec_product_id(self):
+    def _onchange_arriveelec_product_id(self):
         self.arriveelec_product_id = False
-        domain = {}
-        if self.type_travaux.arrive_elec_ids and len(self.type_travaux.arrive_elec_ids) > 0:
-            product_ids = [arriveelec_id.default_product_id.id for arriveelec_id in self.type_travaux.arrive_elec_ids]
+        if self.type_travaux.arrive_elec_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.arrive_elec_ids]
             if len(product_ids) == 1:
-                self.arriveelec_product_id = product_ids[0]                
-                domain['arriveelec_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['arriveelec_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # CREATION D'UNE ARRIVEE ELECTRIQUE
+                self.arriveelec_product_id = product_ids[0]
+
+    arriveelec_product_id_domain = fields.Char(compute='_compute_arriveelec_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_arriveelec_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.arrive_elec_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.arrive_elec_ids]
+                record.arriveelec_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.arriveelec_product_id_domain = "[]"
     
-    # CREATION D'UNE BOUCHE SUPPLEMENTAIRE
     @api.onchange('type_travaux')
-    def onchange_bouchesupp_product_id(self):
+    def _onchange_bouchesupp_product_id(self):
         self.bouchesupp_product_id = False
-        domain = {}
-        if self.type_travaux.bouche_supp_ids and len(self.type_travaux.bouche_supp_ids) > 0:
-            product_ids = [bouchesupp_id.default_product_id.id for bouchesupp_id in self.type_travaux.bouche_supp_ids]
+        if self.type_travaux.bouche_supp_ids:
+            product_ids = [b.default_product_id.id for b in self.type_travaux.bouche_supp_ids]
             if len(product_ids) == 1:
-                self.bouchesupp_product_id = product_ids[0]                
-                domain['bouchesupp_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['bouchesupp_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # CREATION D'UNE BOUCHE SUPPLEMENTAIRE
+                self.bouchesupp_product_id = product_ids[0]
+
+    bouchesupp_product_id_domain = fields.Char(compute='_compute_bouchesupp_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_bouchesupp_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.bouche_supp_ids:
+                product_ids = [b.default_product_id.id for b in record.type_travaux.bouche_supp_ids]
+                record.bouchesupp_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.bouchesupp_product_id_domain = "[]"
     
-    # EXTRACTION VMC TOITURE
     @api.onchange('type_travaux')
-    def onchange_extractiontoiture_product_id(self):
+    def _onchange_extractiontoiture_product_id(self):
         self.extractiontoiture_product_id = False
-        domain = {}
-        if self.type_travaux.extraction_toiture_ids and len(self.type_travaux.extraction_toiture_ids) > 0:
-            product_ids = [extraction_id.default_product_id.id for extraction_id in self.type_travaux.extraction_toiture_ids]
+        if self.type_travaux.extraction_toiture_ids:
+            product_ids = [e.default_product_id.id for e in self.type_travaux.extraction_toiture_ids]
             if len(product_ids) == 1:
-                self.extractiontoiture_product_id = product_ids[0]                
-                domain['extractiontoiture_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['extractiontoiture_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # EXTRACTION VMC TOITURE
+                self.extractiontoiture_product_id = product_ids[0]
+
+    extractiontoiture_product_id_domain = fields.Char(compute='_compute_extractiontoiture_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_extractiontoiture_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.extraction_toiture_ids:
+                product_ids = [e.default_product_id.id for e in record.type_travaux.extraction_toiture_ids]
+                record.extractiontoiture_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.extractiontoiture_product_id_domain = "[]"
     
-    # TYPE TRAVAUX AUTRE
-    @api.onchange('type_travaux')
-    def onchange_articleautre1_product_id(self):
-        self.articleautre1_product_id = False
-        domain = {}
-        if self.type_travaux.article_autre_ids and len(self.type_travaux.article_autre_ids) > 0:
-            product_ids = [articleautre_id.default_product_id.id for articleautre_id in self.type_travaux.article_autre_ids]
+    # Article Autre onchange methods (consolidated for brevity)
+    def _get_article_autre_domain(self, article_num):
+        """Helper method to get domain for article autre fields"""
+        field_name = f'articleautre{article_num}_product_id'
+        setattr(self, field_name, False)
+        if self.type_travaux.article_autre_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.article_autre_ids]
             if len(product_ids) == 1:
-                self.articleautre1_product_id = product_ids[0]                
-                domain['articleautre1_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['articleautre1_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-        
-    @api.onchange('type_travaux')
-    def onchange_articleautre2_product_id(self):
-        self.articleautre2_product_id = False
-        domain = {}
-        if self.type_travaux.article_autre_ids and len(self.type_travaux.article_autre_ids) > 0:
-            product_ids = [articleautre_id.default_product_id.id for articleautre_id in self.type_travaux.article_autre_ids]
-            if len(product_ids) == 1:
-                self.articleautre2_product_id = product_ids[0]                
-                domain['articleautre2_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['articleautre2_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                setattr(self, field_name, product_ids[0])
 
     @api.onchange('type_travaux')
-    def onchange_articleautre3_product_id(self):
-        self.articleautre3_product_id = False
-        domain = {}
-        if self.type_travaux.article_autre_ids and len(self.type_travaux.article_autre_ids) > 0:
-            product_ids = [articleautre_id.default_product_id.id for articleautre_id in self.type_travaux.article_autre_ids]
-            if len(product_ids) == 1:
-                self.articleautre3_product_id = product_ids[0]                
-                domain['articleautre3_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['articleautre3_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+    def _onchange_articleautre1_product_id(self):
+        return self._get_article_autre_domain(1)
         
     @api.onchange('type_travaux')
-    def onchange_articleautre4_product_id(self):
-        self.articleautre4_product_id = False
-        domain = {}
-        if self.type_travaux.article_autre_ids and len(self.type_travaux.article_autre_ids) > 0:
-            product_ids = [articleautre_id.default_product_id.id for articleautre_id in self.type_travaux.article_autre_ids]
-            if len(product_ids) == 1:
-                self.articleautre4_product_id = product_ids[0]                
-                domain['articleautre4_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['articleautre4_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+    def _onchange_articleautre2_product_id(self):
+        return self._get_article_autre_domain(2)
 
     @api.onchange('type_travaux')
-    def onchange_articleautre5_product_id(self):
-        self.articleautre5_product_id = False
-        domain = {}
-        if self.type_travaux.article_autre_ids and len(self.type_travaux.article_autre_ids) > 0:
-            product_ids = [articleautre_id.default_product_id.id for articleautre_id in self.type_travaux.article_autre_ids]
-            if len(product_ids) == 1:
-                self.articleautre5_product_id = product_ids[0]                
-                domain['articleautre5_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['articleautre5_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-    # TYPE TRAVAUX AUTRE
-    
-    # ITI
+    def _onchange_articleautre3_product_id(self):
+        return self._get_article_autre_domain(3)
+        
     @api.onchange('type_travaux')
-    def onchange_ossature_product_id(self):
+    def _onchange_articleautre4_product_id(self):
+        return self._get_article_autre_domain(4)
+
+    @api.onchange('type_travaux')
+    def _onchange_articleautre5_product_id(self):
+        return self._get_article_autre_domain(5)
+    
+    articleautre1_product_id_domain = fields.Char(compute='_compute_articleautre_product_id_domain')
+    articleautre2_product_id_domain = fields.Char(compute='_compute_articleautre_product_id_domain')
+    articleautre3_product_id_domain = fields.Char(compute='_compute_articleautre_product_id_domain')
+    articleautre4_product_id_domain = fields.Char(compute='_compute_articleautre_product_id_domain')
+    articleautre5_product_id_domain = fields.Char(compute='_compute_articleautre_product_id_domain')
+
+    @api.depends('type_travaux')
+    def _compute_articleautre_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.article_autre_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.article_autre_ids]
+                domain_str = str([('id', 'in', product_ids)])
+            else:
+                domain_str = "[]"
+
+            for i in range(1, 6):
+                setattr(record, f'articleautre{i}_product_id_domain', domain_str)
+
+    # ITI onchange methods
+    @api.onchange('type_travaux')
+    def _onchange_ossature_product_id(self):
         self.ossature_product_id = False
-        domain = {}
-        if self.type_travaux.ossature_ids and len(self.type_travaux.ossature_ids) > 0:
-            product_ids = [ossature_id.default_product_id.id for ossature_id in self.type_travaux.ossature_ids]
+        if self.type_travaux.ossature_ids:
+            product_ids = [o.default_product_id.id for o in self.type_travaux.ossature_ids]
             if len(product_ids) == 1:
-                self.ossature_product_id = product_ids[0]                
-                domain['ossature_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['ossature_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.ossature_product_id = product_ids[0]
+
+    ossature_product_domain = fields.Char(compute='_compute_ossature_domain')
+    @api.depends('type_travaux')
+    def _compute_ossature_domain(self):
+        for rec in self:
+            if rec.type_travaux:
+                product_ids = [o.default_product_id.id for o in self.type_travaux.ossature_ids]
+                rec.ossature_product_domain = str([('id', 'in', product_ids)])
+            else:
+                rec.ossature_product_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_isolant_type_product_id(self):
+    def _onchange_isolant_type_product_id(self):
         self.isolant_type_product_id = False
-        domain = {}
-        if self.type_travaux.isolant_ids and len(self.type_travaux.isolant_ids) > 0:
-            product_ids = [isolant_type_id.default_product_id.id for isolant_type_id in self.type_travaux.isolant_ids]
+        if self.type_travaux.isolant_ids:
+            product_ids = [i.default_product_id.id for i in self.type_travaux.isolant_ids]
             if len(product_ids) == 1:
-                self.isolant_type_product_id = product_ids[0]                
-                domain['isolant_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['isolant_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.isolant_type_product_id = product_ids[0]
+
+    isolant_type_product_id_domain = fields.Char(compute='_compute_isolant_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_isolant_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.isolant_ids:
+                product_ids = [i.default_product_id.id for i in record.type_travaux.isolant_ids]
+                record.isolant_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.isolant_type_product_id_domain = "[]"
         
     @api.onchange('type_travaux')
-    def onchange_majoration_product_id(self):
+    def _onchange_majoration_product_id(self):
         self.majoration_type_product_id = False
-        domain = {}
-        if self.type_travaux.majoration_ids and len(self.type_travaux.majoration_ids) > 0:
-            product_ids = [majoration_type_id.default_product_id.id for majoration_type_id in self.type_travaux.majoration_ids]
+        if self.type_travaux.majoration_ids:
+            product_ids = [m.default_product_id.id for m in self.type_travaux.majoration_ids]
             if len(product_ids) == 1:
-                self.majoration_type_product_id = product_ids[0]                
-                domain['majoration_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['majoration_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.majoration_type_product_id = product_ids[0]
+
+    majoration_type_product_id_domain = fields.Char(compute='_compute_majoration_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_majoration_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.majoration_ids:
+                product_ids = [m.default_product_id.id for m in record.type_travaux.majoration_ids]
+                record.majoration_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.majoration_type_product_id_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_joints_product_id(self):
+    def _onchange_joints_product_id(self):
         self.joints_type_product_id = False
-        domain = {}
-        if self.type_travaux.joints_ids and len(self.type_travaux.joints_ids) > 0:
-            product_ids = [joints_type_id.default_product_id.id for joints_type_id in self.type_travaux.joints_ids]
+        if self.type_travaux.joints_ids:
+            product_ids = [j.default_product_id.id for j in self.type_travaux.joints_ids]
             if len(product_ids) == 1:
-                self.joints_type_product_id = product_ids[0]                
-                domain['joints_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['joints_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.joints_type_product_id = product_ids[0]
+
+    joints_type_product_id_domain = fields.Char(compute='_compute_joints_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_joints_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.joints_ids:
+                product_ids = [j.default_product_id.id for j in record.type_travaux.joints_ids]
+                record.joints_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.joints_type_product_id_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_poncage_product_id(self):
+    def _onchange_poncage_product_id(self):
         self.poncage_type_product_id = False
-        domain = {}
-        if self.type_travaux.poncage_ids and len(self.type_travaux.poncage_ids) > 0:
-            product_ids = [poncage_type_id.default_product_id.id for poncage_type_id in self.type_travaux.poncage_ids]
+        if self.type_travaux.poncage_ids:
+            product_ids = [p.default_product_id.id for p in self.type_travaux.poncage_ids]
             if len(product_ids) == 1:
-                self.poncage_type_product_id = product_ids[0]                
-                domain['poncage_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['poncage_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.poncage_type_product_id = product_ids[0]
+
+    poncage_type_product_id_domain = fields.Char(compute='_compute_poncage_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_poncage_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.poncage_ids:
+                product_ids = [p.default_product_id.id for p in record.type_travaux.poncage_ids]
+                record.poncage_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.poncage_type_product_id_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_peinture_product_id(self):
+    def _onchange_peinture_product_id(self):
         self.peinture_type_product_id = False
-        domain = {}
-        if self.type_travaux.peinture_ids and len(self.type_travaux.peinture_ids) > 0:
-            product_ids = [peinture_type_id.default_product_id.id for peinture_type_id in self.type_travaux.peinture_ids]
+        if self.type_travaux.peinture_ids:
+            product_ids = [p.default_product_id.id for p in self.type_travaux.peinture_ids]
             if len(product_ids) == 1:
-                self.peinture_type_product_id = product_ids[0]                
-                domain['peinture_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['peinture_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-        
+                self.peinture_type_product_id = product_ids[0]
+
+    peinture_type_product_id_domain = fields.Char(compute='_compute_peinture_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_peinture_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.peinture_ids:
+                product_ids = [p.default_product_id.id for p in record.type_travaux.peinture_ids]
+                record.peinture_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.peinture_type_product_id_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_parevapeur_product_id(self):
+    def _onchange_parevapeur_product_id(self):
         self.parevapeur_type_product_id = False
-        domain = {}
-        if self.type_travaux.parevapeur_ids and len(self.type_travaux.parevapeur_ids) > 0:
-            product_ids = [parevapeur_type_id.default_product_id.id for parevapeur_type_id in self.type_travaux.parevapeur_ids]
+        if self.type_travaux.parevapeur_ids:
+            product_ids = [p.default_product_id.id for p in self.type_travaux.parevapeur_ids]
             if len(product_ids) == 1:
-                self.parevapeur_type_product_id = product_ids[0]                
-                domain['parevapeur_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['parevapeur_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.parevapeur_type_product_id = product_ids[0]
+
+    parevapeur_type_product_id_domain = fields.Char(compute='_compute_parevapeur_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_parevapeur_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.parevapeur_ids:
+                product_ids = [p.default_product_id.id for p in record.type_travaux.parevapeur_ids]
+                record.parevapeur_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.parevapeur_type_product_id_domain = "[]"
         
     @api.onchange('type_travaux')
-    def onchange_depose_product_id(self):
+    def _onchange_depose_product_id(self):
         self.depose_product_id = False
-        domain = {}
-        if self.type_travaux.depose_ids and len(self.type_travaux.depose_ids) > 0:
-            product_ids = [depose_id.default_product_id.id for depose_id in self.type_travaux.depose_ids]
+        if self.type_travaux.depose_ids:
+            product_ids = [d.default_product_id.id for d in self.type_travaux.depose_ids]
             if len(product_ids) == 1:
-                self.depose_product_id = product_ids[0]                
-                domain['depose_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['depose_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.depose_product_id = product_ids[0]
+
+    depose_product_id_domain = fields.Char(compute='_compute_depose_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_depose_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.depose_ids:
+                product_ids = [d.default_product_id.id for d in record.type_travaux.depose_ids]
+                record.depose_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.depose_product_id_domain = "[]"
         
     @api.onchange('type_travaux')
-    def onchange_traitementeveils_product_id(self):
+    def _onchange_traitementeveils_product_id(self):
         self.traitementeveils_product_id = False
-        domain = {}
-        if self.type_travaux.traitementeveils_ids and len(self.type_travaux.traitementeveils_ids) > 0:
-            product_ids = [traitementeveils_id.default_product_id.id for traitementeveils_id in self.type_travaux.traitementeveils_ids]
+        if self.type_travaux.traitementeveils_ids:
+            product_ids = [t.default_product_id.id for t in self.type_travaux.traitementeveils_ids]
             if len(product_ids) == 1:
-                self.traitementeveils_product_id = product_ids[0]                
-                domain['traitementeveils_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['traitementeveils_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
-        
-    # ITI
+                self.traitementeveils_product_id = product_ids[0]
 
-    # ITE
+    traitementeveils_product_id_domain = fields.Char(compute='_compute_traitementeveils_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_traitementeveils_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.traitementeveils_ids:
+                product_ids = [t.default_product_id.id for t in record.type_travaux.traitementeveils_ids]
+                record.traitementeveils_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.traitementeveils_product_id_domain = "[]"
+
+    # ITE onchange methods
     @api.onchange('type_travaux')
-    def onchange_echafaudage_product_id(self):
+    def _onchange_echafaudage_product_id(self):
         self.echafaudage_product_id = False
-        domain = {}
-        if self.type_travaux.echafaudage_ids and len(self.type_travaux.echafaudage_ids) > 0:
-            product_ids = [echafaudage_id.default_product_id.id for echafaudage_id in self.type_travaux.echafaudage_ids]
+        if self.type_travaux.echafaudage_ids:
+            product_ids = [e.default_product_id.id for e in self.type_travaux.echafaudage_ids]
             if len(product_ids) == 1:
-                self.echafaudage_product_id = product_ids[0]                
-                domain['echafaudage_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['echafaudage_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.echafaudage_product_id = product_ids[0]
+
+    echafaudage_product_id_domain = fields.Char(compute='_compute_echafaudage_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_echafaudage_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.echafaudage_ids:
+                product_ids = [e.default_product_id.id for e in record.type_travaux.echafaudage_ids]
+                record.echafaudage_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.echafaudage_product_id_domain = "[]"
     
     @api.onchange('type_travaux')
-    def onchange_nettoyage_product_id(self):
+    def _onchange_nettoyage_product_id(self):
         self.nettoyage_product_id = False
-        domain = {}
-        if self.type_travaux.nettoyage_ids and len(self.type_travaux.nettoyage_ids) > 0:
-            product_ids = [nettoyage_id.default_product_id.id for nettoyage_id in self.type_travaux.nettoyage_ids]
+        if self.type_travaux.nettoyage_ids:
+            product_ids = [n.default_product_id.id for n in self.type_travaux.nettoyage_ids]
             if len(product_ids) == 1:
-                self.nettoyage_product_id = product_ids[0]                
-                domain['nettoyage_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['nettoyage_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.nettoyage_product_id = product_ids[0]
+
+    nettoyage_product_id_domain = fields.Char(compute='_compute_nettoyage_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_nettoyage_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.nettoyage_ids:
+                product_ids = [n.default_product_id.id for n in record.type_travaux.nettoyage_ids]
+                record.nettoyage_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.nettoyage_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_type_isolant_product_id(self):
+    def _onchange_type_isolant_product_id(self):
         self.type_isolant_product_id = False
-        domain = {}
-        if self.type_travaux.type_isolant_ids and len(self.type_travaux.type_isolant_ids) > 0:
-            product_ids = [type_isolant_id.default_product_id.id for type_isolant_id in self.type_travaux.type_isolant_ids]
+        if self.type_travaux.type_isolant_ids:
+            product_ids = [t.default_product_id.id for t in self.type_travaux.type_isolant_ids]
             if len(product_ids) == 1:
-                self.type_isolant_product_id = product_ids[0]                
-                domain['type_isolant_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['type_isolant_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.type_isolant_product_id = product_ids[0]
+
+    type_isolant_product_id_domain = fields.Char(compute='_compute_type_isolant_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_type_isolant_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.type_isolant_ids:
+                product_ids = [t.default_product_id.id for t in record.type_travaux.type_isolant_ids]
+                record.type_isolant_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.type_isolant_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_type_finition_product_id(self):
+    def _onchange_type_finition_product_id(self):
         self.type_finition_product_id = False
-        domain = {}
-        if self.type_travaux.type_finition_ids and len(self.type_travaux.type_finition_ids) > 0:
-            product_ids = [type_finition_id.default_product_id.id for type_finition_id in self.type_travaux.type_finition_ids]
+        if self.type_travaux.type_finition_ids:
+            product_ids = [t.default_product_id.id for t in self.type_travaux.type_finition_ids]
             if len(product_ids) == 1:
-                self.type_finition_product_id = product_ids[0]                
-                domain['type_finition_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['type_finition_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.type_finition_product_id = product_ids[0]
+
+    type_finition_product_id_domain = fields.Char(compute='_compute_type_finition_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_type_finition_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.type_finition_ids:
+                product_ids = [t.default_product_id.id for t in record.type_travaux.type_finition_ids]
+                record.type_finition_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.type_finition_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_majoration_zone_product_id(self):
+    def _onchange_majoration_zone_product_id(self):
         self.majoration_zone_product_id = False
-        domain = {}
-        if self.type_travaux.majoration_zone_ids and len(self.type_travaux.majoration_zone_ids) > 0:
-            product_ids = [majoration_zone_id.default_product_id.id for majoration_zone_id in self.type_travaux.majoration_zone_ids]
+        if self.type_travaux.majoration_zone_ids:
+            product_ids = [m.default_product_id.id for m in self.type_travaux.majoration_zone_ids]
             if len(product_ids) == 1:
-                self.majoration_zone_product_id = product_ids[0]                
-                domain['majoration_zone_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['majoration_zone_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.majoration_zone_product_id = product_ids[0]
+
+    majoration_zone_product_id_domain = fields.Char(compute='_compute_majoration_zone_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_majoration_zone_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.majoration_zone_ids:
+                product_ids = [m.default_product_id.id for m in record.type_travaux.majoration_zone_ids]
+                record.majoration_zone_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.majoration_zone_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_rail_depart_product_id(self):
+    def _onchange_rail_depart_product_id(self):
         self.rail_depart_product_id = False
-        domain = {}
-        if self.type_travaux.rail_depart_ids and len(self.type_travaux.rail_depart_ids) > 0:
-            product_ids = [rail_depart_id.default_product_id.id for rail_depart_id in self.type_travaux.rail_depart_ids]
+        if self.type_travaux.rail_depart_ids:
+            product_ids = [r.default_product_id.id for r in self.type_travaux.rail_depart_ids]
             if len(product_ids) == 1:
-                self.rail_depart_product_id = product_ids[0]                
-                domain['rail_depart_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['rail_depart_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.rail_depart_product_id = product_ids[0]
+
+    rail_depart_product_id_domain = fields.Char(compute='_compute_rail_depart_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_rail_depart_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.rail_depart_ids:
+                product_ids = [r.default_product_id.id for r in record.type_travaux.rail_depart_ids]
+                record.rail_depart_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.rail_depart_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_arret_lateral_product_id(self):
+    def _onchange_arret_lateral_product_id(self):
         self.arret_lateral_product_id = False
-        domain = {}
-        if self.type_travaux.arret_lateral_ids and len(self.type_travaux.arret_lateral_ids) > 0:
-            product_ids = [arret_lateral_id.default_product_id.id for arret_lateral_id in self.type_travaux.arret_lateral_ids]
+        if self.type_travaux.arret_lateral_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.arret_lateral_ids]
             if len(product_ids) == 1:
-                self.arret_lateral_product_id = product_ids[0]                
-                domain['arret_lateral_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['arret_lateral_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.arret_lateral_product_id = product_ids[0]
+
+    arret_lateral_product_id_domain = fields.Char(compute='_compute_arret_lateral_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_arret_lateral_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.arret_lateral_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.arret_lateral_ids]
+                record.arret_lateral_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.arret_lateral_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_angle_mur_product_id(self):
+    def _onchange_angle_mur_product_id(self):
         self.angle_mur_product_id = False
-        domain = {}
-        if self.type_travaux.angle_mur_ids and len(self.type_travaux.angle_mur_ids) > 0:
-            product_ids = [angle_mur_id.default_product_id.id for angle_mur_id in self.type_travaux.angle_mur_ids]
+        if self.type_travaux.angle_mur_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.angle_mur_ids]
             if len(product_ids) == 1:
-                self.angle_mur_product_id = product_ids[0]                
-                domain['angle_mur_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['angle_mur_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.angle_mur_product_id = product_ids[0]
+
+    angle_mur_product_id_domain = fields.Char(compute='_compute_angle_mur_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_angle_mur_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.angle_mur_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.angle_mur_ids]
+                record.angle_mur_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.angle_mur_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_couvertine_product_id(self):
+    def _onchange_couvertine_product_id(self):
         self.couvertine_product_id = False
-        domain = {}
-        if self.type_travaux.couvertine_ids and len(self.type_travaux.couvertine_ids) > 0:
-            product_ids = [couvertine_id.default_product_id.id for couvertine_id in self.type_travaux.couvertine_ids]
+        if self.type_travaux.couvertine_ids:
+            product_ids = [c.default_product_id.id for c in self.type_travaux.couvertine_ids]
             if len(product_ids) == 1:
-                self.couvertine_product_id = product_ids[0]                
-                domain['couvertine_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['couvertine_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.couvertine_product_id = product_ids[0]
+
+    couvertine_product_id_domain = fields.Char(compute='_compute_couvertine_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_couvertine_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.couvertine_ids:
+                product_ids = [c.default_product_id.id for c in record.type_travaux.couvertine_ids]
+                record.couvertine_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.couvertine_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_gond_deporte_product_id(self):
+    def _onchange_gond_deporte_product_id(self):
         self.gond_deporte_product_id = False
-        domain = {}
-        if self.type_travaux.gond_deporte_ids and len(self.type_travaux.gond_deporte_ids) > 0:
-            product_ids = [gond_deporte_id.default_product_id.id for gond_deporte_id in self.type_travaux.gond_deporte_ids]
+        if self.type_travaux.gond_deporte_ids:
+            product_ids = [g.default_product_id.id for g in self.type_travaux.gond_deporte_ids]
             if len(product_ids) == 1:
-                self.gond_deporte_product_id = product_ids[0]                
-                domain['gond_deporte_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['gond_deporte_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.gond_deporte_product_id = product_ids[0]
+
+    gond_deporte_product_id_domain = fields.Char(compute='_compute_gond_deporte_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_gond_deporte_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.gond_deporte_ids:
+                product_ids = [g.default_product_id.id for g in record.type_travaux.gond_deporte_ids]
+                record.gond_deporte_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.gond_deporte_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_arret_fenetre_product_id(self):
+    def _onchange_arret_fenetre_product_id(self):
         self.arret_fenetre_product_id = False
-        domain = {}
-        if self.type_travaux.arret_fenetre_ids and len(self.type_travaux.arret_fenetre_ids) > 0:
-            product_ids = [arret_fenetre_id.default_product_id.id for arret_fenetre_id in self.type_travaux.arret_fenetre_ids]
+        if self.type_travaux.arret_fenetre_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.arret_fenetre_ids]
             if len(product_ids) == 1:
-                self.arret_fenetre_product_id = product_ids[0]                
-                domain['arret_fenetre_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['arret_fenetre_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.arret_fenetre_product_id = product_ids[0]
+
+    arret_fenetre_product_id_domain = fields.Char(compute='_compute_arret_fenetre_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_arret_fenetre_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.arret_fenetre_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.arret_fenetre_ids]
+                record.arret_fenetre_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.arret_fenetre_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_arret_marseillais_product_id(self):
+    def _onchange_arret_marseillais_product_id(self):
         self.arret_marseillais_product_id = False
-        domain = {}
-        if self.type_travaux.arret_marseillais_ids and len(self.type_travaux.arret_marseillais_ids) > 0:
-            product_ids = [arret_marseillais_id.default_product_id.id for arret_marseillais_id in self.type_travaux.arret_marseillais_ids]
+        if self.type_travaux.arret_marseillais_ids:
+            product_ids = [a.default_product_id.id for a in self.type_travaux.arret_marseillais_ids]
             if len(product_ids) == 1:
-                self.arret_marseillais_product_id = product_ids[0]                
-                domain['arret_marseillais_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['arret_marseillais_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.arret_marseillais_product_id = product_ids[0]
+
+    arret_marseillais_product_id_domain = fields.Char(compute='_compute_arret_marseillais_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_arret_marseillais_product_id_domain(self): 
+        for record in self:
+            if record.type_travaux.arret_marseillais_ids:
+                product_ids = [a.default_product_id.id for a in record.type_travaux.arret_marseillais_ids]
+                record.arret_marseillais_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.arret_marseillais_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_embrasure_product_id(self):
+    def _onchange_embrasure_product_id(self):
         self.embrasure_product_id = False
-        domain = {}
-        if self.type_travaux.embrasure_ids and len(self.type_travaux.embrasure_ids) > 0:
-            product_ids = [embrasure_id.default_product_id.id for embrasure_id in self.type_travaux.embrasure_ids]
+        if self.type_travaux.embrasure_ids:
+            product_ids = [e.default_product_id.id for e in self.type_travaux.embrasure_ids]
             if len(product_ids) == 1:
-                self.embrasure_product_id = product_ids[0]                
-                domain['embrasure_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['embrasure_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.embrasure_product_id = product_ids[0]
+
+    embrasure_product_id_domain = fields.Char(compute='_compute_embrasure_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_embrasure_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.embrasure_ids:
+                product_ids = [e.default_product_id.id for e in record.type_travaux.embrasure_ids]
+                record.embrasure_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.embrasure_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_seuil_type_product_id(self):
+    def _onchange_seuil_type_product_id(self):
         self.seuil_type_product_id = False
-        domain = {}
-        if self.type_travaux.seuil_type_ids and len(self.type_travaux.seuil_type_ids) > 0:
-            product_ids = [seuil_type_id.default_product_id.id for seuil_type_id in self.type_travaux.seuil_type_ids]
+        if self.type_travaux.seuil_type_ids:
+            product_ids = [s.default_product_id.id for s in self.type_travaux.seuil_type_ids]
             if len(product_ids) == 1:
-                self.seuil_type_product_id = product_ids[0]                
-                domain['seuil_type_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['seuil_type_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.seuil_type_product_id = product_ids[0]
+
+    seuil_type_product_id_domain = fields.Char(compute='_compute_seuil_type_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_seuil_type_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.seuil_type_ids:
+                product_ids = [s.default_product_id.id for s in record.type_travaux.seuil_type_ids]
+                record.seuil_type_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.seuil_type_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_grille_aeration_product_id(self):
+    def _onchange_grille_aeration_product_id(self):
         self.grille_aeration_product_id = False
-        domain = {}
-        if self.type_travaux.grille_aeration_ids and len(self.type_travaux.grille_aeration_ids) > 0:
-            product_ids = [grille_aeration_id.default_product_id.id for grille_aeration_id in self.type_travaux.grille_aeration_ids]
+        if self.type_travaux.grille_aeration_ids:
+            product_ids = [g.default_product_id.id for g in self.type_travaux.grille_aeration_ids]
             if len(product_ids) == 1:
-                self.grille_aeration_product_id = product_ids[0]                
-                domain['grille_aeration_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['grille_aeration_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.grille_aeration_product_id = product_ids[0]
+
+    grille_aeration_product_id_domain = fields.Char(compute='_compute_grille_aeration_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_grille_aeration_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.grille_aeration_ids:
+                product_ids = [g.default_product_id.id for g in record.type_travaux.grille_aeration_ids]
+                record.grille_aeration_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.grille_aeration_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_goutiere_deporte_product_id(self):
+    def _onchange_goutiere_deporte_product_id(self):
         self.goutiere_deporte_product_id = False
-        domain = {}
-        if self.type_travaux.goutiere_deporte_ids and len(self.type_travaux.goutiere_deporte_ids) > 0:
-            product_ids = [goutiere_deporte_id.default_product_id.id for goutiere_deporte_id in self.type_travaux.goutiere_deporte_ids]
+        if self.type_travaux.goutiere_deporte_ids:
+            product_ids = [g.default_product_id.id for g in self.type_travaux.goutiere_deporte_ids]
             if len(product_ids) == 1:
-                self.goutiere_deporte_product_id = product_ids[0]                
-                domain['goutiere_deporte_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['goutiere_deporte_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.goutiere_deporte_product_id = product_ids[0]
+
+    goutiere_deporte_product_id_domain = fields.Char(compute='_compute_goutiere_deporte_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_goutiere_deporte_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.goutiere_deporte_ids:
+                product_ids = [g.default_product_id.id for g in record.type_travaux.goutiere_deporte_ids]
+                record.goutiere_deporte_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.goutiere_deporte_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_point_lumineux_product_id(self):
+    def _onchange_point_lumineux_product_id(self):
         self.point_lumineux_product_id = False
-        domain = {}
-        if self.type_travaux.point_lumineux_ids and len(self.type_travaux.point_lumineux_ids) > 0:
-            product_ids = [point_lumineux_id.default_product_id.id for point_lumineux_id in self.type_travaux.point_lumineux_ids]
+        if self.type_travaux.point_lumineux_ids:
+            product_ids = [p.default_product_id.id for p in self.type_travaux.point_lumineux_ids]
             if len(product_ids) == 1:
-                self.point_lumineux_product_id = product_ids[0]                
-                domain['point_lumineux_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['point_lumineux_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.point_lumineux_product_id = product_ids[0]
+
+    point_lumineux_product_id_domain = fields.Char(compute='_compute_point_lumineux_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_point_lumineux_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.point_lumineux_ids:
+                product_ids = [p.default_product_id.id for p in record.type_travaux.point_lumineux_ids]
+                record.point_lumineux_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.point_lumineux_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_point_lourd_deporte_product_id(self):
+    def _onchange_point_lourd_deporte_product_id(self):
         self.point_lourd_deporte_product_id = False
-        domain = {}
-        if self.type_travaux.point_lourd_deporte_ids and len(self.type_travaux.point_lourd_deporte_ids) > 0:
-            product_ids = [point_lourd_deporte_id.default_product_id.id for point_lourd_deporte_id in self.type_travaux.point_lourd_deporte_ids]
+        if self.type_travaux.point_lourd_deporte_ids:
+            product_ids = [p.default_product_id.id for p in self.type_travaux.point_lourd_deporte_ids]
             if len(product_ids) == 1:
-                self.point_lourd_deporte_product_id = product_ids[0]                
-                domain['point_lourd_deporte_product_id'] = [('id', 'in', product_ids)] 
-            
-            elif product_ids:
-                domain['point_lourd_deporte_product_id'] = [('id', 'in', product_ids)]
-        return {'domain': domain}
+                self.point_lourd_deporte_product_id = product_ids[0]
 
-    # @api.onchange('type_travaux')
-    # def onchange_deporte_client_product_id(self):
-    #     self.deporte_client_product_id = False
-    #     domain = {}
-    #     if self.type_travaux.deporte_client_ids and len(self.type_travaux.deporte_client_ids) > 0:
-    #         product_ids = [deporte_client_id.default_product_id.id for deporte_client_id in self.type_travaux.deporte_client_ids]
-    #         if len(product_ids) == 1:
-    #             self.deporte_client_product_id = product_ids[0]                
-    #             domain['deporte_client_product_id'] = [('id', 'in', product_ids)] 
-            
-    #         elif product_ids:
-    #             domain['deporte_client_product_id'] = [('id', 'in', product_ids)]
-    #     return {'domain': domain}
+    point_lourd_deporte_product_id_domain = fields.Char(compute='_compute_point_lourd_deporte_product_id_domain')
+    @api.depends('type_travaux')
+    def _compute_point_lourd_deporte_product_id_domain(self):
+        for record in self:
+            if record.type_travaux.point_lourd_deporte_ids:
+                product_ids = [p.default_product_id.id for p in record.type_travaux.point_lourd_deporte_ids]
+                record.point_lourd_deporte_product_id_domain = str([('id', 'in', product_ids)])
+            else:
+                record.point_lourd_deporte_product_id_domain = "[]"
 
     @api.onchange('type_travaux')
-    def onchange_deporte_client_product_ids(self):
+    def _onchange_deporte_client_product_ids(self):
         self.deporte_client_product_ids = False
-        domain = {}
-        if self.type_travaux.deporte_client_ids and len(self.type_travaux.deporte_client_ids) > 0:
-            product_ids = [deporte_client_id.default_product_id.id for deporte_client_id in self.type_travaux.deporte_client_ids]
+        if self.type_travaux.deporte_client_ids:
+            product_ids = [d.default_product_id.id for d in self.type_travaux.deporte_client_ids]
             if len(product_ids) == 1:
-                self.deporte_client_product_ids = product_ids[0]                
-                domain['deporte_client_product_ids'] = [('id', 'in', product_ids)] 
+                self.deporte_client_product_ids = [(6, 0, [product_ids[0]])]
 
-            elif product_ids:
-                domain['deporte_client_product_ids'] = [('id', 'in', product_ids)]
-        return {'domain': domain}   
-    
-    # ITE
-
+    deporte_client_product_ids_domain = fields.Char(compute='_compute_deporte_client_product_ids_domain')
+    @api.depends('type_travaux')
+    def _compute_deporte_client_product_ids_domain(self):
+        for record in self:
+            if record.type_travaux.deporte_client_ids:
+                product_ids = [d.default_product_id.id for d in record.type_travaux.deporte_client_ids]
+                record.deporte_client_product_ids_domain = str([('id', 'in', product_ids)])
+            else:
+                record.deporte_client_product_ids_domain = "[]"
 
     def _compute_attached_docs_count(self):
         Attachment = self.env['ir.attachment']
         for record in self:
             record.doc_count = Attachment.search_count([('res_model', '=', record._name), ('res_id', '=', record.id)])
-
-    def _get_document_folder(self):
-        return self.project_id._get_document_folder()
 
     def _get_document_vals(self, attachment):
         document_vals = super()._get_document_vals(attachment)
@@ -926,23 +1001,24 @@ class Zone(models.Model):
         """ Return view action to document folder """
         self.ensure_one()
         action = self.project_id.go_to_folder()
-        action['context'].update({'searchpanel_default_folder_id': self._get_document_folder().id,
-                                  'default_folder_id': self._get_document_folder().id,
-                                  'default_owner_id': self.env.user.id,
-                                  'default_company_id': self.env.company.id,
-                                  'default_partner_id': self.project_id.partner_id.id,
-                                  'default_res_model': self._name,
-                                  'default_res_id': self.id})
+        action['context'].update({
+            'searchpanel_default_folder_id': self._get_document_folder().id,
+            'default_folder_id': self._get_document_folder().id,
+            'default_owner_id': self.env.user.id,
+            'default_company_id': self.env.company.id,
+            'default_partner_id': self.project_id.partner_id.id,
+            'default_res_model': self._name,
+            'default_res_id': self.id
+        })
         return action
 
-    @api.onchange('project_id')
-    def compute_is_chantier_renovation(self):
+    @api.depends('project_id.chantier_renovation')
+    def _compute_is_chantier_renovation(self):
         for record in self:
             record.is_chantier_renovation = bool(record.project_id.chantier_renovation)
 
-    @api.onchange('project_id')
     @api.depends('project_id.partner_id')
-    def compute_is_client_particulier(self):
+    def _compute_is_client_particulier(self):
         # Le client est celui du projet
         for record in self:
             client = record.project_id.partner_id
@@ -967,14 +1043,14 @@ class Zone(models.Model):
 
     @api.onchange('entree_id')
     def _onchange_entree_id(self):
-        num_zone = len(self.entree_id.zone_ids)+1 if self.entree_id.zone_ids else 1
-        self.name = "Zone {}".format(num_zone)
+        num_zone = len(self.entree_id.zone_ids) + 1 if self.entree_id.zone_ids else 1
+        self.name = f"Zone {num_zone}"
 
     @api.constrains('surface_a_isoler')
     def _check_surface_a_isoler(self):
         for record in self:
             if record.surface_a_isoler == 0 and record.typologie_type_travaux in ['iso_combles', 'iso_plancher', 'iso_calo', 'iso_iti']:
-                raise exceptions.ValidationError("La surface à isoler doit être >0")
+                raise exceptions.ValidationError("La surface à isoler doit être > 0")
 
     def action_view_zones(self, project_id):
         ctx = dict(self.env.context)

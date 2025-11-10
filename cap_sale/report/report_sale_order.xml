@@ -18,6 +18,7 @@
                SIRET : 47800554900033
 
          -->
+   
         <xpath expr="//t[@t-set='address']" position="before">
             <t t-set="information_block">
                 <div>
@@ -74,7 +75,7 @@
         16/12/2020                  16/12/2020          Administrator
         -->
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="row mt32 mb32" id="informations">
+            <div class="row mt16 mb16" id="informations">
                 <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
                     <strong>Référence:</strong>
                     <p class="m-0" t-field="doc.client_order_ref"/>
@@ -93,7 +94,7 @@
                     <p class="m-0" t-field="doc.user_id"/>
                 </div>
             </div>
-            <div class="row mt0 mb32" id="informations_specifiques">
+            <div class="row mt0 mb16" id="informations_specifiques">
                 <div t-if="doc.project_id" class="col-auto mw-100 mb-2">
                     <strong>Projet:</strong>
                     <p class="m-0" t-field="doc.project_id"/>

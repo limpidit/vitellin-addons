@@ -48,13 +48,17 @@
             </div>
         </xpath>
 
+        <xpath expr="//div[hasclass('clearfix')]" position="attributes">
+            <attribute name="class">mt-2 clearfix</attribute>
+        </xpath>
+
         <!-- Ajouter la date de la visite technique et Date de début des travaux
         Exemple de rendu :
         Date visite technique:      Date début des travaux:     Date de la facture :        Origine :
         16/12/2020                  31/12/2020                  31/12/2020                  SO0020
         -->
         <xpath expr="//div[@id='informations']" position="after">
-            <div class="row mt0 mb32" id="informations_specifiques">
+            <div class="row mt0 mb16" id="informations_specifiques">
                 <div t-if="o.sale_id.project_id" class="col-auto mw-100 mb-2">
                     <strong>Projet:</strong>
                     <p class="m-0" t-field="o.sale_id.project_id" />
@@ -192,7 +196,16 @@
         </xpath>
 
         <!-- Ajout d'une mention en cas d'absence de TVA -->
-        <xpath expr="//div[hasclass('clearfix')]" position="before">
+        <!-- <xpath expr="//div[hasclass('clearfix')]" position="before">
+            <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
+                <p>
+                    Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
+                    secteur du bâtiment selon le 2 nonies de l'article 283 du code général des impôts.
+                </p>
+            </div>
+        </xpath> -->
+
+        <xpath expr="//table" position="after">
             <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
                 <p>
                     Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le

@@ -45,7 +45,7 @@ class ProjectTask(models.Model):
                                                                            or 'user_ids' in vals):
             for task_id in self:
                 event_id = task_id.calendar_event_id or self.env['calendar.event']
-                _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.date_end} user_ids {task_id.user_ids}")
+                _logger.info(f"planned_date_begin {task_id.planned_date_begin} planned_date_end {task_id.date_deadline} user_ids {task_id.user_ids}")
                 event_id.update_from_task(name=task_id.display_name,
                                           start_datetime=task_id.planned_date_begin,
                                           stop_datetime=task_id.date_end or task_id.date_deadline,
@@ -63,7 +63,7 @@ class ProjectTask(models.Model):
         context = {'update_from_calendar_event': True}
         event_vals = {
             'planned_date_begin': planned_date_begin,
-            'date_end': planned_date_end,
+            'date_deadline': planned_date_end,
             'user_id': user_id.id,
             'user_ids': user_ids,
             'calendar_event_id': calendar_event_id.id,

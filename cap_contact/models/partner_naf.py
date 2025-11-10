@@ -19,14 +19,13 @@ class PartnerNAF(models.Model):
             rec.display_name = f"{rec.code_naf or ''} - {rec.name or ''}"
 
     @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None, order=None):
         """ Surcharge pour être cohérent avec la surcharge du name_get
-            La recherche se fait simultanément sur le code et le libellé de l'enregistrement
-        """
+            La recherche se fait simultanément sur le code et le libellé de l'enregistrement"""
         if args is None:
             args = []
         domain = args + ['|', ('code_naf', operator, name), ('name', operator, name)]
-        return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
+        return self._search(expression.AND([domain, args]), limit=limit, order=order, access_rights_uid=name_get_uid)
 
     name = fields.Char(string='Intitulé NAF', required=True)
     code_naf = fields.Char(string='Code NAF', required=True)

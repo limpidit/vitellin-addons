@@ -12,7 +12,7 @@ class Tasks(models.Model):
         the format of that list is [[user, date, [tasks], [isolant], [qty_isolant], nbre_spot], [..[][][].], [..[][][].]]
         """
         datas = []
-        chantiers_sorted = self.filtered(lambda t: t.type_tache == 'chantier' and t.user_id and t.planned_date_begin).sorted(key=lambda t: (t.planned_date_begin))
+        chantiers_sorted = self.filtered(lambda t: t.type_tache == 'chantier' and t.user_ids and t.planned_date_begin).sorted(key=lambda t: (t.planned_date_begin))
         appendChantier = True
         index = 0
 
