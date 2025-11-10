@@ -1,4 +1,4 @@
-odoo.define('cap_calendar_attendees.CalendarModel', function (require) {
+odoo.define('cap_calendar_attendees.CalendarModel', [], function (require) {
 "use strict";
 
 var AbstractModel = require('web.AbstractModel');
