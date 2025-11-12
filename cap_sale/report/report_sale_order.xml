@@ -5,14 +5,10 @@
     <template id="custom_report_saleorder_document" inherit_id="sale.report_saleorder_document">
 
         <!-- Toujours intituler le document "Devis" -->
-        <xpath expr="//div[hasclass('page')]/h2//span[contains(@t-elif,'doc.state in [')]" position="replace">
-            <span t-if="doc.state not in ['draft','sent']">Devis N°</span>
-        </xpath>
-
         <xpath expr="//h2" position="replace">
             <h2 class="mt-4">
                 <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
-                <span >Devis # </span>
+                <span >Devis N°</span>
                 <span t-field="doc.name">SO0000</span>
             </h2>
         </xpath>
