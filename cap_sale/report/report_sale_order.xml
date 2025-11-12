@@ -9,6 +9,14 @@
             <span t-if="doc.state not in ['draft','sent']">Devis N°</span>
         </xpath>
 
+        <xpath expr="//h2" position="replace">
+            <h2 class="mt-4">
+                <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
+                <span >Devis # </span>
+                <span t-field="doc.name">SO0000</span>
+            </h2>
+        </xpath>
+
         <!-- Ajout d'une colonne de coordonnées à gauche
         Exemple :
             Coordonnées :
@@ -75,7 +83,7 @@
         16/12/2020                  16/12/2020          Administrator
         -->
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="row mt16 mb16" id="informations">
+            <div class="row mt8 mb8" id="informations">
                 <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
                     <strong>Référence:</strong>
                     <p class="m-0" t-field="doc.client_order_ref"/>
@@ -94,7 +102,7 @@
                     <p class="m-0" t-field="doc.user_id"/>
                 </div>
             </div>
-            <div class="row mt0 mb16" id="informations_specifiques">
+            <div class="row mt0 mb8" id="informations_specifiques">
                 <div t-if="doc.project_id" class="col-auto mw-100 mb-2">
                     <strong>Projet:</strong>
                     <p class="m-0" t-field="doc.project_id"/>
