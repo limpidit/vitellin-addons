@@ -96,7 +96,7 @@
                         <group>
                             <field name="name" placeholder="ex: Cuisine"/>
                             <field name="type_zone" invisible="typologie_type_travaux == 'vmc'"/>
-                            <field name="type_chauffage" invisible="typologie_type_travaux = 'vmc'"/>
+                            <field name="type_chauffage" invisible="typologie_type_travaux == 'vmc'"/>
                         </group>
                         <group>
                             <field name="secteur_activite" options="{'no_create': True, 'no_open': True}"/>
