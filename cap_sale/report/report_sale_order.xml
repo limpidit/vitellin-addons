@@ -99,20 +99,20 @@
                 </div>
             </div>
             <div class="row mt0 mb8" id="informations_specifiques">
-                <div t-if="doc.project_id" class="col-auto mw-100 mb-2">
+                <div t-if="doc.project_id" class="col-auto col-3 mw-100 mb-2">
                     <strong>Projet:</strong>
                     <p class="m-0" t-field="doc.project_id"/>
                 </div>
-                <div t-if="doc.date_visite_technique" class="col-auto mw-100 mb-2">
+                <div t-if="doc.date_visite_technique" class="col-auto col-3 mw-100 mb-2">
                     <strong>Date visite technique:</strong>
                     <p class="m-0" t-field="doc.date_visite_technique" t-options='{"widget": "date"}'/>
                 </div>
-                <div t-if="doc.origin_zone_ids" class="col-auto mw-100 mb-2">
+                <div t-if="doc.origin_zone_ids" class="col-auto col-3 mw-100 mb-2">
                     <strong>Type(s) de travaux:</strong>
                     <t t-set="type_travaux_ids" t-value="'\n'.join(doc.mapped('origin_zone_ids.type_travaux.name'))"/>
                     <p class="m-0" t-esc="type_travaux_ids"/>
                 </div>
-                <div t-if="doc.project_id.parcelle_cadastrale" class="col-auto mw-100 mb-2">
+                <div t-if="doc.project_id.parcelle_cadastrale" class="col-auto col-3 mw-100 mb-2">
                     <strong>Parcelle cadastrale:</strong>
                     <p class="m-0" t-field="doc.project_id.parcelle_cadastrale"/>
                 </div>
@@ -123,21 +123,46 @@
         <xpath expr="//t[@t-foreach='lines_to_report']" position="attributes">
             <attribute name="t-foreach">doc.order_lines_cee_excluded</attribute>
         </xpath>
-		
-		
-        <!-- TODO Limpid : Comment arranger cette merde -->
-        <!-- Le sous-total ne doit pas tenir compte de la prime qui sera affichée plus loin -->
-			<!-- Modif Julie : enlever le montant de la prime renov du sous-total -->
-        <!-- <xpath expr="//td[@name='td_amount_untaxed']/span" position="replace">
-            <t t-set="amount_untaxed" t-value="doc.amount_untaxed + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
-            <span t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
-        </xpath> -->
-        <!-- Le total ne doit pas tenir compte de la prime qui sera affichée plus loin -->
-			<!-- Modif Julie : enlever le montant de la prime renov du total -->
-		<!-- <xpath expr="//td[@name='td_amount_total']/span" position="replace">
-            <t t-set="amount_total" t-value="doc.amount_total + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
-            <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
-        </xpath> -->
+
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="row" name="total">
+                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                    <table class="table table-sm table-borderless">
+                        <!-- Tax totals -->
+                        <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                        <t t-foreach="tax_totals.get('subtotals')" t-as="subtotal">
+                            <tr class="border-black o_subtotal">
+                                <td><strong t-out="subtotal['name']">Untaxed Amount</strong></td>
+
+                                <td class="text-end">
+                                    <t t-set="amount_untaxed" t-value="subtotal['amount'] + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
+                                    <span t-att-class="oe_subtotal_footer_separator" t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                </td>
+                            </tr>
+
+                            <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
+                            <t t-call="account.tax_groups_totals"/>
+                        </t>
+
+                        <tr t-if="'formatted_rounding_amount' in tax_totals and tax_totals.get('rounding_amount') != 0">
+                            <td>Rounding</td>
+                            <td class="text-end">
+                                <span t-out="tax_totals.get('formatted_rounding_amount')">0</span>
+                            </td>
+                        </tr>
+                        
+                        <!--Total amount with all taxes-->
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td  class="text-end">
+                                <t t-set="amount_total" t-value="tax_totals.get('amount_total') + doc.prime_cee_versee_client + doc.prime_renov_versee_client"/>
+                                <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </xpath>
 
         <!-- Afficher une colonne supplémentaire : le prix catalogue -->
         <xpath expr="//th[@name='th_quantity']" position="after">
@@ -226,7 +251,7 @@
 
             <div class="clearfix" name="so_total_avec_prime_summary" t-if="doc.prime_cee_versee_client or doc.prime_renov_versee_client">
                 <div id="total_avec_prime" class="row">
-                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
                         <table class="table table-sm">
                             <tr class="border-black o_total">
                                 <td name="td_amount_total_label">
@@ -263,7 +288,7 @@
                 <p t-if="doc.company_id.mediateur_mention_obligatoire and not doc.partner_id.is_company"
                    style="page-break-inside: avoid;" t-field="doc.company_id.mediateur_mention_obligatoire"/>
             </div>
-            <div name="so_signature" style="page-break-inside: avoid; font-size: 0.8em;">
+            <div name="so_signature" class="text-end" style="page-break-inside: avoid; font-size: 0.8em;">
                 <p class="pull-right">
                     Pour
                     <t t-if="doc.project_id.is_copro and doc.represente_par">
