@@ -18,7 +18,7 @@
                             <div class="col-3 ml-2">
                                 <table class="table table-sm table-bordered">
                                     <thead>
-                                        <tr class="bg-secondary">
+                                        <tr class="bg-secondary text-100">
                                             <th scope="col" style="width: 50%">Véhicule</th>
                                             <th scope="col" style="width: 50%">
                                                 <t t-esc="user_id.firstname"/>
@@ -43,7 +43,7 @@
                             <div class="col-5 ml-2">
                                 <table class="table table-sm table-bordered">
                                     <thead>
-                                        <tr class="bg-secondary">
+                                        <tr class="bg-secondary text-100">
                                             <th scope="col" style="width: 10%">Equipe</th>
                                             <th scope="col" style="width: 20%">Prévue</th>
                                             <th scope="col" style="width: 30%">Réelle</th>
@@ -74,13 +74,13 @@
                                 <table class="table table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="bg-secondary">Semaine</th>
+                                            <th scope="col" class="bg-secondary text-100">Semaine</th>
                                             <th scope="col">
                                                 <t t-esc="task_id[2][0].numero_semaine"/>
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th scope="col" class="bg-secondary">Jour de l'intervention</th>
+                                            <th scope="col" class="bg-secondary text-100">Jour de l'intervention</th>
                                             <th scope="col">
                                                 <t t-esc="date.strftime('%Y-%m-%d')"/>
                                             </th>
