@@ -24,6 +24,7 @@
         'cap_account',
         'cap_security',
         'l10n_fr',
+        'l10n_fr_invoice_addr',
         'web',
     ],
     'data': [
