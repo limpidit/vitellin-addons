@@ -221,6 +221,9 @@
             </div>
         </xpath>
 
+        <!-- Supprimer la mention "Option pour le paiement de la taxe d'après les débits" -->
+        <xpath expr="//p[@t-if=&quot;o.l10n_fr_is_company_french and o.move_type.startswith('out_') and 'on_invoice' in o.invoice_line_ids.mapped('tax_ids.tax_exigibility')&quot;]" position="replace"/>
+       
         <!-- Indiquer l'IBAN pour virement -->
         <xpath expr="//p[@name='payment_communication']" position="after">
             <p t-if="o.partner_bank_id and o.partner_bank_id.acc_type == 'iban'" name="payment_iban">
