@@ -221,8 +221,9 @@
             </div>
         </xpath>
 
-        <!-- Supprimer la mention "Option pour le paiement de la taxe d'après les débits" -->
-        <xpath expr="//p[@t-if=&quot;o.l10n_fr_is_company_french and o.move_type.startswith('out_') and 'on_invoice' in o.invoice_line_ids.mapped('tax_ids.tax_exigibility')&quot;]" position="replace"/>
+        <xpath expr="//p[@name='payment_communication']" position="after">
+            <p t-if="o.l10n_fr_is_company_french and o.move_type.startswith('out_') and 'on_invoice' in o.invoice_line_ids.mapped('tax_ids.tax_exigibility')" position="replace"/>
+        </xpath>
        
         <!-- Indiquer l'IBAN pour virement -->
         <xpath expr="//p[@name='payment_communication']" position="after">
@@ -230,5 +231,13 @@
                 IBAN: <b><span t-field="o.partner_bank_id"/></b>
             </p>
         </xpath>
+    </template>
+
+    <!-- Supprimer la mention Option pour le paiement de la taxe d'après les débits -->
+    <template id="cap_remove_l10n_fr_tax_on_debits"
+              inherit_id="l10n_fr_invoice_addr.report_invoice_document">
+
+        <xpath expr='//p[@t-if="o.l10n_fr_is_company_french and o.move_type.startswith(&apos;out_&apos;) and &apos;on_invoice&apos; in o.invoice_line_ids.mapped(&apos;tax_ids.tax_exigibility&apos;)"]'
+               position="replace"/>
     </template>
 </odoo>
