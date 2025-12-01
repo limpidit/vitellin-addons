@@ -11,7 +11,7 @@
                SIRET : 47800554900033
 
          -->
-        <xpath expr="//t[@t-set='address']" position="before">
+        <xpath expr="//div[@class='row']" position="before">
             <t t-set="information_block">
                 <div>
                     <span t-field="o.sale_id.project_id.address_id.name"/>
@@ -98,27 +98,127 @@
             <t t-if="not o.partner_id.is_oblige" t-set="lines" t-value="lines.filtered(lambda l: l.product_id != o.company_id.prime_cee_wo_tva_product_id and l.product_id != o.company_id.prime_renov_wo_tva_product_id)"/>
         </xpath>
 
-        <!-- TODO Limpidit : Arranger ca -->
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="clearfix row">
+                <div class="ms-auto">
+                    <table class="table table-sm table-borderless avoid-page-break-inside">
 
-        <!-- <xpath expr="//div[@id='total']//span[@t-field='o.amount_untaxed']" position="replace">
-            <t t-if="not o.partner_id.is_oblige">
-                <t t-set="amount_untaxed" t-value="o.amount_untaxed + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
-                <span t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-            </t>
-            <t t-else="">
-                <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-            </t>
+                        <!--Tax totals-->
+                        <t t-set="tax_totals" t-value="o.tax_totals or {}"/>
+
+                        <t t-foreach="tax_totals.get('subtotals')" t-as="subtotal">
+                            <tr class="border-black o_subtotal">
+                                <td><strong t-out="subtotal['name']">Untaxed Amount</strong></td>
+
+                                <td class="text-end">
+                                    <t t-if="not o.partner_id.is_oblige">
+                                        <t t-set="amount_untaxed" t-value="subtotal['amount'] + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
+                                        <span t-att-class="oe_subtotal_footer_separator" t-esc="amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-att-class="oe_subtotal_footer_separator" t-out="subtotal['formatted_amount']">27.00</span>
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <t t-set="subtotal_to_show" t-value="subtotal['name']"/>
+                            <t t-call="account.tax_groups_totals"/>
+                        </t>
+
+                        <tr t-if="'formatted_rounding_amount' in tax_totals and tax_totals.get('rounding_amount') != 0">
+                            <td>Rounding</td>
+                            <td class="text-end">
+                                <span t-out="tax_totals.get('formatted_rounding_amount')">0</span>
+                            </td>
+                        </tr>
+                        
+                        <!--Total amount with all taxes-->
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td class="text-end">
+                                <t t-if="not o.partner_id.is_oblige">
+                                    <t t-set="amount_total" t-value="tax_totals.get('amount_total') + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
+                                    <span t-esc="amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-out="tax_totals.get('formatted_amount_total')">31.05</span>
+                                </t>
+                            </td>
+                        </tr>
+                        
+                        <div class="clearfix">
+                            <table class="table table-borderless table-sm mt-3">
+                                <tbody class="invoice_tbody">
+                                    <t t-if="o.prime_cee_versee_client">
+                    					          <t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_cee_wo_tva_product_id)" t-as="prime_line">
+                                        <tr class="border-black">
+                                          <td>
+                                            <span style="font-size: 0.8em">
+                    						  <span t-field="prime_line.description_multiligne"/>
+                                            </span>
+                                          </td>
+                                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                        </tr>
+                    				          	</t>
+                    				          </t>
+                          					<t t-if="o.prime_renov_versee_client">	
+                          						<t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_renov_wo_tva_product_id)" t-as="prime_line">
+                                        <tr class="border-black">
+                                          <td>
+                                            <span style="font-size: 0.8em">
+                                              <span t-field="prime_line.description_multiligne"/>
+                                            </span>
+                                          </td>
+                                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
+                                        </tr>
+                          						</t>
+                          					</t>
+                                </tbody>
+                            </table>
+                            <div class="clearfix" name="inv_total_avec_prime_summary" t-if="o.prime_cee_versee_client or o.prime_renov_versee_client">
+                                <div id="total_avec_prime" class="row">
+                                    <div class="ml-auto">
+                                        <table class="table table-borderless table-sm">
+                                            <tr class="border-black o_total">
+                                                <td name="td_amount_total_label"><strong>Net à payer</strong></td>
+                                                <td name="td_amount_total" class="text-end">
+                                                    <span class="text-nowrap" t-field="o.amount_total"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Payments-->
+                        <t t-if="print_with_payments">
+                            <t t-if="o.payment_state != 'invoicing_legacy'">
+                                <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
+                                <t t-foreach="payments_vals" t-as="payment_vals">
+                                    <tr t-if="payment_vals['is_exchange'] == 0">
+                                        <td>
+                                            <i class="oe_form_field text-end oe_payment_label">Paid on <t t-out="payment_vals['date']" t-options="{&quot;widget&quot;: &quot;date&quot;}">2021-09-19</t></i>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="payment_vals['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}">20.00</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="len(payments_vals) &gt; 0">
+                                    <tr class="border-black fw-bold">
+                                        <td>Amount Due</td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_residual">11.05</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </table>
+                </div>
+            </div>
         </xpath>
-
-        <xpath expr="//tr[hasclass('o_total')]//span[@t-field='o.amount_total']" position="replace">
-            <t t-if="not o.partner_id.is_oblige">
-                <t t-set="amount_total" t-value="o.amount_total + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
-                <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-            </t>
-            <t t-else="">
-                <span class="text-nowrap" t-field="o.amount_total"/>
-            </t>
-        </xpath> -->
 
         <!-- Afficher le nombre de m² et le prix/m² lorsque l'article est un isolant -->
         <xpath expr="//span[@t-field='line.quantity']/parent::td" position="replace">
@@ -136,75 +236,6 @@
             <attribute name="style">white-space: nowrap;</attribute>
         </xpath>
 
-        <!-- Affichage de la prime dans un bloc dédié -->
-        <xpath expr="//div[hasclass('clearfix')]" position="after">
-            <table class="table table-sm mt-3">
-                <tbody class="invoice_tbody">
-                    <t t-if="o.prime_cee_versee_client">
-						          <t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_cee_wo_tva_product_id)" t-as="prime_line">
-                        <tr>
-                          <td>
-                            <span style="font-size: 0.8em">
-							  <span t-field="prime_line.description_multiligne"/>
-							  <!-- <t t-if="prime_line.description_multiligne"> -->
-								<!-- <span t-field="prime_line.description_multiligne"/> -->
-							  <!-- </t> -->
-							  <!-- <t t-else=""> -->
-								<!-- <span t-field="prime_line.name"/> -->
-							  <!-- </t> -->
-                            </span>
-                          </td>
-                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
-                        </tr>
-					          	</t>
-					          </t>
-          					<t t-if="o.prime_renov_versee_client">	
-          						<t t-foreach="o.invoice_line_ids.filtered(lambda l: l.product_id == o.company_id.prime_renov_wo_tva_product_id)" t-as="prime_line">
-                        <tr>
-                          <td>
-                            <span style="font-size: 0.8em">
-                              <span t-field="prime_line.description_multiligne"/>
-							  <!-- <t t-if="prime_line.description_multiligne"> -->
-								<!-- <span t-field="prime_line.description_multiligne"/> -->
-							  <!-- </t> -->
-							  <!-- <t t-else=""> -->
-								<!-- <span t-field="prime_line.name"/> -->
-							  <!-- </t> -->
-                            </span>
-                          </td>
-                          <td class="text-right"><span t-field="prime_line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/></td>
-                        </tr>
-          						</t>
-          					</t>
-                </tbody>
-            </table>
-
-            <div class="clearfix" name="inv_total_avec_prime_summary" t-if="o.prime_cee_versee_client or o.prime_renov_versee_client">
-                <div id="total_avec_prime" class="row">
-                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
-                        <table class="table table-sm">
-                            <tr class="border-black o_total">
-                                <td name="td_amount_total_label"><strong>Net à payer</strong></td>
-                                <td name="td_amount_total" class="text-right">
-                                    <span class="text-nowrap" t-field="o.amount_total"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </xpath>
-
-        <!-- Ajout d'une mention en cas d'absence de TVA -->
-        <!-- <xpath expr="//div[hasclass('clearfix')]" position="before">
-            <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
-                <p>
-                    Prestation exonérée de TVA par l'application d'un mécanisme d'auto liquidation de la TVA dans le
-                    secteur du bâtiment selon le 2 nonies de l'article 283 du code général des impôts.
-                </p>
-            </div>
-        </xpath> -->
-
         <xpath expr="//table" position="after">
             <div t-if="o.amount_total == o.amount_untaxed" name="inv_mention_no_tva" style="font-size: 0.8em">
                 <p>
@@ -214,22 +245,18 @@
             </div>
         </xpath>
 
-        <xpath expr="//p[@name='note']" position="after">
-            <div style="font-size: 0.8em">
-                <!-- Ajout d'une mention obligatoire concernant la société de médiation -->
-                <p t-if="o.company_id.mediateur_mention_obligatoire and not o.partner_id.is_company" style="page-break-inside: avoid;" t-field="o.company_id.mediateur_mention_obligatoire" />
-            </div>
-        </xpath>
-
         <xpath expr="//p[@name='payment_communication']" position="after">
             <p t-if="o.l10n_fr_is_company_french and o.move_type.startswith('out_') and 'on_invoice' in o.invoice_line_ids.mapped('tax_ids.tax_exigibility')" position="replace"/>
         </xpath>
-       
-        <!-- Indiquer l'IBAN pour virement -->
-        <xpath expr="//p[@name='payment_communication']" position="after">
-            <p t-if="o.partner_bank_id and o.partner_bank_id.acc_type == 'iban'" name="payment_iban">
-                IBAN: <b><span t-field="o.partner_bank_id"/></b>
-            </p>
+        
+        <xpath expr="//div[@id='right-elements']/.." position="after">
+            <div>
+                <p t-if="o.partner_bank_id and o.partner_bank_id.acc_type == 'iban'" name="payment_iban">
+                    IBAN: <b><span t-field="o.partner_bank_id"/></b>
+                </p>
+                <!-- Ajout d'une mention obligatoire concernant la société de médiation -->
+                <p t-if="o.company_id.mediateur_mention_obligatoire and not o.partner_id.is_company" style="page-break-inside: avoid;" t-field="o.company_id.mediateur_mention_obligatoire"/>
+            </div>
         </xpath>
     </template>
 
