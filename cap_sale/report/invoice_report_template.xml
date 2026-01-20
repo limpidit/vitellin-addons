@@ -93,6 +93,37 @@
             </div>
         </xpath>
 
+        <xpath expr="//div[@id='informations']" position="after">
+            <div id="informations_vitellin" class="row mt-3 mb-2">
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.project_id">
+                    <strong>Projet:</strong>
+                    <br/>
+                    <span t-field="o.sale_id.project_id">Projet X</span>
+                </div>
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.date_visite_technique">
+                    <strong>Date visite technique:</strong>
+                    <br/>
+                    <span t-field="o.sale_id.date_visite_technique" t-options='{"widget": "date"}'>16/12/2020</span>
+                </div>
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.chantier_task_ids">
+                    <strong>Date début travaux:</strong>
+                    <br/>
+                    <span t-field="o.sale_id.chantier_task_ids[0].planned_date_begin" t-options='{"widget": "date"}'>16/12/2020</span>
+                </div>
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.origin_zone_ids">
+                    <strong>Type(s) de travaux:</strong>
+                    <br/>
+                    <t t-set="type_travaux_ids" t-value="'\n'.join(o.sale_id.mapped('origin_zone_ids.type_travaux.name'))"/>
+                    <span t-esc="type_travaux_ids">Isolation</span>
+                </div>
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.project_id.parcelle_cadastrale">
+                    <strong>Parcelle cadastrale:</strong>
+                    <br/>
+                    <span t-field="o.sale_id.project_id.parcelle_cadastrale">Parcelle cadastrale</span>
+                </div>
+            </div>
+        </xpath>
+
         <!-- limiter l'origine à 40 caractères -->
         <xpath expr="//span[@t-field='o.invoice_origin']" position="replace">
             <span class="m-0" t-if="len(o.invoice_origin) &lt; 33" t-field="o.invoice_origin"/>
