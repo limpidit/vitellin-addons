@@ -35,7 +35,7 @@
             </field>
 
             <field name="type_travaux" position="after">
-                <field name="sale_order_ids" groups="sales_team.group_sale_salesman" widget="many2many_tags"/>
+                <field name="sale_order_ids" groups="sales_team.group_sale_salesman" widget="many2many_tags" options="{'color_field': 'color'}"/>
             </field>
         </field>
     </record>
