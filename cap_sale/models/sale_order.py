@@ -291,7 +291,7 @@ class SaleOrder(models.Model):
         """
         invoice_values = super(SaleOrder, self)._prepare_invoice()
         invoice_values.update({
-            'invoice_date': self.date_order,
+            'invoice_date': fields.Date.context_today(self),
             'sale_id': self.id,
             'project_id': self.project_id.id,
         })
