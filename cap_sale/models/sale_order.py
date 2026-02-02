@@ -46,6 +46,7 @@ class SaleOrder(models.Model):
     client_is_parrainage = fields.Boolean(string='Parrainé', related='partner_id.is_parrainage', store=True)
     client_parrain = fields.Many2one(string="Apporteur d'affaire", comodel_name='res.partner', related='partner_id.parrain', store=True)
     client_origin = fields.Many2one(string='Origine', related='partner_id.origine_contact', comodel_name='partner.origin', store=True)
+    color = fields.Integer(compute='_compute_color',store=False)
 
     @api.depends('partner_id.category_id')
     def compute_client_etiquette_1(self):
@@ -157,6 +158,13 @@ class SaleOrder(models.Model):
             else:
                 record.generated_tasks_count = 0
             record.chantier_deja_genere = bool(record.generated_tasks_count)
+
+    def _compute_color(self):
+        for order in self:
+            if order.state in ('sale', 'done'):
+                order.color = 10
+            else:
+                order.color = 1
 
     def ajouter_main_oeuvre(self):
         sequence = 1
@@ -291,7 +299,7 @@ class SaleOrder(models.Model):
         """
         invoice_values = super(SaleOrder, self)._prepare_invoice()
         invoice_values.update({
-            'invoice_date': self.date_order,
+            'invoice_date': fields.Date.context_today(self),
             'sale_id': self.id,
             'project_id': self.project_id.id,
         })
