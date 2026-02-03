@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vitellin_project_task_segmentation_sale_order_form" model="ir.ui.view">
+        <field name="name">vitellin.project.task.segmentation.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="after">
+                <button string="Générer chantier" name="generer_chantier" class="btn btn-primary" type="object"
+                    invisible="state != 'sale' or generated_tasks_count != 0"
+                    groups="cap_security.group_planificateur,cap_security.group_adv,cap_security.group_admin_fonc,base.group_system"/>
+            </button>
+        </field>
+    </record>
+
+
+</odoo>

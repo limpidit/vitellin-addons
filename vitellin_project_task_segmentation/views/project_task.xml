@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vitellin_project_task_segmentation_view_form" model="ir.ui.view">
+        <field name="name">vitellin.project.task.segmentation.view.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Construction lines">
+                    <field name="construction_sale_line_ids" mode="tree">
+                        <tree string="Construction sale lines" decoration-muted="True">
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>
