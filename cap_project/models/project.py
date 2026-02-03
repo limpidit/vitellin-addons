@@ -68,8 +68,9 @@ class Project(models.Model):
                 return f"{company_name} - {date_str}"
 
             if address and address != partner:
-                sub_name = self._get_partner_label(address) or address.display_name
-                return f"{company_name} - {sub_name} - {date_str}"
+                sub_name = self._get_partner_label(address) or ""
+                if sub_name:
+                    return f"{company_name} - {sub_name} - {date_str}"
 
             return f"{company_name} - {date_str}"
 
