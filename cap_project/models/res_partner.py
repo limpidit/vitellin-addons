@@ -1,4 +1,5 @@
 from odoo import models, fields, _
+from datetime import datetime
 
 
 class ResPartner(models.Model):
