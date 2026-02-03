@@ -40,8 +40,9 @@ class WizardProjectTaskSegmentation(models.TransientModel):
 
     def generate_construction_sites(self):
         # Comportement actuel Vitellin
+        order = self.sale_order_id
+        
         if self.generation_mode == 'unique':
-            order = self.sale_order_id
             order.chantier_task_ids += self.env['project.task'].create({
                 'name': 'Chantier {} {}'.format(order.partner_id.name, "/".join([t.name for t in order.origin_zone_ids.mapped('type_travaux')])),
                 'type_tache': 'chantier',
@@ -75,6 +76,8 @@ class WizardProjectTaskSegmentation(models.TransientModel):
 
             if current_phase_lines:
                 self._create_phase_task(phase_index, current_phase_lines)
+        
+        order.chantier_task_ids.compute_stage_id()
 
     def _create_phase_task(self, phase_index, sale_lines):
         """ Méthode helper pour créer la tâche """
@@ -93,7 +96,7 @@ class WizardProjectTaskSegmentation(models.TransientModel):
             'planned_date_begin': min(order.origin_zone_ids.mapped('date_previsionnelle_travaux')),
             'construction_sale_line_ids': [(6, 0, sale_lines.ids)],
         })
-        return new_task
+        order.chantier_task_ids += new_task
 
     def _validate_lines(self):
         # Vérifier qu'il y a au moins une section

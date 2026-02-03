@@ -18,4 +18,15 @@
         </field>
     </record>
 
+    <record id="vitellin_project_task_segmentation_view_tree" model="ir.ui.view">
+        <field name="name">vitellin.project.task.segmentation.view.tree</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="cap_industry_fsm.project_task_view_tree_chantier"/>
+        <field name="arch" type="xml">
+            <field name="type_travaux_ids" position="after">
+                <field name="construction_invoiceable_amount" optional="show"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
