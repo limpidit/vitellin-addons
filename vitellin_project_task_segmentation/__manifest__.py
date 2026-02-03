@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
         'views/project_task.xml',
         'views/sale_order.xml',
+        'wizard/sale_make_invoice_advance.xml',
         'wizard/wizard_project_task_segmentation.xml',
     ],
     'auto_install': False,

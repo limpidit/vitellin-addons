@@ -46,6 +46,7 @@ class WizardProjectTaskSegmentation(models.TransientModel):
             order.chantier_task_ids += self.env['project.task'].create({
                 'name': 'Chantier {} {}'.format(order.partner_id.name, "/".join([t.name for t in order.origin_zone_ids.mapped('type_travaux')])),
                 'type_tache': 'chantier',
+                'sale_order_id': order.id,
                 'is_fsm': True,
                 'project_id': order.project_id.id,
                 'partner_id': order.partner_id.id,
@@ -87,6 +88,7 @@ class WizardProjectTaskSegmentation(models.TransientModel):
         new_task = self.env['project.task'].create({
             'name': f"{base_name} - {suffix}",
             'type_tache': 'chantier',
+            'sale_order_id': order.id,
             'is_fsm': True,
             'project_id': order.project_id.id,
             'partner_id': order.partner_id.id,
