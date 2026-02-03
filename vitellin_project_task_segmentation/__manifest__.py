@@ -9,6 +9,7 @@
     'category': '',
     'depends': [
         'project',
+        'cap_industry_fsm',
         'cap_sale',
     ],
     'data': [
