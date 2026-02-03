@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wizard_project_task_segmentation_manager,access.wizard.project.task.segmentation.manager,model_wizard_project_task_segmentation,sales_team.group_sale_manager,1,1,1,1
+access_wizard_project_task_segmentation_user,access.wizard.project.task.segmentation.user,model_wizard_project_task_segmentation,sales_team.group_sale_salesman,1,1,1,1
+access_wizard_project_task_segmentation_line_manager,access.wizard.project.task.segmentation.line.manager,model_wizard_project_task_segmentation_line,sales_team.group_sale_manager,1,1,1,1
+access_wizard_project_task_segmentation_line_user,access.wizard.project.task.segmentation.line.user,model_wizard_project_task_segmentation_line,sales_team.group_sale_salesman,1,1,1,1

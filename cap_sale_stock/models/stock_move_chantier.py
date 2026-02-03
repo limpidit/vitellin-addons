@@ -5,7 +5,6 @@ class LigneRepartitionChantier(models.TransientModel):
     _name = 'stock.move.chantier'
     _description = _('Ligne de répartition')
 
-    wizard_chantier_id = fields.Many2one(string='Fragmentation du chantier', comodel_name='wizard.fragmenter.chantier')
     stock_move_id = fields.Many2one(string='Mouvement de stock', comodel_name='stock.move', readonly=True)
     product_id = fields.Many2one(string='Article', comodel_name='product.product', readonly=True)
     description = fields.Char(string='Description', readonly=True)

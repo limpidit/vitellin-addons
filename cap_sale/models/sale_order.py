@@ -305,32 +305,13 @@ class SaleOrder(models.Model):
         })
         if self.cee_financial:
             invoice_values.update({
-                                   'cee_financial': self.cee_financial,
-                                   'oblige_id': self.oblige_id.id,
-                                   'prime_cee_versee_client': self.prime_cee_versee_client,
-                                   'prime_cee_non_versee_client': self.prime_cee_non_versee_client,
-                                   'mwhc': self.mwhc,
-                                   })
+                'cee_financial': self.cee_financial,
+                'oblige_id': self.oblige_id.id,
+                'prime_cee_versee_client': self.prime_cee_versee_client,
+                'prime_cee_non_versee_client': self.prime_cee_non_versee_client,
+                'mwhc': self.mwhc,
+            })
         return invoice_values
-
-    def generer_chantier(self):
-        """
-            Générer une tâche chantier à partir des zones répertoriées
-        """
-        if not self.mapped('chantier_task_ids'):
-            for record in self.filtered(lambda x: x.origin_zone_ids):
-                record.chantier_task_ids += self.env['project.task'].create({
-                    'name': 'Chantier {} {}'.format(record.partner_id.name, "/".join([t.name for t in record.origin_zone_ids.mapped('type_travaux')])),
-                    'type_tache': 'chantier',
-                    'is_fsm': True,
-                    'project_id': record.project_id.id,
-                    'partner_id': record.partner_id.id,
-                    'type_travaux_ids': record.origin_zone_ids.mapped('type_travaux').ids,
-                    'type_visite': 'site',
-                    'planned_hours': fsum([line.product_id.temps_de_travail * line.product_uom_qty for line in record.order_line]),
-                    'planned_date_begin': min(record.origin_zone_ids.mapped('date_previsionnelle_travaux')),
-                })
-                record.chantier_task_ids.compute_stage_id()
 
     def voir_chantiers(self):
         """

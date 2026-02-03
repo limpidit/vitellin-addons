@@ -24,11 +24,6 @@
             <button name="action_quotation_send" position="before">
                 <button string="Calculer prime" name="compute_cee_prime_amount" type="object" invisible="state != 'draft'"/>
             </button>
-            <button name="action_cancel" position="after">
-                <button string="Générer chantier" name="generer_chantier" class="btn btn-primary" type="object"
-                    invisible="state != 'sale' or generated_tasks_count != 0"
-                    groups="cap_security.group_planificateur,cap_security.group_adv,cap_security.group_admin_fonc,base.group_system"/>
-            </button>
             <button name="action_view_invoice" position="after">
                 <button class="oe_stat_button" type="object" name="voir_chantiers" icon="fa-tasks" invisible="generated_tasks_count == 0">
                     <field string="Chantiers" name="generated_tasks_count" widget="statinfo"/>

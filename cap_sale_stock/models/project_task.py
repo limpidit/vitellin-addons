@@ -72,6 +72,3 @@ class Task(models.Model):
                                      default_picking_type_id=picking_id.picking_type_id.id, default_origin=self.name,
                                      default_group_id=picking_id.group_id.id)
             return action
-
-    def fragmenter_chantier(self):
-        return self.env['wizard.fragmenter.chantier'].action_open_wizard(self)

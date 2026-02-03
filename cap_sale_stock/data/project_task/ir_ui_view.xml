@@ -8,9 +8,6 @@
             <header position="before">
                 <field name="type_tache" invisible="1"/>
             </header>
-            <xpath expr="//header" position="inside">
-                <button string="Fragmenter le chantier" name="fragmenter_chantier" type="object" invisible="type_tache != 'chantier'"/>
-            </xpath>
             <div name="button_box" position="inside">
                 <field name="origin_sale_ids" invisible="1" />
                 <button class="oe_stat_button" name="action_voir_chargement" type="object" icon="fa-truck" invisible="not origin_sale_ids">

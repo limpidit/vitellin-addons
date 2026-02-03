@@ -21,8 +21,6 @@
         'data/stock_picking/ir_ui_view.xml',
         'data/wizard_bon_de_chargement/ir_ui_view.xml',
         'data/wizard_bon_de_chargement/ir_model_access.xml',
-        'data/wizard_fragmenter_chantier/ir_ui_view.xml',
-        'data/wizard_fragmenter_chantier/ir_model_access.xml',
     ],
     'qweb': [],
     'demo': [],
