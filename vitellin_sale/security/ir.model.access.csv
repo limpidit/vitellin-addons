@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_signature_month_manager,access.signature.month.manager,model_signature_month,sales_team.group_sale_manager,1,1,1,1
+access_signature_month_user,access.signature.month.sales.user,model_signature_month,sales_team.group_sale_salesman,1,0,0,0
+access_signature_mass_update_manager,access.signature.mass.update.manager,model_signature_mass_update,sales_team.group_sale_manager,1,1,1,1
+access_signature_mass_update_user,access.signature.mass.update.user,model_signature_mass_update,sales_team.group_sale_salesman,1,0,0,0
