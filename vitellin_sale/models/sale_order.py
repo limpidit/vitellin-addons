@@ -5,7 +5,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     signature_month_id = fields.Many2one('signature.month', string='Signature month')
-    probability = fields.Selection([('0', '0%'), ('20', '20%'), ('50', '50%'), ('80', '80%'), ('100', '100%')], string='Signature probability')
+    probability = fields.Selection([('0%', '0%'), ('20%', '20%'), ('50%', '50%'), ('80%', '80%'), ('100%', '100%')], string='Signature probability')
 
     def action_open_signature_mass_update(self):
         return {
