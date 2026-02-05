@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vitellin_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20250311\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 13:47+0000\n"
+"PO-Revision-Date: 2026-02-05 13:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vitellin_sale
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__sale_order__probability__100
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__signature_mass_update__probability__100
+msgid "100%"
+msgstr ""
+
+#. module: vitellin_sale
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__sale_order__probability__20
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__signature_mass_update__probability__20
+msgid "20%"
+msgstr ""
+
+#. module: vitellin_sale
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__sale_order__probability__50
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__signature_mass_update__probability__50
+msgid "50%"
+msgstr ""
+
+#. module: vitellin_sale
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__sale_order__probability__80
+#: model:ir.model.fields.selection,name:vitellin_sale.selection__signature_mass_update__probability__80
+msgid "80%"
+msgstr ""
+
+#. module: vitellin_sale
+#: model_terms:ir.ui.view,arch_db:vitellin_sale.view_signature_mass_update_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__create_uid
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__create_date
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__display_name
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__id
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__id
+msgid "ID"
+msgstr ""
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__write_uid
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__write_uid
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__write_date
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__write_date
+msgid "Last Updated on"
+msgstr "Dernière modification le"
+
+#. module: vitellin_sale
+#: model:ir.model,name:vitellin_sale.model_signature_mass_update
+msgid "Mass update signature fields on quotations"
+msgstr "Mise à jour en masse des champs de signature"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__month
+msgid "Month"
+msgstr "Mois"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: vitellin_sale
+#: model:ir.model,name:vitellin_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Commande client"
+
+#. module: vitellin_sale
+#: model:ir.model,name:vitellin_sale.model_signature_month
+msgid "Signature Month"
+msgstr "Mois de signature"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_sale_order__signature_month_id
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__signature_month_id
+msgid "Signature month"
+msgstr "Mois de signature"
+
+#. module: vitellin_sale
+#: model:ir.actions.act_window,name:vitellin_sale.action_signature_month
+#: model:ir.ui.menu,name:vitellin_sale.menu_signature_month
+#: model_terms:ir.ui.view,arch_db:vitellin_sale.view_signature_month_tree
+msgid "Signature months"
+msgstr "Mois de signature"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_sale_order__probability
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_mass_update__probability
+msgid "Signature probability"
+msgstr "Probabilité de signature"
+
+#. module: vitellin_sale
+#: model_terms:ir.ui.view,arch_db:vitellin_sale.view_signature_mass_update_form
+msgid "Update selected quotations"
+msgstr "Mettre à jour les devis sélectionnés"
+
+#. module: vitellin_sale
+#: model:ir.actions.act_window,name:vitellin_sale.action_signature_mass_update_wizard
+#: model:ir.actions.server,name:vitellin_sale.server_action_signature_mass_update
+msgid "Update signature probabilities / signature months"
+msgstr "Mettre à jour les probabilités / mois de signature"
+
+#. module: vitellin_sale
+#: model_terms:ir.ui.view,arch_db:vitellin_sale.view_signature_mass_update_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: vitellin_sale
+#: model:ir.model.fields,field_description:vitellin_sale.field_signature_month__year
+msgid "Year"
+msgstr "Année"
