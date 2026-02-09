@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="vitellin_sale_probabilities_view_tree" model="ir.ui.view">
+            <field name="name">vitellin.sale.probabilities.view.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree" />
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                    <field name="signature_month_id"/>
+                    <field name="probability"/>   
+                </field>
+            </field>
+        </record>
+
         <record id="view_order_form_vitellin" model="ir.ui.view">
             <field name="name">sale.order.form.vitellin</field>
             <field name="model">sale.order</field>
@@ -21,7 +33,6 @@
             <field name="state">code</field>
             <field name="code">action = records.action_open_signature_mass_update()</field>
         </record>
-
 
     </data>
 </odoo>
