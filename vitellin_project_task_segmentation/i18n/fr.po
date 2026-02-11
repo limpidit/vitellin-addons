@@ -1,0 +1,254 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vitellin_project_task_segmentation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-11 08:36+0000\n"
+"PO-Revision-Date: 2026-02-11 08:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_sale_advance_payment_inv_vitellin
+msgid ""
+"<i class=\"fa fa-info-circle\"/> \n"
+"                    Odoo va générer une facture standard, puis retirer automatiquement les lignes qui ne concernent pas les chantiers sélectionnés."
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_wizard_project_task_segmentation_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/> Glissez-déposez les lignes pour les organiser. \n"
+"                            Chaque section (en gras) créera un chantier distinct (P1, P2...).\n"
+"                            L'ordre des sections détermine le numéro de la phase."
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_wizard_project_task_segmentation_form
+msgid "Ajouter une Phase"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_wizard_project_task_segmentation_form
+msgid "Annuler"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__product_id
+msgid "Article"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_sale_advance_payment_inv__fragmented_task_ids
+msgid "Chantiers à facturer"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_project_task__company_currency_id
+msgid "Company Currency"
+msgstr "Devise de la société"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_project_task__construction_invoiceable_amount
+msgid "Construction invoiceable amount"
+msgstr "Montant facturable du chantier"
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.vitellin_project_task_segmentation_view_form
+msgid "Construction lines"
+msgstr "Lignes de travaux"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_project_task__construction_sale_line_ids
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.vitellin_project_task_segmentation_view_form
+msgid "Construction sale lines"
+msgstr "Lignes de travaux"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_sale_order_line__construction_site_id
+msgid "Construction site"
+msgstr "Chantier"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__create_uid
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__create_date
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__name
+msgid "Description"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__display_name
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__display_type
+msgid "Display Type"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_sale_advance_payment_inv__is_fragmented_invoicing
+msgid "Facturation fragmentée"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_wizard_project_task_segmentation_form
+msgid "Fragmentation"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields.selection,name:vitellin_project_task_segmentation.selection__wizard_project_task_segmentation__generation_mode__unique
+msgid "Generate a single construction site"
+msgstr "Générer un chantier unique"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields.selection,name:vitellin_project_task_segmentation.selection__wizard_project_task_segmentation__generation_mode__segmented
+msgid "Generate segmented construction sites"
+msgstr "Fragmenter en plusieurs chantiers"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__generation_mode
+msgid "Generation Mode"
+msgstr "Type"
+
+#. module: vitellin_project_task_segmentation
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.vitellin_project_task_segmentation_sale_order_form
+msgid "Générer chantier"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#. odoo-python
+#: code:addons/vitellin_project_task_segmentation/models/sale_order.py:0
+#: model_terms:ir.ui.view,arch_db:vitellin_project_task_segmentation.view_wizard_project_task_segmentation_form
+#, python-format
+msgid "Générer les chantiers"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__id
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__id
+msgid "ID"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#. odoo-python
+#: code:addons/vitellin_project_task_segmentation/models/sale_order.py:0
+#, python-format
+msgid ""
+"Impossible de générer : Aucune zone d'origine (type de travaux) n'est "
+"définie."
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__write_uid
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__write_date
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__sale_line_id
+msgid "Ligne de Vente"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_wizard_project_task_segmentation_line
+msgid "Ligne de fragmentation"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__line_ids
+msgid "Lignes de fragmentation"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields.selection,name:vitellin_project_task_segmentation.selection__wizard_project_task_segmentation_line__display_type__line_note
+msgid "Note"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#. odoo-python
+#: code:addons/vitellin_project_task_segmentation/wizard/wizard_project_task_segmentation.py:0
+#, python-format
+msgid "Phase %s"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation__sale_order_id
+msgid "Sale Order"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Facture de paiement d'avance"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_sale_order
+msgid "Sales Order"
+msgstr "Commande client"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de commande"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields.selection,name:vitellin_project_task_segmentation.selection__wizard_project_task_segmentation_line__display_type__line_section
+msgid "Section"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_project_task
+msgid "Task"
+msgstr "Tâche"
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,help:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__display_type
+msgid "Technical field for UX purpose."
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#. odoo-python
+#: code:addons/vitellin_project_task_segmentation/wizard/sale_make_invoice_advance.py:0
+#, python-format
+msgid "Veuillez sélectionner au moins un chantier à facturer."
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model.fields,field_description:vitellin_project_task_segmentation.field_wizard_project_task_segmentation_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: vitellin_project_task_segmentation
+#: model:ir.model,name:vitellin_project_task_segmentation.model_wizard_project_task_segmentation
+msgid "Wizard Project Task Segmentation"
+msgstr ""
