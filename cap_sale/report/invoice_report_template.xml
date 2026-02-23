@@ -135,7 +135,7 @@
                             <tr class="border-black o_subtotal">
                                 <td><strong t-out="subtotal['name']">Sous-total</strong></td>
                                 <td class="text-end">
-                                    <t t-if="not o.partner_id.is_oblige">
+                                    <t t-if="not o.partner_id.is_oblige and not o._is_downpayment()">
                                         <t t-set="amount_untaxed" t-value="subtotal['amount'] + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
                                         <span t-esc="amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                     </t>
