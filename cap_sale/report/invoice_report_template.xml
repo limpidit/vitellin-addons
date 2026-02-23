@@ -92,7 +92,7 @@
                     <br/>
                     <span t-field="o.sale_id.date_visite_technique" t-options="{&quot;widget&quot;: &quot;date&quot;}">16/12/2020</span>
                 </div>
-                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.chantier_task_ids">
+                <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.sale_id.chantier_task_ids and not o.is_downpayment()">
                     <strong>Date début travaux:</strong>
                     <br/>
                     <span t-field="o.sale_id.chantier_task_ids[0].planned_date_begin" t-options="{&quot;widget&quot;: &quot;date&quot;}">16/12/2020</span>
