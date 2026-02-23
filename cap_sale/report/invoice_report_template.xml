@@ -150,7 +150,7 @@
                         <tr class="border-black o_total">
                             <td><strong>Total</strong></td>
                             <td class="text-end">
-                                <t t-if="not o.partner_id.is_oblige">
+                                <t t-if="not o.partner_id.is_oblige and not o._is_downpayment()">
                                     <t t-set="amount_total" t-value="tax_totals.get('amount_total') + o.prime_cee_versee_client + o.prime_renov_versee_client"/>
                                     <span t-esc="amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                 </t>
