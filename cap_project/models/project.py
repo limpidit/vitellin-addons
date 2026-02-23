@@ -42,11 +42,44 @@ class Project(models.Model):
         if self.document_folder_id:
             self.document_folder_id.sudo().name = self.name
 
-    @api.onchange('partner_id')
-    def generate_name(self):
-        name_pattern = "{client} - {date}"
-        self.name = name_pattern.format(client=self.partner_id.get_nom_famille_ou_raison_sociale() if self.partner_id else '',
-                                        date=format_date(self.env, fields.date.today()))
+    def _project_date_str(self):
+        return format_date(self.env, fields.Date.context_today(self))
+
+    def _get_partner_label(self, partner):
+        if not partner:
+            return ""
+        return partner.get_nom_famille_ou_raison_sociale()
+
+    def _compute_name_from_rules(self):
+        self.ensure_one()
+        date_str = self._project_date_str()
+
+        partner = self.partner_id
+        address = self.address_id
+
+        if partner and not partner.is_company:
+            full_name = " ".join(filter(None, [partner.lastname, partner.firstname])) or partner.display_name
+            return f"{full_name} - {date_str}"
+
+        if partner and partner.is_company:
+            company_name = self._get_partner_label(partner) or partner.display_name
+
+            if self.use_parent_address:
+                return f"{company_name} - {date_str}"
+
+            if address and address != partner:
+                sub_name = self._get_partner_label(address) or ""
+                if sub_name:
+                    return f"{company_name} - {sub_name} - {date_str}"
+
+            return f"{company_name} - {date_str}"
+
+        return f"Projet - {date_str}"
+
+    @api.onchange('partner_id', 'address_id', 'use_parent_address')
+    def _onchange_name_from_partner_address(self):
+        for rec in self:
+            rec.name = rec._compute_name_from_rules()
 
     def _compute_count_entree_ids(self):
         for record in self:
