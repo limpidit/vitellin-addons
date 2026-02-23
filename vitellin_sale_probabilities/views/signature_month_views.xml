@@ -1,0 +1,22 @@
+<odoo>
+
+    <record id="view_signature_month_tree" model="ir.ui.view">
+        <field name="name">signature.month.tree</field>
+        <field name="model">signature.month</field>
+        <field name="arch" type="xml">
+            <tree string="Signature months" editable="bottom">
+                <field name="month"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_signature_month" model="ir.actions.act_window">
+        <field name="name">Signature months</field>
+        <field name="res_model">signature.month</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_signature_month" name="Signature months" parent="sale.menu_sales_config" action="action_signature_month" sequence="250" groups="sales_team.group_sale_manager"/>
+
+</odoo>

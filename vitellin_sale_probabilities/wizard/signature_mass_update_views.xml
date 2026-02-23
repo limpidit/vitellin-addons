@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_signature_mass_update_form" model="ir.ui.view">
+        <field name="name">signature.mass.update.form</field>
+        <field name="model">signature.mass.update</field>
+        <field name="arch" type="xml">
+            <form string="Update selected quotations" class="o_form_small">
+                <group>
+                    <field name="probability"/>
+                    <field name="signature_month_id"/>
+                </group>
+
+                <footer>
+                    <button name="action_confirm" string="Validate" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_signature_mass_update_wizard" model="ir.actions.act_window">
+        <field name="name">Update signature probabilities / signature months</field>
+        <field name="res_model">signature.mass.update</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

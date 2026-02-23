@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vitellin_sale_probabilities_view_tree" model="ir.ui.view">
+            <field name="name">vitellin.sale.probabilities.view.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree" />
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                    <field name="signature_month_id"/>
+                    <field name="probability"/>   
+                </field>
+            </field>
+        </record>
+
+        <record id="view_order_form_vitellin" model="ir.ui.view">
+            <field name="name">sale.order.form.vitellin</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='partner_details']" position="inside">
+                    <field name="signature_month_id"/>
+                    <field name="probability"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="server_action_signature_mass_update" model="ir.actions.server">
+            <field name="name">Update signature probabilities / signature months</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_open_signature_mass_update()</field>
+        </record>
+
+    </data>
+</odoo>
