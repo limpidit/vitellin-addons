@@ -11,7 +11,8 @@
                 <field name="is_fragmented_invoicing" invisible="advance_payment_method != 'delivered'" widget="boolean_toggle"/>
                 <field name="fragmented_task_ids" widget="many2many_tags" options="{'no_create': True}"
                     invisible="not is_fragmented_invoicing or advance_payment_method != 'delivered'"
-                    required="is_fragmented_invoicing and advance_payment_method == 'delivered'"/>
+                    required="is_fragmented_invoicing and advance_payment_method == 'delivered'"
+                    context="{'force_task_name_display': True}"/>
                 
             </xpath>
 

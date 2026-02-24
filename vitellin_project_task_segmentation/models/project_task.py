@@ -14,3 +14,10 @@ class ProjectTask(models.Model):
     def _compute_construction_invoiceable_amount(self):
         for task in self:
             task.construction_invoiceable_amount = sum(task.construction_sale_line_ids.mapped("price_subtotal"))
+
+    @api.depends('name')
+    def _compute_display_name(self):
+        super()._compute_display_name()
+        if self.env.context.get('force_task_name_display'):
+            for task in self:
+                task.display_name = task.name
