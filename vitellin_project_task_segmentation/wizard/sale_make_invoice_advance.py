@@ -13,12 +13,12 @@ class SaleAdvancePaymentInv(models.TransientModel):
         if len(self.sale_order_ids) != 1:
             return super().create_invoices()
             
-        if not self.fragmented_task_ids:
-            raise UserError(_("Veuillez sélectionner au moins un chantier à facturer."))
-        
         action = super().create_invoices()
         if not self.is_fragmented_invoicing:
             return action
+
+        if not self.fragmented_task_ids:
+            raise UserError(_("Veuillez sélectionner au moins un chantier à facturer."))
         
         invoice_ids = self.env['account.move']
         if action.get('res_id'):
